@@ -1,0 +1,184 @@
+<!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Clientes
+            <small>Panel de Control</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Clientes</li>
+          </ol>
+
+          
+        </section>
+
+        
+
+        <!-- Main content -->
+        <section class="content">
+        <div class="row">
+        <div class="col-md-12">
+          <a href="/customers/create" type="submit" class="btn btn-primary pull-left">Añadir Cliente</a>
+          </div>
+        </div>
+        </br>
+          <div class="row">
+            <div class="col-md-12">
+
+
+              <div class="box">
+
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-users"></i> Clientes</h3>
+                  <div class="box-tools">
+                  <form ng-keyup="searchCustomer()">
+                    <div class="input-group" style="width: 200px;">
+                      <input type="text" ng-model="query"  name="table_search" class="form-control input-sm pull-right" placeholder="Search" />
+                      <div class="input-group-btn">
+                        <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                      </div>
+                    </div>
+                    </form>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="callout callout-info"  ng-show="success">
+                        <strong>Ha agregado correctamente a {{success}}.</strong>
+                    </div>
+                <div class="callout callout-info"  ng-show="cliente> 0">
+                    <h4>¿ Estás seguro que deseas eliminar a "{{customer.nombres}}" ?</h4>
+                    <p>
+                      <button type="button" class="btn btn-danger" ng-click="destroyCustomer()">Si</button>
+                      <button type="button" class="btn btn-default" ng-click="cancelCustomer()">No</button>
+                    </p>
+                  </div>
+                  <table class="table table-bordered">
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Nombre de Contacto</th>
+                      <th>Empresa</th>
+                      <th>Código</th>
+                      <th>Email</th>
+                      <th>S/. Compras</th>
+                      <th>Puntos</th>
+                      <th style="width: 40px">Editar</th>
+                      <th style="width: 40px">Eliminar</th>
+                    </tr>
+                    
+                    <tr ng-repeat="row in customers">
+                      <td>{{$index + 1 + (currentPage-1)*itemsperPage}}</td>
+
+                      <td>{{row.nombres+ " " + row.apellidos }}</td>
+                      <td>{{row.empresa}}</td>
+                      <td>{{row.codigo}}</td>
+                      <td>{{row.email}}</td>
+                      <td>-</td>
+                      <td>{{row.puntos}}</td>
+                      <td><a ng-click="editCustomer(row)" class="btn btn-warning btn-xs">Editar</a></td>
+                      <td><a ng-click="deleteCustomer(row)" class="btn btn-danger btn-xs">Eliminar</a></td>
+                      <td> <button type="button" ng-click="editModal(row.id)" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal">Detalles</button></td>
+                    </tr>
+                    
+                    
+                  </table>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                  <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm no-margin pull-right" items-per-page="itemsperPage" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()"></pagination>
+
+
+
+                </div>
+              </div><!-- /.box -->
+            </div>  
+          </div>
+        </section>
+        <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="row">
+           <div class="col-md-6">
+               <H4>Datos del  Cliente</H4>
+           </div>
+           <div class="col-md-5" style="text-aling:rigth;">
+           <label>Pt. Acumulados:<spam style="font-size:30px; color:blue;">{{customer.puntos}}</spam> </label>
+           </div>
+        </div>
+       
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-4">
+                       <div class="form-group" align="center">
+                                             <img ng-src="{{customer.imagen}}" alt="" class="img-thumbnail"/>
+                       </div><br>
+                       
+               <spam style="color:blue;font-size:25px;">{{customer.nombres}} {{customer.apellidos}}</spam>
+               </h4>
+           
+                
+          </div>
+          <div class="col-md-8">
+              
+              <div class="row">
+                  <div class="row">
+                     <div class="col-md-4"><label>Nombre:</label><br></div>
+                     <div class="col-md-8"><spam>{{customer.nombres}} {{customer.apellidos}}</spam></div>
+
+                  </div> 
+                  <div class="row">                
+                    <div class="col-md-4"><label>F.Nacimiento:</label><br></div>
+                    <div class="col-md-8"><spam >{{customer.fechaNac}}</spam></div>
+                  </div> 
+                  <div class="row">  
+                    <div class="col-md-4"><label>Empresa:</label><br></div>
+                    <div class="col-md-8"><spam>{{customer.empresa}}</spam></div>
+                  </div> 
+                  <div class="row">  
+                    <div class="col-md-4"><label>E-mail:</label><br></div>
+                    <div class="col-md-8"><spam>{{customer.email}}</spam></div>
+                  </div> 
+                  <div class="row">  
+                    <div class="col-md-4"><label>Direccion:</label><br></div>
+                    <div class="col-md-8"><spam>{{customer.direccContac}}</spam></div>
+                  </div> 
+                  <div class="row">  
+                    <div class="col-md-4"><label>Telf. Movil:</label><br></div>
+                    <div class="col-md-8"><spam>{{customer.movil}}</spam></div>
+                  </div> 
+                  <div class="row">  
+                    <div class="col-md-4"><label>Telf. Fijo:</label><br></div>
+                    <div class="col-md-8"><spam>{{customer.fijo}}</spam></div>
+                  </div> 
+                  <div class="row">  
+                    <div class="col-md-4"><label>Distrito:</label><br></div>
+                    <div class="col-md-8"><spam>{{customer.distrito}}</spam></div>
+                  </div> 
+                  <div class="row">  
+                    <div class="col-md-4"><label>Provincia:</label><br></div>
+                    <div class="col-md-8"><spam>{{customer.provincia}}</spam></div>
+                  </div> 
+                  <div class="row">  
+                    <div class="col-md-4"><label>Departamento:</label><br></div>
+                    <div class="col-md-8"><spam>{{customer.departamento}}</spam></div>
+                  </div> 
+                  <div class="row">  
+                    <div class="col-md-4"><label>Pais:</label><br></div>
+                    <div class="col-md-8"><spam>{{customer.pais}}</spam></div>
+                  </div> 
+                  <div class="row">  
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

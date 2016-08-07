@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Salesfly | Log in</title>
+    <title>gohard | Log in</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.4 -->
@@ -13,7 +13,7 @@
     <link href="/vendor/adminlte/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
     <link href="/vendor/adminlte/plugins/iCheck/square/blue.css" rel="stylesheet" type="text/css" />
-
+    <link href="/css/stylelogin.css" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -21,12 +21,12 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="login-page">
-    <div class="login-box">
+  <body class="fondo_login">
+    <div class="login-box ">
       <div class="login-logo">
-        <a href="../../index2.html"><b>Sales</b>Fly</a>
+        <a href="../../index2.html"><image class="imglogo" src="/images/logo2.png"></a>
       </div><!-- /.login-logo -->
-      <div class="login-box-body">
+      <div class="login-box-body fondo_caja">
         <p class="login-box-msg">Escibre tus credenciales para iniciar sesión</p>
         @if($errors->has())
          <div class="callout callout-warning">

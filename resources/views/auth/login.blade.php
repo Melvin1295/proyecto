@@ -24,10 +24,10 @@
   <body class="fondo_login">
     <div class="login-box ">
       <div class="login-logo">
-        <a href="../../index2.html"><image class="imglogo" src="/images/logo2.png"></a>
+        <a href="../../index2.html"><image class="imglogo" src="/images/logo5.png"></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body fondo_caja">
-        <p class="login-box-msg">Escibre tus credenciales para iniciar sesión</p>
+        
         @if($errors->has())
          <div class="callout callout-warning">
             @foreach($errors->all() as $error)

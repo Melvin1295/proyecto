@@ -182,6 +182,44 @@
 
                 return deferred.promise;
             }
+            function reporteRangFechas(uri,fechaini,fechafin){
+                var deferred = $q.defer();
+                $http.post('/api/'+uri+'/create/'+fechaini+'/'+fechafin).success(function (data) {
+                    deferred.resolve(data);
+                });
+                return deferred.promise;
+
+            }
+            function reportCod(uri,cant)
+            {
+                var deferred = $q.defer();
+                $http.post('/api/'+uri+'/'+cant)
+                    .success(function(data)
+                    {
+                        deferred.resolve(data);
+                    }
+                );
+                return deferred.promise;
+            }
+            function Comprueba_caj_for_user2(id)
+            {
+                var deferred = $q.defer();
+                $http.get('api/cashes/cajas_for_user2/'+id).success(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            }
+            function listaCashes(uri,alm)
+            {
+                var deferred = $q.defer();
+                $http.get('/api/cashHeaders/cajasActivas/'+alm)
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    });
+
+                return deferred.promise;
+            }
             return {
                 all: all,
                 paginate: paginate,
@@ -199,7 +237,12 @@
                 searchMes,searchMes,
                 reportPro,reportPro,
                 reportProWare,reportProWare,
-                deudasSupplier: deudasSupplier
+                deudasSupplier: deudasSupplier,
+                reporteRangFechas: reporteRangFechas,
+                reportCod: reportCod,
+                Comprueba_caj_for_user2: Comprueba_caj_for_user2,
+                listaCashes: listaCashes
+            
             }
         }])
         .factory('socketService', function ($rootScope) {

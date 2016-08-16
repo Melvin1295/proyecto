@@ -7,19 +7,25 @@ use Illuminate\Routing\Controller;
 
 use Salesfly\Salesfly\Repositories\CashMotiveRepo;
 use Salesfly\Salesfly\Managers\CashMotiveManager;
-
+use Salesfly\Salesfly\Repositories\SunatAcountRepo;
+use Salesfly\Salesfly\Managers\SunatAcountManager;
 class CashMotivesController extends Controller
 {
     
     protected $cashMotiveRepo;
 
-    public function __construct(CashMotiveRepo $cashMotiveRepo)
+    public function __construct(CashMotiveRepo $cashMotiveRepo, SunatAcountRepo $sunatAcountRepo)
     {
         $this->cashMotiveRepo = $cashMotiveRepo;
+        $this->sunatAcountRepo= $sunatAcountRepo;
     }
 
     public function select(){
         $cashMotive = $this->cashMotiveRepo->all();
+        return response()->json($cashMotive);
+    }
+    public function select2(){
+        $cashMotive = $this->sunatAcountRepo->all();
         return response()->json($cashMotive);
     }
     public function index() 

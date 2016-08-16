@@ -9,13 +9,18 @@ use Salesfly\Salesfly\Entities\Store;
 use Salesfly\Salesfly\Repositories\AtributRepo;
 use Salesfly\Salesfly\Managers\AtributManager;
 
+use Salesfly\Salesfly\Repositories\UserRepo;
+use Salesfly\Salesfly\Managers\UserManager;
+
+
 class AtributesController extends Controller {
 
     protected $atributRepo;
 
-    public function __construct(AtributRepo $atributRepo)
+    public function __construct(AtributRepo $atributRepo,UserRepo $userRepo)
     {
         $this->atributRepo = $atributRepo;
+        $this->userRepo=$userRepo;
         //$this->middleware('auth');
     }
     public function selest(){
@@ -26,6 +31,31 @@ class AtributesController extends Controller {
     public function selectNumber($id,$tama){
         $atributes = $this->atributRepo->eligirNumero($id,$tama);
         return response()->json($atributes);
+    }
+    public function createUsers(Request $request)
+    {
+        //var_dump("hola como estas");die();
+         $user = $this->userRepo->getModel();
+         $request->merge(["password"=>bcrypt($request->input("password"))]);
+         $request->merge(["password_confirmation"=>bcrypt($request->input("password_confirmation"))]);
+         
+         $manager = new UserManager($user,$request->except('image'));
+        $manager->save();
+
+        if($request->has('image') and substr($request->input('image'),5,5) === 'image'){
+            $image = $request->input('image');
+            $mime = $this->get_string_between($image,'/',';');
+            $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $image));
+            Image::make($image)->resize(200,200)->save('images/users/'.$user->id.'.'.$mime);
+            $user->image='/images/users/'.$user->id.'.'.$mime;
+            $user->save();
+        }else{
+            $employee->image='/images/users/default.jpg';
+            $employee->save();
+        }
+        
+        //return redirect($this->redirectPath());
+        return response()->json(['estado'=>true, 'nombres'=>$user->name]);
     }
     public function index()
     {

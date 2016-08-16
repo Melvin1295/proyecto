@@ -68,7 +68,13 @@ class CashMonthlyRepo extends BaseRepo{
     //{
      //   return $this->belongsTo('\Salesfly\Salesfly\Entities\Month');
     //}
-
+    public function pagosCompras($id){
+        $cashMonthlys = CashMonthly::join('OtherPheads','OtherPheads.id','=','cashMonthlys.otherPhead_id')                          
+                          ->where('cashMonthlys.otherPhead_id','=',$id)
+                          ->select(\DB::raw('cashMonthlys.id ,cashMonthlys.fecha,cashMonthlys.amount as monto,"CajaMensual" as tipo'))
+        ->get();
+        return $cashMonthlys;
+    }
     public function paginate($count){
         $cashMonthlys = CashMonthly::with('expenseMonthly');
         return $cashMonthlys->paginate($count);

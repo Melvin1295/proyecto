@@ -39,8 +39,8 @@ Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 // Registration routes...
-Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', 'Auth\AuthController@postRegister');
+//Route::get('auth/register', 'Auth\AuthController@getRegister');
+//Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('users/create',['as'=>'user_create','uses'=>'Auth\AuthController@indexU']);
 Route::get('users/edit/{id?}', ['as' => 'user_edit', 'uses' => 'Auth\AuthController@indexU']);
 Route::get('users/form-create',['as'=>'user_form_create','uses'=>'Auth\AuthController@form_create']);
@@ -48,7 +48,7 @@ Route::get('users/form-edit',['as' => 'user_form_edit','uses' => 'Auth\AuthContr
 Route::get('users',['as'=>'user','uses'=>'Auth\AuthController@indexU']);
 Route::get('api/users/all',['as'=>'user_all', 'uses'=>'Auth\AuthController@all']);
 Route::get('api/users/paginate/',['as' => 'user_paginate', 'uses' => 'Auth\AuthController@paginate']);
-Route::post('api/users/create',['as'=>'user_create', 'uses'=>'Auth\AuthController@postRegister']);
+//Route::post('api/users/create',['as'=>'user_create', 'uses'=>'Auth\AuthController@postRegister']);
 Route::put('api/users/edit',['as'=>'user_edit', 'uses'=>'Auth\AuthController@edit']);
 Route::post('api/users/destroy',['as'=>'user_destroy', 'uses'=>'Auth\AuthController@destroy']);
 Route::get('api/users/search/{q?}',['as'=>'user_search', 'uses'=>'Auth\AuthController@search']);
@@ -222,6 +222,7 @@ Route::get('atributes/form-edit',['as'=>'atribut_form_edit','uses'=>'AtributesCo
 Route::get('api/atributes/all',['as'=>'atribut_all', 'uses'=>'AtributesController@all']);
 Route::get('api/atributes/paginate/',['as' => 'atribut_paginate', 'uses' => 'AtributesController@paginatep']);
 Route::post('api/atributes/create',['as'=>'atribut_create', 'uses'=>'AtributesController@create']);
+Route::post('api/users/create',['as'=>'atribut_create', 'uses'=>'AtributesController@createUsers']);
 Route::put('api/atributes/edit',['as'=>'atribut_edit', 'uses'=>'AtributesController@edit']);
 Route::post('api/atributes/destroy',['as'=>'atribut_destroy', 'uses'=>'AtributesController@destroy']);
 Route::get('api/atributes/search/{q?}',['as'=>'atribut_search', 'uses'=>'AtributesController@search']);
@@ -694,6 +695,45 @@ Route::put('api/separateSales/edit',['as'=>'person_edit', 'uses'=>'SeparateSaleC
 Route::post('api/separateSales/destroy',['as'=>'person_destroy', 'uses'=>'SeparateSaleController@destroy']);
 Route::get('api/separateSales/search/{q?}',['as'=>'person_search', 'uses'=>'SeparateSaleController@search']);
 Route::get('api/separateSales/find/{id}',['as'=>'person_find', 'uses'=>'SeparateSaleController@find']);
+
+//-------------------------------------------------------------------------------------------
+Route::get('api/acounts/select','CashMotivesController@select2');
+Route::get('otherPheads',['as'=>'store','uses'=>'OtherPheadController@index']);
+Route::get('otherPheads/create',['as'=>'type_create','uses'=>'OtherPheadController@index']);
+Route::get('otherPheads/edit/{id?}', ['as' => 'type_edit', 'uses' => 'OtherPheadController@index']);
+Route::get('otherPheads/editGasto/{id?}', ['as' => 'type_edit', 'uses' => 'OtherPheadController@index']);
+Route::get('otherPheads/form-create',['as'=>'type_form_create','uses'=>'OtherPheadController@form_create']);
+Route::get('otherPheads/form-edit',['as'=>'type_form_edit','uses'=>'OtherPheadController@form_edit']);
+Route::get('otherPheads/form-editGasto',['as'=>'type_form_edit','uses'=>'OtherPheadController@form_editGasto']);
+Route::get('api/otherPheads/all',['as'=>'type_all', 'uses'=>'OtherPheadController@all']);
+Route::get('api/otherPheads/paginate/',['as' => 'type_paginate', 'uses' => 'OtherPheadController@paginatep']);
+Route::get('api/otherPheadsGastos/paginate/',['as' => 'type_paginate', 'uses' => 'OtherPheadController@paginatepGastos']);
+Route::get('api/detalleGastos/paginatep/{q}',['as' => 'type_paginate', 'uses' => 'OtherPheadController@traendoDetGastos']);
+Route::post('api/otherPheads/create',['as'=>'type_create', 'uses'=>'OtherPheadController@create']);
+Route::post('api/gastos/create',['as'=>'type_create', 'uses'=>'OtherPheadController@createGasto']);
+Route::put('api/otherPheads/edit',['as'=>'type_edit', 'uses'=>'OtherPheadController@edit']);
+Route::put('api/gastos/edit',['as'=>'type_edit', 'uses'=>'OtherPheadController@edit2']);
+Route::post('api/otherPheads/destroy',['as'=>'type_destroy', 'uses'=>'OtherPheadController@destroy']);
+Route::post('api/gastos/destroy',['as'=>'type_destroy', 'uses'=>'OtherPheadController@destroy2']);
+Route::get('api/otherPheads/search/{q?}',['as'=>'type_search', 'uses'=>'OtherPheadController@search']);
+Route::get('api/otherPheads/find/{id}',['as'=>'type_find', 'uses'=>'OtherPheadController@find']);
+Route::get('api/gastos/find/{id}',['as'=>'type_find', 'uses'=>'OtherPheadController@find2']);
+Route::get('api/otherPdetails/find/{id}',['as'=>'type_find', 'uses'=>'OtherPheadController@datos']);
+Route::get('otherPheads/show/{id?}','OtherPheadController@index');
+Route::get('otherPheads/view-show','OtherPheadController@show');
+Route::get('otherPheads/show2/{id?}','OtherPheadController@index');
+Route::get('otherPheads/view-show2','OtherPheadController@show2');  
+Route::get('otherPheads/form-balance','OtherPheadController@form_balance');
+Route::get('otherPheads/balance','OtherPheadController@index'); 
+Route::post('api/pagosVarios/create',['as'=>'type_create', 'uses'=>'OtherPheadController@createPago']);
+Route::post('api/gastos5/create',['as'=>'type_create', 'uses'=>'OtherPheadController@createPago2']);
+
+Route::get('api/pagos/find/{id}','OtherPheadController@pagosCompras');
+Route::get('api/pagos2/find/{id}','OtherPheadController@pagosCompras2');
+Route::get('api/pagos3/find/{id}','OtherPheadController@pagosCompras3');
+Route::post('api/pagos/destroy',['as'=>'type_destroy', 'uses'=>'OtherPheadController@destroyPagos']);
+Route::post('api/pagosGastos/destroy',['as'=>'type_destroy', 'uses'=>'OtherPheadController@destroyPagos2']);
+//-----------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------
 Route::get('api/DetSeparateSales/search/{id?}',['as'=>'person_search', 'uses'=>'DetSeparateSalesController@searchDetalle']);

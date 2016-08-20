@@ -49,7 +49,7 @@
                                <div class="form-group">
                                  <label for="proveedor">Empresa o Proveedor</label>
                                  
-                                   <input type="text" name="proveedor" ng-model="otherPhead.proveedor" class="form-control">
+                                   <input type="text" name="proveedor" ng-model="otherPhead.proveedor" class="form-control" placeholder="Empresa Proveedor">
                                
                                </div>
                            </div>
@@ -57,7 +57,7 @@
                                <div class="form-group">
                                  <label for="direccion">Direccion</label>
                                  
-                                   <input type="text" name="direccion" ng-model="otherPhead.direccion" class="form-control">
+                                   <input type="text" name="direccion" ng-model="otherPhead.direccion" class="form-control" placeholder="Direccion de la empresa">
                                
                                </div>
                            </div>
@@ -65,9 +65,9 @@
                     <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                 <label for="ruc">Ruc</label>
+                                 <label for="ruc">R.U.C.</label>
                                  
-                                   <input type="text" name="ruc" ng-model="otherPhead.ruc" class="form-control">
+                                   <input type="text" name="ruc" ng-model="otherPhead.ruc" class="form-control" placeholder="RUC">
                                
                                </div>
                             </div>
@@ -75,7 +75,7 @@
                                 <div class="form-group">
                                  <label for="numeroDocumento">Numero de Documento F/B</label>
                                  
-                                   <input type="text" name="numeroDocumento" ng-model="otherPhead.numeroDocumento" class="form-control">
+                                   <input type="text" name="numeroDocumento" ng-model="otherPhead.numeroDocumento" class="form-control" placeholder="Numero Documento">
                                
                                </div>
                             </div>
@@ -83,7 +83,7 @@
                                 <div class="form-group">
                                  <label for="serie">Numero de Serie</label>
                                  
-                                   <input type="text" name="serie" ng-model="otherPhead.serie" class="form-control">
+                                   <input type="text" name="serie" ng-model="otherPhead.serie" class="form-control" placeholder="Serie">
                                
                                </div>
                             </div>
@@ -101,9 +101,9 @@
           </div>
                     </div>
                     <hr>
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-md-8"><h1>Datos de Detalle de @{{tipomodi}}</h1></div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" ng-show="false">
                         <label>Seleccione tipo</label>
                             <select ng-disabled="Cambiarestado" class="form-control" ng-model="tipomodi">
                          <option value="Compra">Compra</option>
@@ -118,7 +118,7 @@
                                  <div class="form-group">
                                  <label for="cantidad">Cantidad</label>
                                  
-                                   <input type="number" ng-change="clalcSubtotal()" name="cantidad" ng-model="otherPdetail.cantidad" class="form-control" required>
+                                   <input type="number" ng-change="clalcSubtotal()" name="cantidad" ng-model="otherPdetail.cantidad" placeholder="Cantidad" class="form-control" required>
                                
                                </div>
                              </div>
@@ -126,7 +126,7 @@
                                  <div class="form-group">
                                  <label for="descripcion">Descripcion</label>
                                  
-                                   <textarea class="form-control" name="descripcion" ng-model="otherPdetail.descripcion" rows="1" required></textarea> 
+                                   <textarea class="form-control" name="descripcion" ng-model="otherPdetail.descripcion" placeholder="Descripcion" rows="1" required></textarea> 
                                
                                </div>
                              </div>
@@ -134,7 +134,7 @@
                                  <div class="form-group">
                                  <label for="preciounitario">Precio Unitario</label>
                                  
-                                   <input type="number" ng-change="clalcSubtotal()" name="preciounitario" ng-model="otherPdetail.PrecioUnit" class="form-control" required>
+                                   <input type="number" ng-change="clalcSubtotal()" placeholder="0.00" name="preciounitario" ng-model="otherPdetail.PrecioUnit" class="form-control" required>
                                
                                </div>
                              </div>
@@ -142,7 +142,7 @@
                                  <div class="form-group">
                                  <label for="subtotal">Subtotal</label>
                                  
-                                   <input type="number" name="subtotal" ng-model="otherPdetail.PrecioFinal" class="form-control" required>
+                                   <input type="number" name="subtotal" placeholder="0.00" ng-model="otherPdetail.PrecioFinal" class="form-control" required>
                                
                                </div>
                              </div>
@@ -285,7 +285,7 @@
                                </div>
                             </div>
                     </div>
-                    <div ng-if="tipomodi=='Compra'" class="row">
+                    <div ng-if="tipomodi=='Compra'" class="row" ng-show="false">
                          <div class="col-md-4">
                                  <div class="form-group">
                                  <label for="preciounitario">Cuenta</label>

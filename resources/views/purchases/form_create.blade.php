@@ -143,7 +143,7 @@
 
                       <td ng-if="row.tipo=='Salida Venta'"><span class="badge bg-green">Salida Venta</span></td> 
                       <td ng-if="row.tipo=='Entrada Venta'"><span class="badge bg-red">Entrada Venta</span></td> 
-
+                      <td ng-if="row.tipo=='Entrada-Anulado'"><span class="badge bg-pink">Entrada Anulado</span></td> 
                       <td >@{{row.orderPurchase_id}}</td>
                       <td>@{{row.purchase_id}}</td>
                       <td>@{{row.sale_id}}</td>

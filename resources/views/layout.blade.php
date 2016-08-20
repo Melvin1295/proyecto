@@ -136,11 +136,12 @@
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
-
+           <?php $role = Auth()->user()->role_id; ?>
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">Navegación</li>
             <li><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
+            @if($role == 1)
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-wrench"></i>
@@ -154,6 +155,7 @@
                 <li><a href="/warehouses"><i class="fa fa-circle-o"></i>Almacenes </a></li>
               </ul>
             </li>
+            @endif
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-barcode"></i>
@@ -161,7 +163,7 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class=""><a href="/products" ><i class="fa fa-circle-o"></i>Productos</a></li>
+                @if($role == 1)<li class=""><a href="/products" ><i class="fa fa-circle-o"></i>Productos</a></li>@endif
                 <li class=""><a href="/purchases" ><i class="fa fa-circle-o"></i>Control de Stock</a></li>
                 <li class=""><a href="/brands" ><i class="fa fa-circle-o"></i>Marcas</a></li>
                 <li><a href="/types"><i class="fa fa-circle-o"></i>Líneas </a></li>
@@ -194,7 +196,7 @@
                 <i class="fa fa-users"></i> <span>Clientes</span>
               </a>
             </li>
-
+            @if($role == 1)
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-bar-chart-o"></i>
@@ -211,7 +213,7 @@
                 <li><a href="#"><i class="fa fa-circle-o"></i>Reporte de Productos por llegar </a></li>
               </ul>
             </li>
-
+            @endif
 
           </ul>
         </section>

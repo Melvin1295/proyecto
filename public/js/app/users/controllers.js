@@ -18,7 +18,27 @@
                 $scope.changePass = function(){
                     $scope.showChange = !$scope.showChange;
                 }
-
+                  $scope.changePass1 = function(){
+                    alert("hola mundo");
+                    if($scope.user.password===$scope.user.password_confirmation){
+                    crudService.update($scope.user,'editPasword').then(function(data)
+                        {
+                            if(data['estado'] == true){
+                                $scope.success = data['nombres'];
+                                alert('editado correctamente');
+                                $window.location.href="/auth/logout";
+                                //$location.path('/users');
+                            }else{
+                                $scope.errors =data;
+                            }
+                        });
+                }else{
+                    alert("Las contraseña no coinciden ingrese nuevamente??");
+                    $scope.user.password="";
+                    $scope.user.password_confirmation="";
+                    //$scope.showChange = !$scope.showChange;
+                }
+                }
                 $scope.toggle = function () {
                     $scope.show = !$scope.show;
                 };

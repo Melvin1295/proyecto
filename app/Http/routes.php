@@ -39,8 +39,9 @@ Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 // Registration routes...
-//Route::get('auth/register', 'Auth\AuthController@getRegister');
-//Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('users/create',['as'=>'user_create','uses'=>'Auth\AuthController@indexU']);
 Route::get('users/edit/{id?}', ['as' => 'user_edit', 'uses' => 'Auth\AuthController@indexU']);
 Route::get('users/form-create',['as'=>'user_form_create','uses'=>'Auth\AuthController@form_create']);
@@ -49,13 +50,16 @@ Route::get('users',['as'=>'user','uses'=>'Auth\AuthController@indexU']);
 Route::get('api/users/all',['as'=>'user_all', 'uses'=>'Auth\AuthController@all']);
 Route::get('api/users/paginate/',['as' => 'user_paginate', 'uses' => 'Auth\AuthController@paginate']);
 //Route::post('api/users/create',['as'=>'user_create', 'uses'=>'Auth\AuthController@postRegister']);
-Route::put('api/users/edit',['as'=>'user_edit', 'uses'=>'Auth\AuthController@edit']);
-Route::post('api/users/destroy',['as'=>'user_destroy', 'uses'=>'Auth\AuthController@destroy']);
+//Route::put('api/users/edit',['as'=>'user_edit', 'uses'=>'Auth\AuthController@edit']);
+//Route::post('api/users/destroy',['as'=>'user_destroy', 'uses'=>'Auth\AuthController@destroy']);
 Route::get('api/users/search/{q?}',['as'=>'user_search', 'uses'=>'Auth\AuthController@search']);
 Route::get('api/users/find/{id}',['as'=>'user_find', 'uses'=>'Auth\AuthController@find']);
 Route::get('api/users/stores',['as' => 'user_stores_select','uses' => 'Auth\AuthController@store_select']);
 //END
-
+Route::post('api/users/create',['as'=>'user_create', 'uses'=>'UserController2@create']);
+Route::post('api/users/destroy',['as'=>'person_destroy', 'uses'=>'UserController2@destroy']);
+Route::put('api/users/edit',['as'=>'user_edit', 'uses'=>'UserController2@edit']);
+Route::put('api/editPasword/edit',['as'=>'user_edit', 'uses'=>'UserController2@editpassword']);
 //PERSONS ROUTES
 Route::get('persons',['as'=>'person','uses'=>'PersonsController@index']);
 Route::get('persons/create',['as'=>'person_create','uses'=>'PersonsController@index']);
@@ -222,7 +226,7 @@ Route::get('atributes/form-edit',['as'=>'atribut_form_edit','uses'=>'AtributesCo
 Route::get('api/atributes/all',['as'=>'atribut_all', 'uses'=>'AtributesController@all']);
 Route::get('api/atributes/paginate/',['as' => 'atribut_paginate', 'uses' => 'AtributesController@paginatep']);
 Route::post('api/atributes/create',['as'=>'atribut_create', 'uses'=>'AtributesController@create']);
-Route::post('api/users/create',['as'=>'atribut_create', 'uses'=>'AtributesController@createUsers']);
+//Route::post('api/users/create',['as'=>'atribut_create', 'uses'=>'AtributesController@createUsers']);
 Route::put('api/atributes/edit',['as'=>'atribut_edit', 'uses'=>'AtributesController@edit']);
 Route::post('api/atributes/destroy',['as'=>'atribut_destroy', 'uses'=>'AtributesController@destroy']);
 Route::get('api/atributes/search/{q?}',['as'=>'atribut_search', 'uses'=>'AtributesController@search']);

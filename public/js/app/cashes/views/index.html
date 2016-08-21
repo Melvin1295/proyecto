@@ -102,7 +102,8 @@
                       <td>{{row.montoBruto}}</td>
                       <td>{{row.montoReal}}</td>
                       <td>{{row.descuadre}}</td>
-                      <td><a ng-click="editcash(row)" class="btn btn-warning btn-xs">Editar</a></td>
+                      <td ng-if="row.estado==0"><a ng-click="editcash(row)" class="btn btn-success btn-xs">Ver Movimientos</a></td>
+                      <td ng-if="row.estado==1"><a ng-click="editcash(row)" class="btn btn-info btn-xs">Editar Movimientos</a></td>
                       <td><a ng-click="deletecashHeader(row)" class="btn btn-danger btn-xs">Eliminar</a></td>                      
                     </tr>                   
                   </table>

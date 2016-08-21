@@ -73,31 +73,7 @@ class AuthController extends Controller
             'image' => ''
         ]);
     }
-    public function createUsers(Request $request)
-    {
-        var_dump("hola como estas");die();
-        /*$validator = $this->validator($request->all());
-
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
-        }
-        //Auth::login($this->create($request->all()));
-        $user = $this->create($request->except('image'));
-
-        if($request->has('image') and substr($request->input('image'),5,5) === 'image'){
-            $image = $request->input('image');
-            $mime = $this->get_string_between($image,'/',';');
-            $image = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $image));
-            Image::make($image)->resize(200,200)->save('images/users/'.$user->id.'.'.$mime);
-            $user->image='/images/users/'.$user->id.'.'.$mime;
-            $user->save();
-        }
-        */
-        //return redirect($this->redirectPath());
-        return response()->json(['estado'=>true, 'nombres'=>$user->name]);
-    }
+   
 
     /**
      * Create a new user instance after a valid registration.

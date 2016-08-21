@@ -85,13 +85,13 @@
                       <td>{{row.fecha}}</td>
                       <td>{{row.proveedor}}</td>
                       <td>{{row.ruc}}</td>
-                      <td>{{row.tipoDoc}}-({{row.numeroDocumento}})<br>{{row.serie}}</td>
+                      <td>{{row.tipoDoc}}-{{row.serie}}-({{row.numeroDocumento}})</td>
                       <td>S/.{{row.MontoTotal}}</td>
-                      <td>S/.{{row.Saldo}}</td>
-                      <td>S/.{{row.montoPagado}}</td>
+                      <td Style="Color:Red;">S/.{{row.Saldo}}</td>
+                      <td Style="Color:blue;">S/.{{row.montoPagado}}</td>
                        <td><a ng-click="pagarVentana(row)" class="btn btn-success btn-xs">Pagos</a></td>
-                      <td><a ng-click="editotherPhead(row)" class="btn btn-warning btn-xs">Editar</a></td>
-                      <td><a ng-click="deleteotherPhead(row)" class="btn btn-danger btn-xs">Eliminar</a></td>
+                      <td><a ng-disabled="{{row.montoPagado}}>0" ng-click="editotherPhead(row)" class="btn btn-warning btn-xs">Editar</a></td>
+                      <td><a ng-disabled="{{row.montoPagado}}>0" ng-click="deleteotherPhead(row)" class="btn btn-danger btn-xs">Eliminar</a></td>
                       
                     </tr>
                     

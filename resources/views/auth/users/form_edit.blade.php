@@ -147,7 +147,7 @@
 
                           </div>
                           <div class="panel-footer">
-                              <button type="submit" class="btn btn-default" ng-click="">Cambiar</button>
+                              <button type="submit" class="btn btn-default" ng-click="changePass1()">Cambiar</button>
                               <a href="" class="btn btn-default" ng-click="changePass()">Cancelar</a>
                           </div>
                       </div>

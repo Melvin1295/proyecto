@@ -914,51 +914,32 @@ class SalesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit(Request $request)
+      public function edit(Request $request)
     {
-        // var_dump($request->detOrder);
-       // die();
-        \DB::beginTransaction();
+       //var_dump($request->input('estado')."y".$movimiento['montoMovimientoEfectivo']);die(); 
+       //\DB::beginTransaction();
         $varDetOrders = $request->detOrder;
         $varPayment = $request->payment;
         $movimiento = $request->movimiento;
-        if ($movimiento['montoMovimientoEfectivo']>0) { //si considera los pagos en tarjeta, calculados en controllers.js
+        if ($movimiento['montoMovimientoEfectivo']>0) {
             //---create movimiento--- 
             //var_dump($request->movimiento);die();
             $detCashrepo;
             $movimiento['observacion']="temporal";
+            $movimiento['fecha']=date('Y-m-d');
+            $movimiento['hora']=date('H:i:s');
             $detCashrepo = new DetCashRepo;
             $movimientoSave=$detCashrepo->getModel();
+        
+            $insertarMovimiento=new DetCashManager($movimientoSave,$movimiento);
+            $insertarMovimiento->save();
+    //---Autualizar Caja---
+            
             $cajaAct = $request->caja;
             $cashrepo;
             $cashrepo = new CashRepo;
             $cajaSave=$cashrepo->getModel();
             $cash1 = $cashrepo->find($cajaAct["id"]);
-            $movimiento['montoCaja']=$cash1->montoBruto;
-            $movimiento['montoFinal']=(floatval($cash1->montoBruto)-floatVal($movimiento['montoMovimientoEfectivo']));
-            
-            $insertarMovimiento=new DetCashManager($movimientoSave,$movimiento);
-            $insertarMovimiento->save();
-    //---Autualizar Caja---
-            
-             $cajaAct["gastos"]=floatval($cash1->gastos)+floatval($movimiento['montoMovimientoEfectivo']);
-             $cajaAct['fechaInicio']=$cash1->fechaInicio;
-             $cajaAct['fechaFin']=$cash1->fechaFin;
-             $cajaAct['montoInicial']=$cash1->montoInicial;
-             $cajaAct['ingresos']=$cash1->ingresos;
-             $cajaAct['montoBruto']=floatval($cash1->montoBruto)-floatval($movimiento['montoMovimientoEfectivo']);
-             $cajaAct['montoReal']=$cash1->montoReal;
-             $cajaAct['descuadre']=$cash1->descuadre;
-             $cajaAct['estado']=$cash1->estado;
-             $cajaAct['notas']=$cash1->notas;
-             $cajaAct['cashHeader_id']=$cash1->cashHeader_id;
-             
-             if($cash1->user_id==auth()->user()->id  && $cash1->estado==1){
-              $cajaAct['user_id']=$cash1->user_id;
-             }else{
-              return response()->json(['estado'=>'Usted no tiene permisos sobre esta caja o la caja esta cerrada??']);
-             }
-            
             $manager1 = new CashManager($cash1,$cajaAct);
             $manager1->save();
         //----------------
@@ -979,18 +960,17 @@ class SalesController extends Controller
             //$detorderSale = $detOrderSaleRepo->find($object['id']);
             //$manager = new DetSaleManager($detorderSale,$object);
             //$manager->save();
+          if(!empty($object['idStock'])){
             $stokRepo;
             $stokRepo = new StockRepo;
             $cajaSave=$stokRepo->getModel();
             $stockOri = $stokRepo->find($object['id']);
             $stock = $stokRepo->find($object['idStock']);
-            if(floatval($object['cant'])>0){
-                $stock->stockActual= $stock->stockActual+($object['cantidad']*floatval($object['cant']));
-                 $object["cantidad_llegado"]=$object['cantidad']*floatval($object['cant']);
-            }else{
-                $stock->stockPedidos= $stock->stockPedidos+$object['canPendiente'];
-                $object["cantidad_llegado"]=$object['cantidad'];
-            }
+            //+++if ($object['estad']==true) {
+                $stock->stockActual= $stock->stockActual+$object['cantidad'];
+            //+++}else{
+                //+++$stock->stockPedidos= $stock->stockPedidos+$object['canPendiente'];
+            //+++}
             $stock->save();
             //--------------reporte stock------------
             $object["variant_id"]=$object['vari'];
@@ -1011,7 +991,7 @@ class SalesController extends Controller
           }
           $object['headInputStock_id']=$codigoHeadIS;
           $object["producto"]=$object['nameProducto']."(".$object['NombreAtributos'].")";
-          
+          $object["cantidad_llegado"]=$object['cantidad'];
           $object['descripcion']='Entrada-Venta-Anulada';
           
           $inputRepo;
@@ -1019,6 +999,7 @@ class SalesController extends Controller
             $inputstock=$inputRepo->getModel();
             $inputInsert=new InputStockManager($inputstock,$object);
             $inputInsert->save();
+          }
           //---------------------------------------
         }
         $orderSale = $this->saleRepo->find($request->id);
@@ -1027,12 +1008,13 @@ class SalesController extends Controller
         }
         $manager = new SaleManager($orderSale,$request->all());
         $manager->save();
-        \DB::commit();
+        
+       //\DB::commit();
         return response()->json(['estado'=>true, 'nombre'=>$orderSale->nombre]);
     }
      public function edit5(Request $request)
     {
-        
+        var_dump("hola");die(); 
         \DB::beginTransaction();
         $varDetOrders = $request->detOrder;
         $varPayment = $request->payment;

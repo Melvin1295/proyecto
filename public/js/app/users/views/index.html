@@ -55,6 +55,7 @@
                   <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
+                      <th>Imagen</th>
                       <th>Nombre</th>
                       <th>email</th>
                       <th>Rol</th>
@@ -66,7 +67,7 @@
                     
                     <tr ng-repeat="row in users">
                       <td>{{$index + 1}}</td>
-
+                      <td><img src="{{row.image}}" style="width:50px;"></td>
                       <td>{{row.name }}</td>
                       <td>{{row.email}}</td>
                       <td ng-if="row.role_id == '1'">Admin</td>

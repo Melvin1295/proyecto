@@ -300,7 +300,7 @@
                       $scope.activIgvtotal();
                       
                 }
-                $scope.otherPhead.checkIgv=false;
+                $scope.otherPhead.checkIgv=true;
                 $scope.activIgvtotal=function(){
                 	if($scope.otherPhead.checkIgv==true){
                       $scope.total=Number(($scope.otherPhead.MontoSubTotal-(($scope.otherPhead.MontoSubTotal*$scope.otherPhead.descuento)/100)).toFixed(2))

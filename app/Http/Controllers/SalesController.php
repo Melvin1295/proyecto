@@ -548,7 +548,7 @@ class SalesController extends Controller
       $txt .='$printer -> text("'.$detalleFactura["descripcion"].'\n");
                               
               $printer -> text("'.
-        $detalleFactura["cantidad"].'   '.$detalleFactura["PrecioUnit"].
+        $detalleFactura["cantidad"].'   '.$detalleFactura["PrecioUnit"]+$detalleFactura["descuento"].
                                              '    '.$detalleFactura["descuento"].
                                                        '    '.$detalleFactura["PrecioVent"].'\n");
                               ';

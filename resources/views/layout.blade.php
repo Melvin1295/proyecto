@@ -46,9 +46,9 @@
         <!-- Logo -->
         <a href="/" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>SL</b>F</span>
+          <span class="logo-mini"><b>GH</b>N</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Sales</b>Fly</span>
+          <span class="logo-lg"><b>Go Hard</b>Nutrition</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -161,10 +161,11 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class=""><a href="/products" ><i class="fa fa-circle-o"></i>Productos</a></li>
-                <li class=""><a href="/purchases" ><i class="fa fa-circle-o"></i>Control de Stock</a></li>
-                <li class=""><a href="/brands" ><i class="fa fa-circle-o"></i>Marcas</a></li>
-                <li><a href="/types"><i class="fa fa-circle-o"></i>Líneas </a></li>
+                <li><a href="/products" ><i class="fa fa-circle-o"></i>Productos</a></li>
+                <li><a href="/purchases" ><i class="fa fa-circle-o"></i>Control de Stock</a></li>
+                <li><a href="/otherPheads" ><i class="fa fa-circle-o"></i>Compras Varios</a></li>
+                <li><a href="/brands" ><i class="fa fa-circle-o"></i>Marcas</a></li>
+                <li><a href="/types"><i class="fa fa-circle-o"></i>Categorias </a></li>
                 <li><a href="/materials"><i class="fa fa-circle-o"></i>Materiales </a></li>
                 <li><a href="/stations"><i class="fa fa-circle-o"></i>Estaciones </a></li>
                 <li><a href="/atributes"><i class="fa fa-circle-o"></i>Atributos </a></li>

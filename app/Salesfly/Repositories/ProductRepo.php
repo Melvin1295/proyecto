@@ -29,7 +29,7 @@ class ProductRepo extends BaseRepo{
             ->leftjoin('presentation','detPres.presentation_id','=','presentation.id')
             ->leftjoin('stock','stock.variant_id','=','variants.id')
             ->leftjoin('users','users.id','=','products.user_id')
-            ->select(\DB::raw('DISTINCT(products.id) as proId'),'products.codigo as proCodigo','products.nombre as proNombre',
+            ->select(\DB::raw('DISTINCT(products.id) as proId'),'products.image','products.codigo as proCodigo','products.nombre as proNombre',
                 'variants.suppPri as varPrice','variants.price as precioProducto','users.name as userNombre','products.estado as proEstado',
                 'brands.nombre as braNombre','products.hasVariants as TieneVariante','products.hasVariants as proHasVar','types.nombre as typNombre','products.created_at as proCreado',
                 \DB::raw('(select count(variants.id) from products inner join variants on products.id = variants.product_id
@@ -114,7 +114,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                             ->leftjoin('presentation','detPres.presentation_id','=','presentation.id')
                             ->leftjoin('stock','stock.variant_id','=','variants.id')
                             ->leftjoin('users','users.id','=','products.user_id')
-                            ->select(\DB::raw('DISTINCT(products.id) as proId'),'products.codigo as proCodigo','products.nombre as proNombre',
+                            ->select(\DB::raw('DISTINCT(products.id) as proId'),'products.image','products.codigo as proCodigo','products.nombre as proNombre',
                               'variants.suppPri as varPrice','variants.price as precioProducto','users.name as userNombre','products.estado as proEstado',
                                'brands.nombre as braNombre','products.hasVariants as TieneVariante','products.hasVariants as proHasVar','types.nombre as typNombre','products.created_at as proCreado',
                               \DB::raw('(select count(variants.id) from products inner join variants on products.id = variants.product_id

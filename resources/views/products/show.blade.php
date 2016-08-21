@@ -86,7 +86,7 @@
                                 </tr>
                                 <tr ng-repeat="row in variants | filter:searchText">
 
-                                    <td>@{{$index + 1}}</td>
+                                    <td><img src="@{{row.image}}" style="width:45px;"></td>
                                     <td>@{{ row.codigo }}</td>
                                     <td>@{{ row.sku }}</td>
                                     <td><a ng-href="/variants/edit/@{{row.id}}">@{{row.product.nombre}}

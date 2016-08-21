@@ -162,7 +162,7 @@ class UserController2 extends Controller
             $user->save();
         }else{
             //$user->image='/images/users/default.jpg';
-            $request->merge(["image"=>'/images/users/default.jpg']);
+            //$request->merge(["image"=>'/images/users/default.jpg']);
             $user = new UserManager($user1,$request->all());
             $user->save();
         }

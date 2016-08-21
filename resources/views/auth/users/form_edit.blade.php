@@ -102,7 +102,7 @@
                 </div><!-- /.box-body -->
 
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-primary" ng-click="updateUser()">Editar</button>
+                    <button type="submit" class="btn btn-primary" ng-click="updateUser()">Guardar Cambios</button>
                     <a href="/users" class="btn btn-danger">Cancelar</a>
                       <button class="btn btn-warning" ng-click="changePass()">Cambiar Contraseña</button>
                   </div>

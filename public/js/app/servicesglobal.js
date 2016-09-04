@@ -22,6 +22,15 @@
 
                 return deferred.promise;
             }
+            function cantidadProductos(){
+                var deferred = $q.defer();
+                $http.get('api/cantidadProductos/cantidades')
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    });
+
+                return deferred.promise;
+            }
             function deudasSupplier(page){
                 var deferred = $q.defer();
                 $http.get('api/suppliers/deudas/?page='+page).success(function (data) {
@@ -229,6 +238,7 @@
                 Cuentas:Cuentas,
                 byId:byId,
                 validar:validar,
+                cantidadProductos: cantidadProductos,
                 update:update,
                 destroy:destroy,
                 search: search,

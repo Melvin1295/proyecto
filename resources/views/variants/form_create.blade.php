@@ -161,7 +161,7 @@
                             <div class="box-header with-border">
                                 <h3 class="box-title">Presentaciones del Producto     </h3>
                                 <button class="btn btn-xs btn-info btn-flat" data-toggle="modal" data-target="#presentation" ng-click="traerPres(variant.presentation_base)" ng-disabled="enabled_presentation_button" >Añadir Presentación</button>
-                                <button class="btn btn-xs btn-warning btn-flat" data-toggle="modal" data-target="#createpresentation"  ng-disabled="enabled_createpresentation_button" >Crear Presentación</button>
+                                <button class="btn btn-xs btn-warning btn-flat" data-toggle="modal" data-target="#createpresentation"  ng-disabled="enabled_createpresentation_button" >Crear Nueva Presentación</button>
                                 <div class="box-tools pull-right">
                                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 </div><!-- /.box-tools -->
@@ -260,13 +260,18 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <input class="form-control" name="sku" type="text" ng-model="variant.sku2" ng-disabled="variant.autogenerado" ng-required="!variant.autogenerado"/>
+                                            <input ng-disabled="variant.autogenerado2" class="form-control" name="sku" type="text" ng-model="variant.sku2" ng-disabled="variant.autogenerado" ng-required="!variant.autogenerado"/>
                                             <span style="color:#dd4b39;" ng-show="variantCreateForm.sku.$error.required"><i class="fa fa-times-circle-o"></i>Requerido.</span>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <input ng-disabled="variant.checkTallas==true" type="checkbox" ng-model="variant.autogenerado"> Autogenerado
+                                            <input  type="checkbox" ng-model="variant.autogenerado2"> Activar Sku Caja
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input  type="checkbox" ng-model="variant.autogenerado"> Autogenerado
                                         </div>
                                     </div>
                                 </div>
@@ -365,7 +370,7 @@
                     </div>
                     <div class="col-md-4">
                         <label for="suppPric">Cambio de Dolar</label>
-                        <input type="number" name="table_search" class="form-control pull-rigt" string-to-number ng-model="presentation.cambioDolar" ng-change="calculateCambioDolar()">
+                        <input type="number" name="table_search" ng-blur="activPriceDolar()" class="form-control pull-rigt" string-to-number ng-model="presentation.cambioDolar" ng-change="calculateCambioDolar()">
                     </div>
                     </div>
                   
@@ -375,22 +380,22 @@
                         <input type="text" class="form-control hidden" name="presentation.nombre" ng-model="presentation.nombre">
                         <div class="form-group" >
                             <label for="suppPric">Pre. Compra (S/.)</label>
-                            <input type="number" class="form-control" name="suppPric1" string-to-number placeholder="0.00" ng-model="presentation.suppPri" ng-change="calculateSuppPric()" step="0.1">
+                            <input ng-disabled="precioDolaCampo" type="number" class="form-control" name="suppPric1" string-to-number placeholder="0.00" ng-model="presentation.suppPri" ng-change="calculateSuppPric()" step="0.1">
                             <label for="suppPric">Pre. Compra($USS)</label>
-                            <input type="number" class="form-control" name="suppPriDolar" string-to-number placeholder="0.00" ng-model="presentation.suppPriDol" ng-change="calculateSuppPricDol()" step="0.1">
+                            <input ng-disabled="precioDolaCampo" type="number" class="form-control" name="suppPriDolar" string-to-number placeholder="0.00" ng-model="presentation.suppPriDol" ng-change="calculateSuppPricDol()" step="0.1">
 
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group" > <label for="suppPric">% de Ganancia</label> <input type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup" ng-change="calculateMarkup()" step="0.1">
+                        <div class="form-group" > <label for="suppPric">% de Ganancia</label> <input ng-disabled="precioDolaCampo" type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup" ng-change="calculateMarkup()" step="0.1">
                             <label for="suppPric">Cant. de Ganancia</label>
-                            <input type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markupCant" ng-change="calculateMarkupCant()" step="0.1">
+                            <input ng-disabled="precioDolaCampo" type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markupCant" ng-change="calculateMarkupCant()" step="0.1">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group" >
                             <label for="suppPric">Precio de Venta</label>
-                            <input type="number" class="form-control" name="price1" string-to-number placeholder="0.00" ng-model="presentation.price" ng-change="calculatePrice()" step="0.1">
+                            <input ng-disabled="precioDolaCampo" ng-blur="activDescuentosXD()" type="number" class="form-control" name="price1" string-to-number placeholder="0.00" ng-model="presentation.price" ng-change="calculatePrice()" step="0.1">
                         </div>
                     </div>
                 </div>
@@ -399,15 +404,15 @@
                     <div class="col-md-4">
                         <div class="form-group" >
                             <label for="suppPric">% Descuento</label>
-                            <input type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dscto" ng-change="calculateDscto()" step="0.1">
+                            <input ng-disabled="precioDolaCampo2" type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dscto" ng-change="calculateDscto()" step="0.1">
                             <label for="suppPric">Cant Descuento</label>
-                            <input type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dsctoCant" ng-change="calculateDsctoCant()" step="0.1">
+                            <input ng-disabled="precioDolaCampo2" type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dsctoCant" ng-change="calculateDsctoCant()" step="0.1">
 
                         </div>
                     </div>
                     <div class="col-md-4">
                         <label for="suppPric">% PVP</label>
-                        <input type="number" class="form-control" string-to-number  ng-model="presentation.pvp" step="0.1" ng-change="calculatePVP()">
+                        <input ng-disabled="precioDolaCampo2" type="number" class="form-control" string-to-number  ng-model="presentation.pvp" step="0.1" ng-change="calculatePVP()">
                     </div>
                     <div class="col-md-4">
                         <div class="form-group" > <label for="suppPric">% de Ganancia</label> <input ng-disabled="true" type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup1"  step="0.1">

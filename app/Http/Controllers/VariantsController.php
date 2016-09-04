@@ -141,6 +141,17 @@ foreach ($tallasDisponibles as $tallasD) {
             }else{
 
             }
+            if($request->input('autogenerado2') === true) {
+                $sku2 = \DB::table('variants')->max('sku2');
+                if (!empty($sku2)) {
+                    $sku2 = $sku2 + 1;
+                } else {
+                    $sku = 1000; //inicializar el sku;
+                }
+                $request->merge(array('sku2' => $sku2));
+            }else{
+
+            }
             $request->merge(array('user_id' => Auth()->user()->id));
             
         $managerVar = new VariantManager($variant,$request->except('stock','detAtr','presentation_base_object','presentations'));

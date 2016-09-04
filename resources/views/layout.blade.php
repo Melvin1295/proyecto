@@ -168,8 +168,8 @@
                 <li><a href="/otherPheads" ><i class="fa fa-circle-o"></i>Compras Varios</a></li>
                 <li><a href="/brands" ><i class="fa fa-circle-o"></i>Marcas</a></li>
                 <li><a href="/types"><i class="fa fa-circle-o"></i>Categorias </a></li>
-                <li><a href="/materials"><i class="fa fa-circle-o"></i>Materiales </a></li>
-                <li><a href="/stations"><i class="fa fa-circle-o"></i>Estaciones </a></li>
+                <!--<li><a href="/materials"><i class="fa fa-circle-o"></i>Materiales </a></li>
+                <li><a href="/stations"><i class="fa fa-circle-o"></i>Estaciones </a></li>-->
                 <li><a href="/atributes"><i class="fa fa-circle-o"></i>Atributos </a></li>
                 <li><a href="/suppliers"><i class="fa fa-circle-o"></i>Proveedores </a></li>
               </ul>

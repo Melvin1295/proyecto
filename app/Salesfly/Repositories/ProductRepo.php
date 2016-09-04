@@ -16,6 +16,13 @@ class ProductRepo extends BaseRepo{
          ->first();
          return $products;
     }
+     public function cantidadProductos(){
+        $products = Product::leftjoin('variants','products.id','=','variants.product_id')
+                             ->select(\DB::raw('(select COUNT(*) as cantProductos from variants) as cantidad,(select SUM(stock.stockActual)  from stock ) as stockA'))
+                             ->groupBy('variants.id')
+                             ->first();
+        return $products;
+   }
     public function search($q)
     {
         //$promotion =Product::select('id','nombre','codigo','estado')->where('nombre','like', $q.'%')

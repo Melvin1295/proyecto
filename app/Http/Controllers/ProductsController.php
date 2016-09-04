@@ -124,7 +124,10 @@ class ProductsController extends Controller
     {
         return View('products.form_edit');
     }
-
+   public function cantidadProductos(){
+        $products = $this->productRepo->cantidadProductos();
+        return response()->json($products);
+    }
     public function create(Request $request)
     {
     \DB::beginTransaction();

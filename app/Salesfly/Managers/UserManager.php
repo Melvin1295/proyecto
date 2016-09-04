@@ -4,7 +4,9 @@ class UserManager extends BaseManager {
 
     public function getRules()
     {
-        $rules = [              
+          $rules = ['name'=> 'required',
+    'email'=> 'required','password'=> '','store_id'=> 'required','role_id'=> 'required','estado'=> 'required','image'=> 'required'];
+        /*$rules = [              
             'name' => 'required|max:255',
             'email' => 'required',
             'password' => 'confirmed|min:6',
@@ -13,6 +15,6 @@ class UserManager extends BaseManager {
             'role_id' => 'required|integer',
             'estado' => 'required|integer',
             'image' => ''
-                  ];
+                  ];*/
         return $rules;
     }}

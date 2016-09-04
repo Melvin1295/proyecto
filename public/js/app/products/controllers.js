@@ -23,6 +23,7 @@
                 $scope.product.autogenerado = true;
                 $scope.variant.autogenerado = false;
                 //$scope.variant.detAtr = [];
+                $scope.temporal=[];
                 $scope.product.presentations = [];
                 $scope.variant.presentations = [];
                 $scope.generos = [{name:'Masculino'},{name:'Femenino'}];
@@ -35,7 +36,7 @@
                 $scope.stations = {};
                 $scope.product.estado = true;
                 $scope.product.hasVariants = true;
-
+                $scope.variant.autogenerado2=true;
                 $scope.presentation = {};
                 $scope.presentations = [];
                 $scope.preAdd = {};
@@ -46,7 +47,7 @@
                 $scope.presentation.price = 0;
                 $scope.presentation.markupCant = 0;
                 $scope.presentation.suppPriDol = 0;
-
+                $scope.precioDolaCampo=true;
                 //desctos
                 $scope.presentation.dscto = 0;
                 $scope.presentation.dsctoCant = 0;
@@ -80,7 +81,7 @@
                 //$scope.product.presentation_base_object = {id:1};
                 $scope.enabled_presentation_button = true;
                 $scope.enabled_createpresentation_button = false;
-
+                $scope.precioDolaCampo2=true;
                 /*
                 de variants create
                  */
@@ -91,7 +92,12 @@
                 /*
                 ./ de variants create
                  */
-
+                $scope.activPriceDolar=function(){
+                     $scope.precioDolaCampo=false;
+                }
+                $scope.activDescuentosXD=function(){
+                    $scope.precioDolaCampo2=false;
+                }
                 $scope.calculateCambioDolar = function() {
                     //$scope.presentation.suppPri = presentation.suppPriDol * presentation.cambioDolar
                     /*$scope.calculateSuppPric();*/
@@ -446,6 +452,11 @@
 
 
                 }else{
+                     crudService.cantidadProductos().then(function(data)
+                    {
+                        $scope.product.canttoalProducts=data.cantidad;
+                        $scope.product.stockA=data.stockA;
+                    });
                     crudService.paginate('products',1).then(function (data) {
                         $scope.products = data.data;
                         //$log.log(data.data);
@@ -537,7 +548,67 @@
                 socket.on('product.update', function (data) {
                     $scope.products=JSON.parse(data);
                 });
+                
+                 $scope.temporal2=[];
+                $scope.llenarDatosTemp=function(index,row){
+                      //alert($scope.temporal[index].stockReal);
+                      if($scope.temporal[index].stockReal!=undefined || $scope.temporal[index].stockReal!='' ){
 
+                      $scope.temporal[index].producto=row.proCodigo+"-("+row.braNombre+"/"+row.typNombre+")";
+                      $scope.temporal[index].stock=row.stoStockActual;
+                      if($scope.temporal[index].stock>$scope.temporal[index].stockReal)
+                      {
+                        $scope.temporal[index].cuadre="Sobran "+($scope.temporal[index].stock-$scope.temporal[index].stockReal);
+                      }
+                      if($scope.temporal[index].stock<$scope.temporal[index].stockReal)
+                      {
+                        $scope.temporal[index].cuadre="Faltan "+($scope.temporal[index].stock-$scope.temporal[index].stockReal);
+                      }
+                      if($scope.temporal[index].stock==$scope.temporal[index].stockReal)
+                      {
+                        $scope.temporal[index].cuadre="Correcto";
+                      }
+                      }
+                }
+                $scope.llenarDatosTemp2=function(index,row){
+                    $log.log(row);
+                      //alert($scope.temporal[index].stockReal);
+                      if($scope.temporal[index].stockReal!=undefined || $scope.temporal[index].stockReal!='' ){
+                      $scope.temporal[index].codigo=row.codigo;
+                      $scope.temporal[index].sku=row.sku;
+                      $scope.temporal[index].producto="";
+                      var i=0;
+                      for (i=0;i<row.det_atr.length;i++) { 
+                        $scope.temporal[index].producto=$scope.temporal[index].producto+"/"+row.det_atr[i].descripcion;
+                      }
+                      $scope.temporal[index].stock=row.stock[0].stockActual;
+                      if($scope.temporal[index].stock==$scope.temporal[index].stockReal)
+                      {
+                        $scope.temporal[index].cuadre="Correcto";
+                      }
+                      if($scope.temporal[index].stock>$scope.temporal[index].stockReal)
+                      {
+                        $scope.temporal[index].cuadre="Sobran "+($scope.temporal[index].stock-$scope.temporal[index].stockReal);
+                      }
+                      if($scope.temporal[index].stock<$scope.temporal[index].stockReal)
+                      {
+                        $scope.temporal[index].cuadre="Faltan "+($scope.temporal[index].stock-$scope.temporal[index].stockReal);
+                      }
+                      }
+                }
+                 $scope.check50=false;
+                $scope.inprimirDatosTemp=function(){
+                   //for (i = 0; i < $scope.temporal.length; i++) { 
+                   //     alert($scope.temporal[i].stock);
+                         $scope.temporal.forEach(ShowResults);
+                         $scope.check50=true;
+                         $scope.check=false;
+                   //}
+                }
+                function ShowResults(item, index) {
+                      $scope.temporal2.push($scope.temporal[index]);
+                      //demoP.innerHTML = demoP.innerHTML + "index[" + index + "]: " + item + "<br />";
+                }
                 $scope.searchProduct = function(){
                 if ($scope.query.length > 0) {
                     crudService.search('products',$scope.query,1).then(function (data){

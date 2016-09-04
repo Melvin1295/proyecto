@@ -110,6 +110,7 @@ Route::get('api/products/search/{q?}',['as'=>'product_search', 'uses'=>'Products
 Route::get('api/productName/search/{q?}',['as'=>'product_search', 'uses'=>'ProductsController@searchProducts']);
 Route::get('api/productaddVariant/search/{q?}',['as'=>'product_search', 'uses'=>'ProductsController@searchProductAddVariant']);
 
+Route::get('api/cantidadProductos/cantidades',['as'=>'person_search', 'uses'=>'ProductsController@cantidadProductos']);
 Route::get('api/products/find/{id}',['as'=>'person_find', 'uses'=>'ProductsController@find']);
 Route::get('api/cantvariantes/find/{id}',['as'=>'person_find', 'uses'=>'ProductsController@find10']);
 Route::get('api/products/brands',['as' => 'products_brands_select','uses' => 'ProductsController@brands_select']);

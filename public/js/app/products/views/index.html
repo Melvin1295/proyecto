@@ -13,7 +13,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content noPrintx">
         <div class="row">
         <div class="col-md-12">
           <a href="/products/create" type="submit" class="btn btn-primary pull-left">Añadir Producto</a>
@@ -28,9 +28,17 @@
      <!--///////////////////////////////////////////////////////////////////-->
 
               <div class="box">
-
+                   
                 <div class="box-header with-border">
                   <h3 class="box-title">Productos</h3>
+                   <label>----->Total Productos:</label>
+                  <!--<input type="text" ng-model="product.canttoalProducts">-->
+                    <span style="font-size: 16px; color: red; font-weight: bold;">{{product.canttoalProducts}}</span>
+                  <label>----->Total en Stock:</label>
+                  <!--<input type="text" ng-model="product.stockA">-->
+                   
+                   <span style="font-size: 16px; color: red; font-weight: bold;">{{product.stockA | number:0}}</span>
+                  <span>Con. Inventario</span><input    type="checkbox"  name="variantes" ng-model="check" />
                   <div class="box-tools">
                   <form ng-keyup="searchProduct()">
                     <div class="input-group" style="width: 200px;">
@@ -66,6 +74,7 @@
                         <th>Por</th>
                         <th>Variantes</th>
                         <th>Stock</th>
+                        <th ng-show="check">Stock Real</th>
                       <th style="width: 40px">Editar</th>
                         <th>Estado</th>
                       <th style="width: 40px">Eliminar</th>
@@ -92,6 +101,8 @@
                         </td>
                         <td> <button popover-placement="bottom" popover-template="stockTemplate" type="button" class="btn btn-default btn-xs" ng-click="showStock(row.proId)">{{row.stoStockActual}}</button>
                         </td>
+                      <td ng-show="check" style="width:90px;"><input type="number" class="form-control" ng-blur="llenarDatosTemp(row.proId,row)" ng-model="temporal[row.proId].stockReal"></td>
+                      
                       <td><a ng-click="editProduct(row)" class="btn btn-warning btn-xs">Editar</a></td>
                         <td>
                             <span ng-if="row.proEstado == 1">
@@ -116,7 +127,7 @@
 
                 </div>
                   <!-- Modal -->
-
+                <button type="button" class="btn btn-info" ng-click="inprimirDatosTemp()">Llenar Datos</button>
               </div><!-- /.box -->
             </div>  
           </div>
@@ -213,3 +224,37 @@ min-width: 400px;
 width: auto;
 }
 </style>
+<div id="printx" style="display:none;" >
+                <div class="row contenedor2">
+      
+      <div class="col-md-12">
+      <h1 >Reporte Cuadre de Stock</h1><br>
+       <form class="">
+          
+          <div class="">
+          
+          <table class="table table-striped" style="width:800px;">
+                <thead>
+                  <th>#</th>
+                  <th >Producto</th>
+                  <th >Stock Actual</th>
+                  <th s>Stock Fisico</th>
+                  <th >Cuadre</th>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="row in temporal2">
+                      <td>{{$index + 1}}</td>
+                      <td >{{row.producto}}</td>
+                      <td >{{row.stock}}</td>
+                      <td >{{row.stockReal}}</td>
+                      <td >{{row.cuadre}}</td>
+                  </tr>
+                </tbody>
+           </table>
+           
+          </div>
+        
+        </form>
+      
+   </div>
+  </div></div>

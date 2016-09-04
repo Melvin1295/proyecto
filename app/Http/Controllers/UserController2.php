@@ -171,12 +171,13 @@ class UserController2 extends Controller
     }
     public function editpassword(Request $request)
     {//var_dump($request->all());die();
-        $validator = $this->validatorChangePasword($request->all());
+         $validator = $this->validatorChangePasword($request->all());
         if ($validator->fails()) {
             $this->throwValidationException(
                 $request, $validator
             );
         }
+        $request->merge(["password"=>bcrypt($request->input("password"))]);
         $user1 = User::find($request->input('id'));
         //var_dump($Ttype);
         //die(); 
@@ -192,7 +193,7 @@ class UserController2 extends Controller
             $user->save();
         }else{
             //$user->image='/images/users/default.jpg';
-            $request->merge(["image"=>'/images/users/default.jpg']);
+            //$request->merge(["image"=>'/images/users/default.jpg']);
             $user = new UserManager($user1,$request->all());
             $user->save();
         }

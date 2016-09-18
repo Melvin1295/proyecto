@@ -30,7 +30,7 @@ class ProductRepo extends BaseRepo{
         //            ->paginate(15);
         //return $promotion;
         $products = Product::leftjoin('brands','products.brand_id','=','brands.id')
-            ->leftjoin('types','products.type_id','=','types.id')
+            ->join('types','products.type_id','=','types.id')
             ->leftjoin('variants','products.id','=','variants.product_id')
             ->leftjoin('detPres','variants.id','=','detPres.variant_id')
             ->leftjoin('presentation','detPres.presentation_id','=','presentation.id')
@@ -54,11 +54,12 @@ INNER JOIN detPres ON variants.id = detPres.variant_id
 INNER JOIN presentation ON detPres.presentation_id = presentation.id
 WHERE products.presentation_base = presentation.id and products.id = proId and products.hasVariants = false ) as detPresPri'))
             //->having()
-            ->groupBy('products.id')
+            ->groupBy('products.id')            
             ->where('products.nombre','like',$q.'%')
             ->orWhere('products.codigo','like',$q.'%')
             ->orWhere('types.nombre','like',$q.'%')
             ->orWhere('brands.nombre','like',$q.'%')
+            ->orderBy('types.id','desc')
             ->paginate(15);
         return $products;
     }
@@ -142,6 +143,7 @@ INNER JOIN presentation ON detPres.presentation_id = presentation.id
 WHERE products.presentation_base = presentation.id and products.id = proId and products.hasVariants = false ) as detPresPri'))
                             //->having()
                             ->groupBy('products.id')
+                            ->orderBy('types.id','desc')
                             ->paginate($qantity);
         return $products;
     }

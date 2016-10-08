@@ -261,7 +261,7 @@
                 }
                  $scope.detVoices=[];
                  $scope.headVoice={};
-                $scope. createorder = function(tipo){
+                $scope.createorder = function(tipo){
 
                     crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,1).then(function (data){
                         var canCashes=data.total;
@@ -472,7 +472,7 @@
                         $log.log($scope.atributoSelected);
 
                         var fecha1 = $scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
-                            if(fecha1>=$scope.atributoSelected.FechaInicioDescuento && fecha1<=$scope.atributoSelected.FechaFinDescuento){
+                            if(fecha1>=$scope.atributoSelected.FechaInicioDescuento && fecha1<=$scope.atributoSelected.FechaFinDescuento && $scope.presentations[0].activateDsctoRange==1){
                                 $scope.atributoSelected.descuento=Number($scope.atributoSelected.DescuentoConFecha);
                             }else{
                                 $scope.atributoSelected.descuento=Number($scope.atributoSelected.DescuentoSinFecha);
@@ -775,7 +775,7 @@
                                   //alert('Estoy asignando nuevo Descuento'+$scope.descuento10);
                                  $scope.varianteSkuSelected1[0].descuento=Number($scope.descuento10);
                             }else{
-                                  if(fecha1>=$scope.presentations[0].FechaInicioDescuento && fecha1<=$scope.presentations[0].FechaFinDescuento){
+                                  if(fecha1>=$scope.presentations[0].FechaInicioDescuento && fecha1<=$scope.presentations[0].FechaFinDescuento && $scope.presentations[0].activateDsctoRange==1){
                                       $scope.varianteSkuSelected1[0].descuento=Number($scope.presentations[0].DescuentoConFecha);
                                   }else{
                                       $scope.varianteSkuSelected1[0].descuento=Number($scope.presentations[0].DescuentoSinFecha);
@@ -1092,11 +1092,11 @@
                     $scope.sale.montoTotal=$scope.sale.montoTotalSinDescuento-$scope.compras[index].subTotal;
 
                     if($scope.bandera){
-                        $scope.compras[index].precioVenta=Number((((100-Number($scope.compras[index].descuento))*Number($scope.compras[index].precioProducto))/100).toFixed(2));
+                        $scope.compras[index].precioVenta=Number(Math.round(Number((((100-Number($scope.compras[index].descuento))*Number($scope.compras[index].precioProducto))/100).toFixed(2))).toFixed(2));
                     }else{
                         $scope.compras[index].descuento=Number((((Number($scope.compras[index].precioProducto)-Number($scope.compras[index].precioVenta))*100)/Number($scope.compras[index].precioProducto)).toFixed(2));
                     }
-                    $scope.compras[index].subTotal=Number(($scope.compras[index].cantidad*Number($scope.compras[index].precioVenta)).toFixed(2));
+                    $scope.compras[index].subTotal=Number(Math.round(Number(($scope.compras[index].cantidad*Number($scope.compras[index].precioVenta)).toFixed(2))).toFixed(2));
 
                     $scope.sale.montoTotal=$scope.sale.montoTotal+$scope.compras[index].subTotal;
                     $scope.recalcularCompra();
@@ -1357,8 +1357,8 @@
                         $log.log($scope.presentations);
 
                             var fecha1 = $scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
-                            if(fecha1>=$scope.presentations[0].FechaInicioDescuento && fecha1<=$scope.presentations[0].FechaFinDescuento){
-                                $scope.atributoSelected.descuento=Number($scope.presentations[0].DescuentoConFecha);
+                            if(fecha1>=$scope.presentations[0].FechaInicioDescuento && fecha1<=$scope.presentations[0].FechaFinDescuento && $scope.presentations[0].activateDsctoRange==1){
+                                      $scope.atributoSelected.descuento=Number($scope.presentations[0].DescuentoConFecha);
                             }else{
                                 $scope.atributoSelected.descuento=Number($scope.presentations[0].DescuentoSinFecha);
                             }
@@ -1535,10 +1535,11 @@
                 }
 
                 $scope.cargarAtri = function(size){
+                    //alert("filicidades....");
                     crudServiceOrders.reportProWare('productsVariantes',$scope.store.id,$scope.warehouse.id,$scope.atributoSelected.vari).then(function(data){    
                         $scope.presentations = data;
                         var fecha = $scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
-                        if(fecha>=$scope.presentations[0].FechaInicioDescuento && fecha<=$scope.presentations[0].FechaFinDescuento){
+                        if(fecha>=$scope.presentations[0].FechaInicioDescuento && fecha<=$scope.presentations[0].FechaFinDescuento && $scope.presentations[0].activateDsctoRange==1){
                             $scope.atributoSelected.descuento=Number($scope.presentations[0].DescuentoConFecha);
                             $scope.atributoSelected.cantidad=1;
                             $scope.atributoSelected.subTotal=$scope.atributoSelected.cantidad*Number($scope.atributoSelected.precioProducto);

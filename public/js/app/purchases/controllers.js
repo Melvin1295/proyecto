@@ -572,14 +572,15 @@
                              // if($scope.variants.length>0){$scope.Listo=true;$scope.inputStock.cantidad_llegado='';}
                              // if($scope.variants[0]==null)
                              // {
-                                       crudOPurchase.setAtrib($scope.product.proId.varCodigo,$scope.purchase.warehouses_id).then(function (data) 
-                                       {
+                                //alert($scope.product.proId.id);
+                                       //crudOPurchase.setAtrib($scope.product.proId.id,$scope.purchase.warehouses_id).then(function (data) 
+                                       //{
                                               //alert("Estoy Buscando Talla");
-                                              $scope.atributes=data.data;
+                                              //$scope.atributes=data.data;
                                              // if($scope.atributes.length>1){$scope.Listo=false;}else{$scope.activarCampCantidad=false;}
                                               //alert($scope.atributes.length);
-                                              if($scope.atributes != null)
-                                              {
+                                              //if($scope.atributes != null)
+                                             // {
                                                  crudOPurchase.StockActual('stocks',$scope.product.proId.varid,$scope.purchase.warehouses_id).then(function (data){
                                                         $scope.stock=data;
                                                         $scope.inputStock.CantidaStock=data.stockActual;
@@ -594,15 +595,15 @@
                                                 }
                                                 $scope.activarCampCantidad=true;
                                                  //---------------------------------------------------------------
-                                               }else{
+                                              /* }else{
                                                   $scope.Listo=true;
                                                   $scope.inputStock.CantidaStock='';
                                                   $scope.inputStock.cantidad_llegado='';
                                                   //$scope.detailOrderPurchase.taco='';
                                                   $scope.mostrarPresentacion=false;
-                                               }
+                                               }*/
                          
-                                  });
+                                 // });
                                   
                               
                                   /*}else{

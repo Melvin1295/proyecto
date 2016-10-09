@@ -1,4 +1,4 @@
- <section class="content-header">
+<section class="content-header">
           <h1>
             Registrar Nuevo Movimiento de Stock
             <small>Panel de Control</small>
@@ -7,14 +7,11 @@
             <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="/purchases"><i class="fa fa-dashboard"></i>compras</a></li>
           </ol>
-
           
         </section>
-
         <section class="content">
         <div class="row">
         <div class="col-md-12">
-
           <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">Registro de Movimientos</h3>
@@ -84,7 +81,6 @@
           </div>
           
      </div>
-
      <div  ng-hide="mostrarCreate" class="row">
           <div class="col-md-1">
           </div>
@@ -224,6 +220,7 @@
           </div>
           <div class="col-md-10">
               <div  class="well well-lg">
+              <div class="box-body table-responsive no-padding">
                    <table class="table table-striped">
                     <tr>
                       <th style="width: 10px">#</th>
@@ -244,7 +241,7 @@
                     </tr>
                     
                     
-                  </table>
+                  </table></div>
                   <div class="">
                     <a  type="submit" ng-click="crearEntradasEstock()" class="btn btn-success btn-xs">Guardar</a>
                  </div>
@@ -257,7 +254,6 @@
                   </div>
                 </form>
               </div><!-- /.box -->
-
               </div>
               </div><!-- /.row -->
               </section><!-- /.content -->

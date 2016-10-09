@@ -578,7 +578,7 @@
                                               $scope.atributes=data.data;
                                              // if($scope.atributes.length>1){$scope.Listo=false;}else{$scope.activarCampCantidad=false;}
                                               //alert($scope.atributes.length);
-                                              if($scope.atributes[0]==null)
+                                              if($scope.atributes!= null)
                                               {
                                                  crudOPurchase.StockActual('stocks',$scope.product.proId.varid,$scope.purchase.warehouses_id).then(function (data){
                                                         $scope.stock=data;

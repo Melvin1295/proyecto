@@ -179,6 +179,11 @@
                             <i class="fa fa-shopping-cart"></i> <span>Vender!</span>
                           </a>
              </li>
+             <li class="">
+                          <a href="/sales">
+                            <i class="fa fa-shopping-cart"></i> <span>Lista de Ventas</span>
+                          </a>
+             </li>
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-calculator"></i>

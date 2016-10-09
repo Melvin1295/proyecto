@@ -15,6 +15,11 @@
                 $scope.stores={};
                 $scope.bandera=true;
                 $scope.banderaAbrirCaja=false;
+                $scope.mostrarCrear=false;
+                $scope.mostrarCrear1=true;
+                $scope.crearCajaMostrar=function(){
+                   $scope.mostrarCrear=!$scope.mostrarCrear;
+                }
                 $scope.mostrarCajas = function () {
 
                     crudService.search('searchHeaders',$scope.stores.id,1).then(function (data){

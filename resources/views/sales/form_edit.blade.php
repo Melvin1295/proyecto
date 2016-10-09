@@ -112,7 +112,7 @@
             <tr>
               <th style="width: 10px">#</th>
               <th>Producto</th>
-              <th>Atributos</th>
+              <th>Descripcion</th>
               <th>Sku</th>
               <th>Codigo</th>
               <th>Presentacion</th>
@@ -137,7 +137,7 @@
                       <td>@{{row.precioProducto}}</td>
                       <td>@{{row.precioVenta}}</td>
                       <td>@{{row.cantidad}}</td>
-                      <td>@{{row.descuento}}</td>
+                      <td>@{{row.descuento}}%</td>
                       <td>@{{row.subTotal}}</td>
                       <td>@{{row.puntos}}</td>
                       
@@ -170,9 +170,9 @@
                     <tr>
                       <th>Numero Factura</th>
                       <th>Monto Total</th>
-                      <th>Monto Adelantado</th>
+                     <!-- <th>Monto Adelantado</th>-->
                       <th>Saldo</th>
-                      <th>Numero de compra</th>
+                      <th>Numero de Venta</th>
 
                       <th></th>
                     </tr>
@@ -180,7 +180,7 @@
                     <tr ng-repeat="row in payment">
                       <td>@{{row.tipoDoc}}-@{{row.NumDocument}}</td>
                       <td>@{{row.MontoTotal}}</td>
-                      <td>@{{row.Acuenta}}</td>
+                      <!--<td>@{{row.Acuenta}}</td>-->
                       <td>@{{row.Saldo}}</td>
                       <td>@{{row.sale_id}}</td>  
                       

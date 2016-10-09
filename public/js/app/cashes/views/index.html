@@ -20,9 +20,7 @@
         <div class="col-md-12">
           <a ng-if="!bandera" ng-href="{{ruta}}" target="_self" type="submit" class="btn btn-primary pull-left">Ver Caja Diaria</a>
           </div>
-          <div class="col-md-12">
-          <a ng-if="bandera" data-toggle="modal" data-target="#miventana1" target="_self" type="submit" class="btn btn-primary pull-left">Crear Caja Diaria</a>
-          </div>
+          
         </div>
         </br>
           <div class="row">
@@ -34,20 +32,26 @@
                 <div class="box-header with-border">
 
                   <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2" ng-show="mostrarCrear1">
+                     <button ng-click="crearCajaMostrar()" class="btn btn-warning">Crear Caja Diaria</button>
+                    </div>
+                    <div class="col-md-3" ng-show="mostrarCrear">
                       <div class="form-group" >
                         <select class="form-control" name="" ng-model="stores.id" ng-change="mostrarCajas()" ng-options="item.id as item.nombreTienda for item in stores">
                           <option value="">--Elije Tienda--</option>
                         </select>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3" ng-show="mostrarCrear">
                         <div class="form-group" >
                           <select class="form-control" name="" ng-model="cash.cashHeader_id" ng-options="item.id as item.nombre for item in cashHeaders" ng-change="cargarCajasDiarias()">
                           <option value="">--Elije Caja--</option>
                           </select>
                         </div>
                     </div>
+                    <div class="col-md-2" ng-show="stores.id != null && cash.cashHeader_id != null && mostrarCrear1">
+          <a ng-if="bandera" data-toggle="modal" data-target="#miventana1" target="_self" type="submit" class="btn btn-primary pull-left">Crear Caja</a>
+          </div>
                   </div>
 
                   <div class="box-tools">

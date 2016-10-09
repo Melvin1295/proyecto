@@ -566,6 +566,69 @@
                            $scope.inputStock.producto=$scope.inputStock.proNombre+"("+$scope.product.proId.varCodigo+")";
                        }
                     //alert($scope.product.proId.varid);
+                    // crudOPurchase.MostrarAtributos($scope.product.proId.varCodigo,'Taco').then(function (data) {
+                              //$scope.variants=data.data;
+                                //alert("Estoy Buscando Taco");
+                             // if($scope.variants.length>0){$scope.Listo=true;$scope.inputStock.cantidad_llegado='';}
+                             // if($scope.variants[0]==null)
+                             // {
+                                       crudOPurchase.setAtrib($scope.product.proId.varCodigo,$scope.purchase.warehouses_id).then(function (data) 
+                                       {
+                                              //alert("Estoy Buscando Talla");
+                                              $scope.atributes=data.data;
+                                             // if($scope.atributes.length>1){$scope.Listo=false;}else{$scope.activarCampCantidad=false;}
+                                              //alert($scope.atributes.length);
+                                              if($scope.atributes != null)
+                                              {
+                                                 crudOPurchase.StockActual('stocks',$scope.product.proId.varid,$scope.purchase.warehouses_id).then(function (data){
+                                                        $scope.stock=data;
+                                                        $scope.inputStock.CantidaStock=data.stockActual;
+                            
+                                                 });
+                                                $scope.Listo=false;
+                                                if($scope.product.proId.NombreAtributos!=null)
+                                                   {
+                                                   $scope.inputStock.producto=$scope.inputStock.proNombre+"("+$scope.product.proId.NombreAtributos+")";
+                                                   }else{
+                                                    $scope.inputStock.producto=$scope.inputStock.proNombre+"("+$scope.product.proId.proCodigo+")";
+                                                }
+                                                $scope.activarCampCantidad=true;
+                                                 //---------------------------------------------------------------
+                                               }else{
+                                                  $scope.Listo=true;
+                                                  $scope.inputStock.CantidaStock='';
+                                                  $scope.inputStock.cantidad_llegado='';
+                                                  //$scope.detailOrderPurchase.taco='';
+                                                  $scope.mostrarPresentacion=false;
+                                               }
+                         
+                                  });
+                                  
+                              
+                                  /*}else{
+                                    //$scope.detailOrderPurchase={};
+                                  if($scope.detailOrderPurchase!=undefined){
+                                    $scope.detailOrderPurchase.taco='';
+                                  }
+                                  }*/
+                            //});
+                                
+                        
+            }/*
+                $scope.asignarProduc1=function(){
+                  $scope.cantidad=[];
+                    $scope.inputStock.CantidaStock='';
+                    $scope.inputStock={};
+                    $scope.companies=[];
+                    $scope.company={};
+                    $scope.codigoVarP=$scope.product.proId.varCodigo;
+                    $scope.inputStock.proNombre=$scope.product.proId.proNombre;
+                    if($scope.product.proId.TieneVariante==1){
+                           $scope.inputStock.producto=$scope.inputStock.proNombre+"("+$scope.product.proId.NombreAtributos+")";
+                       }else{
+                           $scope.inputStock.producto=$scope.inputStock.proNombre+"("+$scope.product.proId.varCodigo+")";
+                       }
+                    //alert($scope.product.proId.varid);
                      crudOPurchase.MostrarAtributos($scope.product.proId.varCodigo,'Taco').then(function (data) {
                               $scope.variants=data.data;
                                 //alert("Estoy Buscando Taco");
@@ -614,7 +677,7 @@
                             });
                                 
                         
-            }
+            }*/
             $scope.desactivarCuentas=false;
              $scope.validarCuenta=function(){
               

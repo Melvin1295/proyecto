@@ -287,6 +287,8 @@
                     if ($scope.cash.montoInicial==undefined) {
                         alert("Ingrese monto Inicio");
                     }else{
+                    crudService.Comprueba_caj_for_user().then(function (data){
+                        if(data.id==undefined){
                        $scope.cash.fechaInicio=$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate()+' '+$scope.date.getHours()+':'+$scope.date.getMinutes()+':'+$scope.date.getSeconds();
                         $scope.cash.estado='1'; 
                         $scope.cash.montoBruto=$scope.cash.montoInicial;
@@ -303,9 +305,13 @@
 
                             }
                         });
+                    }else{
+                        alert("Usted ya tiene una caja abierta!!")
+                         $route.reload();
                     }
+                    });
                         
-                    //}
+                    }
                 }
 
                 $scope.editcash = function(row){

@@ -113,7 +113,7 @@ class SalesController extends Controller
 
     public function create(Request $request) 
         {
-        //var_dump($request->input('customer_id'));die();
+        //var_dump($request->movimiento);die();
         \DB::beginTransaction();
         $vuelto=$request->input("vuelto");
        

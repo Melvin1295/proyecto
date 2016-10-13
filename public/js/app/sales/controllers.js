@@ -96,7 +96,10 @@
                     $scope.cashfinal={};
                     $scope.banderaMostrarEntrega=false;
                     $scope.banderaModificar=false;
-
+                    crudServiceOrders.Comprueba_caj_for_user().then(function (data){
+                      $scope.IDOriginalValidadoCaja=data.id;
+                      
+                    });
                 }
                 
 
@@ -233,7 +236,7 @@
                     $scope.detCash={};
                     $scope.mostrarAlmacenCaja();
 
-                    $scope.detCash.cash_id=$scope.cashfinal.id; 
+                    $scope.detCash.cash_id=$scope.IDOriginalValidadoCaja;//$scope.cashfinal.id; 
                     $scope.detCash.fecha=$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
                     $scope.detCash.hora=$scope.date.getHours()+':'+$scope.date.getMinutes()+':'+$scope.date.getSeconds();
                     $scope.detCash.montoCaja=$scope.cashfinal.montoBruto;
@@ -550,12 +553,11 @@
                         $scope.pago.tarjeta=0;
                     }*/
                 }
-
-                $scope.realizarPago = function () {
+               $scope.realizarPago = function () {
                 //$log.log($scope.cashfinal.estado);
                 
                 crudServiceOrders.Comprueba_caj_for_user().then(function (data){
-                      
+                      //$scope.IDOriginalValidadoCaja=data.id;
                         if(data.id != undefined){
                          
                 //$scope.mostrarAlmacenCaja();    
@@ -996,7 +998,7 @@
                                     $scope.detCash={};
                                     $scope.mostrarAlmacenCaja();
 
-                                    $scope.detCash.cash_id=$scope.cashfinal.id; 
+                                    $scope.detCash.cash_id=$scope.IDOriginalValidadoCaja;//$scope.cashfinal.id; 
                                     $scope.detCash.fecha=$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
                                     $scope.detCash.hora=$scope.date.getHours()+':'+$scope.date.getMinutes()+':'+$scope.date.getSeconds();
                                     $scope.detCash.montoCaja=$scope.cashfinal.montoBruto;
@@ -2011,7 +2013,7 @@
                                     $scope.detCash={};
                                     $scope.mostrarAlmacenCaja();
 
-                                    $scope.detCash.cash_id=$scope.cashfinal.id; 
+                                    $scope.detCash.cash_id=$scope.IDOriginalValidadoCaja;//$scope.cashfinal.id; 
                                     $scope.detCash.fecha=$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
                                     $scope.detCash.hora=$scope.date.getHours()+':'+$scope.date.getMinutes()+':'+$scope.date.getSeconds();
                                     $scope.detCash.montoCaja=$scope.cashfinal.montoBruto;

@@ -374,7 +374,7 @@
                 $scope.actualizarCaja= function(){
                     //$log.log($scope.cashfinal);
                     $scope.detCashes={};
-                    if ($scope.cashfinal.estado == 0) {       
+                    if ( $scope.IDOriginalValidadoCaja == undefined) {       
                         //alert("Caja Cerrada");
                     }else{
                        /*crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,1).then(function (data){

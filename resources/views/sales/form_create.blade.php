@@ -210,7 +210,7 @@
                                 @{{row.NombreAtributos}}
 
                             </button>  
-                            <button ng-if="banderadeleteFavorito" type="button" class="btn btn-default" ng-repeat="row in favoritos" style="width: 115px;height: 60px; overflow-x:hidden;" title="@{{row.NombreAtributos}}"
+                            <button ng-if="banderadeleteFavorito" type="button" class="btn btn-default" ng-repeat="row in favoritos" style="width: 220px;height: 60px; overflow-x:hidden;" title="@{{row.NombreAtributos}}"
                                     ng-click="cargarFavoritos(row)">                           
                                 @{{row.NombreAtributos}}
 

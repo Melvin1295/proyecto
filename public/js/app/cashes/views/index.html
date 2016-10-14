@@ -92,23 +92,23 @@
                       <th>Descuadre</th>
 
                       <th style="width: 40px">Editar</th>
-                      <th style="width: 40px">Eliminar</th>
+                      <!--<th style="width: 40px">Eliminar</th>-->
                     </tr>
                     
                     <tr ng-repeat="row in cashes">
                       <td>{{$index + 1}}</td>
                       <td>{{row.name}}</td>
-                      <td>{{row.fechaInicio}}</td>
-                      <td>{{row.fechaFin}}</td>
-                      <td>{{row.montoInicial}}</td>
-                      <td>{{row.ingresos}}</td>
-                      <td>{{row.gastos}}</td>
-                      <td>{{row.montoBruto}}</td>
-                      <td>{{row.montoReal}}</td>
-                      <td>{{row.descuadre}}</td>
+                      <td>{{row.fechaCREADO}}</td>
+                      <td>{{row.fechaCREADOFIN}}</td>
+                      <td>S/.{{row.montoInicial}}</td>
+                      <td>S/.{{row.ingresos}}</td>
+                      <td>S/.{{row.gastos}}</td>
+                      <td>S/.{{row.montoBruto}}</td>
+                      <td>S/.{{row.montoReal}}</td>
+                      <td>S/.{{row.descuadre}}</td>
                       <td ng-if="row.estado==0"><a ng-click="editcash(row)" class="btn btn-success btn-xs">Ver Movimientos</a></td>
                       <td ng-if="row.estado==1"><a ng-click="editcash(row)" class="btn btn-info btn-xs">Editar Movimientos</a></td>
-                      <td><a ng-click="deletecashHeader(row)" class="btn btn-danger btn-xs">Eliminar</a></td>                      
+                      <!--<td><a ng-click="deletecashHeader(row)" class="btn btn-danger btn-xs">Eliminar</a></td>           -->          
                     </tr>                   
                   </table>
 

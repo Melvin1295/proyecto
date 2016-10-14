@@ -71,7 +71,7 @@
                     $scope.customer={};
                     $scope.date = new Date();
                     $scope.base=true;
-                    $scope.skuestado=true;
+                    $scope.skuestado=false;
                     $scope.presentations=[];
                     $scope.pago={};
                     $scope.pago.tarjeta=0;

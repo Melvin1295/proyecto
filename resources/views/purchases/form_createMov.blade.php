@@ -82,7 +82,7 @@
           
      </div>
      <div  ng-hide="mostrarCreate" class="row">
-          <div class="col-md-1">
+          <div class="col-md-9">
           </div>
           <div class="col-md-2">
              <div ng-hide="false" class="col-md-1">
@@ -110,7 +110,7 @@
               
               <label>Producto(Stock Actual:@{{inputStock.CantidaStock}})</label>
                 
-               <input  typeahead-on-select="asignarProduc1()" type="text" ng-model="product.proId" placeholder="Locations loaded1 via $http" 
+               <input  ng-disabled="check" typeahead-on-select="asignarProduc1()" type="text" ng-model="product.proId" placeholder="Locations loaded1 via $http" 
           typeahead="variant as variant.proNombre+'('+(variant.BraName==null ? '': variant.BraName+'/')+(variant.TName==null ? '' : variant.TName+'/')+(variant.Mnombre==null ? '':variant.Mnombre+'/')+(variant.NombreAtributos==null ? '':variant.NombreAtributos)+')' for variant in variants1 | filter:$viewValue | limitTo:8" 
           typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"
            tooltip="Ingrese caracteres para busacar producto por codigo unico"
@@ -207,10 +207,10 @@
           <div class="col-md-1">
           </div>
           <div class="col-md-1">
-                    <a  type="submit" ng-click="nuevo()" class="btn btn-success btn-xs">Nuevo</a>
+                    <a  type="submit" ng-click="nuevo()" class="btn btn-success btn-xs">Limpiar</a>
            </div>
           <div class="col-md-1">
-                    <a  type="submit" type="submit" ng-click="noreapeatrow()" class="btn btn-success btn-xs">Agregar</a>
+                    <a  type="submit" type="submit" ng-click="noreapeatrow()" class="btn btn-success btn-xs">Agregar Producto</a>
            </div>
       </div>
   </form>  
@@ -243,14 +243,14 @@
                     
                   </table></div>
                   <div class="">
-                    <a  type="submit" ng-click="crearEntradasEstock()" class="btn btn-success btn-xs">Guardar</a>
+                    <a  type="submit" ng-click="crearEntradasEstock()" class="btn btn-info btn-xs">Guardar</a>
                  </div>
               </div>
           </div>
       </div>          
                     
      <div class="box-footer">
-                    <a href="/purchases/create" class="btn btn-danger">Salir</a>
+                    <a href="/purchases/create" class="btn btn-danger btn-xs">Salir</a>
                   </div>
                 </form>
               </div><!-- /.box -->

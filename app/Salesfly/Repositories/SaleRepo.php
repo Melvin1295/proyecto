@@ -19,7 +19,15 @@ class SaleRepo extends BaseRepo{
     }
     public function paginate($count){
         $sale = Sale::leftjoin('salePayments','salePayments.sale_id','=','sales.id')
-                        ->select('sales.*','salePayments.estado as estadoPago')
+                        ->select(\DB::raw("sales.* ,CONCAT((SUBSTRING(sales.created_at,9,2)),'-',
+                                (SUBSTRING(sales.created_at,6,2)),'-',
+                                (SUBSTRING(sales.created_at,1,4)),' ',
+                                (SUBSTRING(sales.created_at,11)))as fechaCREDO,
+                               CONCAT((SUBSTRING(sales.fechaAnulado,9,2)),'-',
+                                (SUBSTRING(sales.fechaAnulado,6,2)),'-',
+                                (SUBSTRING(sales.fechaAnulado,1,4)),' ',
+                                (SUBSTRING(sales.fechaAnulado,11)))as fechaANULADO2,salePayments.estado as estadoPago")
+                                 )
                         ->with('customer','employee');
         return $sale->paginate($count);
     }

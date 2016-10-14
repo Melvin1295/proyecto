@@ -43,7 +43,13 @@ class CashRepo extends BaseRepo{
     }
     public function paginarCashes($q){
            $cashes =Cash::join("users","cashes.user_id","=","users.id")
-                    ->select("cashes.*","users.name")
+                    ->select(\DB::raw("cashes.*,users.name,CONCAT((SUBSTRING(cashes.fechaInicio,9,2)),'-',
+                                (SUBSTRING(cashes.fechaInicio,6,2)),'-',
+                                (SUBSTRING(cashes.fechaInicio,1,4)),' ',
+                                (SUBSTRING(cashes.fechaInicio,11)))as fechaCREADO,CONCAT((SUBSTRING(cashes.fechaFin,9,2)),'-',
+                                (SUBSTRING(cashes.fechaFin,6,2)),'-',
+                                (SUBSTRING(cashes.fechaFin,1,4)),' ',
+                                (SUBSTRING(cashes.fechaFin,11)))as fechaCREADOFIN"))
                     ->paginate($q);
         return $cashes;
     }

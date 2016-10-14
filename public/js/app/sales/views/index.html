@@ -99,10 +99,10 @@
                     
                     <tr ng-repeat="row in orders">
                       <td>{{$index + 1}}</td>
-                      <td>{{row.fechaPedido}}</td>
+                      <td>{{row.fechaCREDO}}</td>
                       <td ng-if="row.fechaAnulado == '0000-00-00 00:00:00'">-</td>
-                      <td ng-if="row.fechaAnulado != '0000-00-00 00:00:00'">{{row.fechaAnulado}}</td>
-                      <td>{{row.montoTotal}}</td>                      
+                      <td ng-if="row.fechaAnulado != '0000-00-00 00:00:00'">{{row.fechaANULADO2}}</td>
+                      <td>S/.{{row.montoTotal}}</td>                      
                       <td>{{row.customer.nombres+' '+row.customer.apellidos+' - '+row.customer.empresa}}</td>
                       <td>{{row.employee.nombres+' '+row.employee.apellidos}}</td>
                       <td ng-if="row.estado==1"><span style="color: green;">Terminado</span></td>

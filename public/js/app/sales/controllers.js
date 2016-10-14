@@ -1988,7 +1988,7 @@
                                 //++$scope.banderaCancel=true;
                             //++}
                     //++}
-                    alert("hola Mela");
+                    //alert("hola Mela");
                     $scope.order1.detOrder=$scope.detOrders;
                     $scope.order1.payment=$scope.payment[0];
                     $scope.createsalidaCaja();
@@ -2009,7 +2009,7 @@
                             crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
                                 $scope.cashes = data.data;
                                 $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
-                                if ($scope.cashfinal.estado=='1') {
+                                if ($scope.IDOriginalValidadoCaja != undefined) {
                                     $scope.detCash={};
                                     $scope.mostrarAlmacenCaja();
 

@@ -403,6 +403,21 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                             ->get();
             return $datos;
     }
+    public function DatosVarinatAgrupado($q){
+      $datos = \DB::table('products')->join('variants','products.id','=','variants.product_id')
+                           ->join('detAtr','detAtr.variant_id','=','variants.id')
+                           ->select(\DB::raw('products.id,variants.puntos,variants.sku as SKU ,variants.id as vari ,
+
+                                IF(products.hasVariants=1 , products.nombre,  products.nombre ) as NombreProducto
+                              '))
+                              //'T1.nombre as Base')
+                            ->where('detAtr.atribute_id','=',1)
+                            ->where('products.nombre','like',$q.'%')  
+                            ->groupBy('products.id')
+                            ->get();
+            return $datos;
+    }
+
     public function misDatosVariantes($store,$were,$q){
       $datos = \DB::table('products')->leftjoin('materials','products.material_id','=','materials.id')
                            ->leftjoin('variants','products.id','=','variants.product_id')
@@ -499,7 +514,7 @@ WHERE variants.id = varid) as stoStockActual'),
                             ->leftjoin('equiv','equiv.preFin_id','=','T2.id')
                             ->select(\DB::raw('variants.sku as SKU ,detPres.id as detPre_id,variants.id as vari ,
 
-                                IF(products.hasVariants=1 , CONCAT(products.nombre,"(",products.nombre,"/ ",(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR " /")
+                                IF(products.hasVariants=1 , CONCAT(products.nombre,"(",products.nombre,"/ ",(SELECT GROUP_CONCAT(CONCAT(detAtr.descripcion) SEPARATOR " /")
                                  FROM variants
                                 LEFT JOIN detAtr ON detAtr.variant_id = variants.id
                                 LEFT JOIN atributes ON atributes.id = detAtr.atribute_id

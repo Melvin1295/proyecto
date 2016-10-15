@@ -26,7 +26,7 @@ class PromocionRepo extends BaseRepo{
 
                     (select CONCAT(pro.nombre,'/',vr.sku,'/',(select T20.descripcion FROM detAtr T20 where T20.variant_id=vari2 and T20.atribute_id=1),'/',(select T20.descripcion FROM detAtr T20 where T20.variant_id=vari2 and T20.atribute_id=2)) as descri FROM promocion pr inner join variants vr on pr.product_id=vr.id 
                         inner join products pro on pro.id=vr.product_id where vr.id=vari2 group by pro.id)as product2"))
-                              ->groupBy("promocion.id")
+                              ->groupBy("promocion.fecha_inicio")
                               ->paginate(15);
          
             return $promocion;

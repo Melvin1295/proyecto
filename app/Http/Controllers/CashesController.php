@@ -63,7 +63,10 @@ class CashesController extends Controller
         $cash=$this->cashRepo->searchuserincaja1($id,auth()->user()->id);
         return response()->json($cash);
     }
-
+     public function Datos_Por_Caja(){
+        $cash=$this->cashRepo->Datos_Por_Caja(auth()->user()->id);
+        return response()->json($cash);
+    }
 
     public function create(Request $request)
     {

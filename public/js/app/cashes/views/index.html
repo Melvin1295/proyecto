@@ -82,6 +82,7 @@
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Usuario</th>
+                      <th>Descripcion</th>
                       <th>Fecha Inicio</th>
                       <th>Fecha Fin</th>
                       <th>Monto Inicial</th>
@@ -98,6 +99,7 @@
                     <tr ng-repeat="row in cashes">
                       <td>{{$index + 1}}</td>
                       <td>{{row.name}}</td>
+                      <td>{{row.nombreTienda}} ({{row.nombre}})</td>
                       <td>{{row.fechaCREADO}}</td>
                       <td>{{row.fechaCREADOFIN}}</td>
                       <td>S/.{{row.montoInicial}}</td>

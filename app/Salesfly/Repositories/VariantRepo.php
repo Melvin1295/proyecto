@@ -67,6 +67,30 @@ class VariantRepo extends BaseRepo{
         return $variants;
         
     }
+     public function TreerCamtidadesDisponible($id){
+        //$warehouses = Warehouse::with('store')->paginate($c);
+        $variants=Variant::join('detAtr','detAtr.variant_id','=','variants.id')
+        ->join("products","products.id","=","variants.product_id")
+        ->select("detAtr.descripcion","variants.id as vari","products.id")
+        ->where("products.id","=",$id)
+        ->where("detAtr.atribute_id","=",1)
+        ->groupBy("detAtr.descripcion")
+        ->get();
+        return $variants;
+        
+    }
+    public function variantsenPromocion($id,$descr){
+        //$warehouses = Warehouse::with('store')->paginate($c);
+        $variants=Variant::join('detAtr','detAtr.variant_id','=','variants.id')
+        ->join("products","products.id","=","variants.product_id")
+        ->select("variants.id")
+        ->where("products.id","=",$id)
+        ->where("detAtr.descripcion","=",$descr)
+        ->groupBy("variants.id")
+        ->get();
+        return $variants;
+        
+    }
      public function findVariant($id){
        $variants=Variant::join('detAtr','variants.id','=','detAtr.variant_id')
                         ->join('products','products.id','=','variants.product_id')

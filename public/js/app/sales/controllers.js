@@ -75,6 +75,8 @@
                     $scope.presentations=[];
                     $scope.pago={};
                     $scope.pago.tarjeta=0;
+                    $scope.TamDisponible=[];
+                    $scope.TamDisponible2=[];
                     $scope.pago.cash=0;
                     $scope.radioModel=undefined;
                     $scope.saledetPayments=[];
@@ -132,7 +134,10 @@
                         var pagActual=Math.ceil(canCashes/15);
                         crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
                             $scope.cashes = data.data;
-                            $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
+                             crudServiceOrders.Datos_Por_Caja().then(function (data){
+                           
+                            $scope.cashfinal=data;
+                        });
                         });
                     });    
                 }
@@ -216,8 +221,10 @@
                         var pagActual=Math.ceil(canCashes/15);
                         crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
                             $scope.cashes = data.data;
-                            $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
-                            //$log.log($scope.cashfinal);
+                            crudServiceOrders.Datos_Por_Caja().then(function (data){
+                            
+                            $scope.cashfinal=data;
+                            $log.log($scope.cashfinal);
                             crudServiceOrders.search('detCashesSale',$scope.cashfinal.id,1).then(function (data){
                             $scope.detCashes = data.data;
                             $scope.maxSize1 = 5;
@@ -228,6 +235,7 @@
                                 //$log.log($scope.detCashes);
                             });
                         });
+                        });
                     });
                     //$scope.detCashes={};
                     
@@ -235,7 +243,7 @@
                 $scope.createmovCaja = function(tipo){
                     $scope.detCash={};
                     $scope.mostrarAlmacenCaja();
-
+                     //alert($scope.cashfinal.id);
                     $scope.detCash.cash_id=$scope.IDOriginalValidadoCaja;//$scope.cashfinal.id; 
                     $scope.detCash.fecha=$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
                     $scope.detCash.hora=$scope.date.getHours()+':'+$scope.date.getMinutes()+':'+$scope.date.getSeconds();
@@ -252,7 +260,7 @@
                         $scope.detCash.cashMotive_id='1';   
                     }
                     
-
+                    
                     $scope.cashfinal.ingresos=Number($scope.cashfinal.ingresos)+Number($scope.detCash.montoMovimientoTarjeta)+Number($scope.detCash.montoMovimientoEfectivo); 
                     $scope.cashfinal.montoBruto=$scope.detCash.montoFinal;
                     //////////////////////////////////////////////
@@ -272,7 +280,9 @@
                         crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
 
                             $scope.cashes = data.data;
-                            $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
+                             crudServiceOrders.Datos_Por_Caja().then(function (data){
+                           
+                            $scope.cashfinal=data;
 
                         
                             $scope.createmovCaja(tipo);
@@ -307,7 +317,8 @@
                             });
 
                             $scope.inicializar();
-                        })    
+                        })   
+                        }); 
                     });
                 }
                 $scope.datosFactura=function(codigoFactu){
@@ -858,7 +869,16 @@
 
                 $scope.atributoSelected=undefined;
                 $scope.getAtributos = function(val) {
+                    //alert(val);
                   return crudServiceOrders.reportProWare('products',$scope.store.id,$scope.warehouse.id,val).then(function(response){
+                    return response.map(function(item){
+                        //$log.log(item);
+                      return item;
+                    });
+                  });
+                };
+                $scope.getAtributos2 = function(val) {
+                  return crudServiceOrders.DatosVarinatAgrupado(val).then(function(response){
                     return response.map(function(item){
                         //$log.log(item);
                       return item;
@@ -990,8 +1010,9 @@
 
                             crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){    
                                 $scope.cashes = data.data;
-
-                                $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
+                              crudServiceOrders.Datos_Por_Caja().then(function (data){
+                           
+                                $scope.cashfinal=data;
 
                                 if ($scope.cashfinal.estado=='1') {
 
@@ -1067,6 +1088,7 @@
 
                             }else{alert("Caja Cerrada");}
                             });
+                           });
                         }); 
                     }
 
@@ -1748,7 +1770,9 @@
                     var pagActual=Math.ceil(canCashes/15);
                     crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
                         $scope.cashes = data.data;
-                        $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
+                         crudServiceOrders.Datos_Por_Caja().then(function (data){
+                           
+                        $scope.cashfinal=data;
 
                         if ($scope.cashfinal.id==row.numCaja&&$scope.cashfinal.estado=='1') {
                             if(confirm("Esta segura de querer eliminar este pago!!!") == true){
@@ -1774,6 +1798,7 @@
                         }
 
                     });
+});
                 })
 }
             
@@ -1791,7 +1816,9 @@
                     var pagActual=Math.ceil(canCashes/15);
                     crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
                         $scope.cashes = data.data;
-                        $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
+                         crudServiceOrders.Datos_Por_Caja().then(function (data){
+                           
+                        $scope.cashfinal=data;
                         if ($scope.cashfinal.id==row.numCaja&&$scope.cashfinal.estado=='1') {
                             $scope.detPago=row;
                             $scope.detPago.fecha=new Date(row.fecha);
@@ -1805,6 +1832,7 @@
                             alert("Caja Cerrada");    
                         }
                     });
+                     });
                 });    
             }  
             $scope.editPayment = function(){
@@ -2008,7 +2036,9 @@
                             var pagActual=Math.ceil(canCashes/15);
                             crudServiceOrders.search('cashes',$scope.cash1.cashHeader_id,pagActual).then(function (data){
                                 $scope.cashes = data.data;
-                                $scope.cashfinal=$scope.cashes[$scope.cashes.length-1];
+                                 crudServiceOrders.Datos_Por_Caja().then(function (data){
+                           
+                                $scope.cashfinal=data;
                                 if ($scope.IDOriginalValidadoCaja != undefined) {
                                     $scope.detCash={};
                                     $scope.mostrarAlmacenCaja();
@@ -2039,7 +2069,7 @@
                                     alert("Caja Cerrada");
                                 }
 
-
+                             });
                             });
                         });
                     }
@@ -2166,28 +2196,48 @@
                               //$location.path('sales/create#tab_7');
                          });
                 }
-                $scope.validar=function(data){
+                 $scope.validar=function(data){
                 
-                    $scope.promocion.productBase_id=data.vari;
+                    //$scope.promocion.productBase_id=data.vari;
+                    $scope.promocion.productIDORI=data.id;
+                    crudServiceOrders.TreerCamtidadesDisponible(data.id).then(function(data){    
+                        $scope.TamDisponible=data;
+                        //$log.log($scope.favoritos);
+                    });
                 
                 }
                  $scope.validar1=function(data){
                 
-                    $scope.promocion.product_id=data.vari;
-                
+                   //$scope.promocion.product_id=data.vari;
+                    $scope.promocion.productIDORI2=data.id;
+                     crudServiceOrders.TreerCamtidadesDisponible(data.id).then(function(data){    
+                        $scope.TamDisponible2=data;
+                        //$log.log($scope.favoritos);
+                    });
+                }
+                $scope.selectCant=function(data){
+                    //alert(data.descripcion);
+                    $scope.promocion.cantSelecionado=data.descripcion;
+                }
+                $scope.selectCant2=function(data){
+                    //alert(data.descripcion);
+                    $scope.promocion.cantSelecionado2=data.descripcion;
                 }
                 $scope.createPromotion=function(){
                     if ($scope.promocionCreateForm.$valid) {
+                   
                      crudServiceOrders.create($scope.promocion, 'promocion').then(function (data) {
                           
                             if (data['estado'] == true) {
                                 alert('grabado correctamente');
                                  $route.reload();
+                                 
                             } else {
                                 $scope.errors = data;
 
                             }
-                        });
+                    });
+                 
                  }
                 }
                 $scope.cargarPromociones=function(){

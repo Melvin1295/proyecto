@@ -110,6 +110,8 @@ Route::get('api/products/search/{q?}',['as'=>'product_search', 'uses'=>'Products
 Route::get('api/productName/search/{q?}',['as'=>'product_search', 'uses'=>'ProductsController@searchProducts']);
 Route::get('api/productaddVariant/search/{q?}',['as'=>'product_search', 'uses'=>'ProductsController@searchProductAddVariant']);
 
+Route::get('api/productaddVariant/DatosVarinatAgrupado/{q?}',['as'=>'product_search', 'uses'=>'ProductsController@DatosVarinatAgrupado']);
+
 Route::get('api/cantidadProductos/cantidades',['as'=>'person_search', 'uses'=>'ProductsController@cantidadProductos']);
 Route::get('api/products/find/{id}',['as'=>'person_find', 'uses'=>'ProductsController@find']);
 Route::get('api/cantvariantes/find/{id}',['as'=>'person_find', 'uses'=>'ProductsController@find10']);
@@ -146,7 +148,11 @@ Route::get('api/variants/selectTalla/{id}/{taco}','VariantsController@selectTall
 Route::get('api/variants/selectStocksTalla/{id}/{taco}/{alma}','VariantsController@selectStocksTalla');
 Route::get('api/variants/selectStocksTallaSinTaco/{id}/{alma}','VariantsController@selectStocksTallaSinTaco');
 
+Route::get('api/variants/variantsenPromocion/{id}/{descri}','VariantsController@variantsenPromocion');
+
 Route::get('api/variantname/search/{q?}',['as' => 'variant_byproduct_id', 'uses' => 'VariantsController@searchCodigo']);
+
+Route::get('api/variantname/TreerCamtidadesDisponible/{q?}',['as' => 'variant_byproduct_id', 'uses' => 'VariantsController@TreerCamtidadesDisponible']);
 
 //END VARIANTS ROUTES
 
@@ -587,6 +593,7 @@ Route::get('api/cashes/search/{q?}',['as'=>'person_search', 'uses'=>'CashesContr
 Route::get('api/cashes/find/{id}',['as'=>'person_find', 'uses'=>'CashesController@find']);
 Route::get('api/cashes/cajas_for_user','CashesController@cajas_for_user');
 Route::get('api/cashes/cajas_for_user1/{id}','CashesController@cajas_for_user1');
+Route::get('api/cashes/Datos_Por_Caja','CashesController@Datos_Por_Caja');
 //-----------------------------DetCashes---------------------------
 Route::get('detCashes',['as'=>'person','uses'=>'DetCashController@index']);
 //Route::get('detCashes',['as'=>'person','uses'=>'DetCashController@index']);

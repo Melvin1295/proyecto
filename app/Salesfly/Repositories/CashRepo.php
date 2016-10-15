@@ -33,6 +33,16 @@ class CashRepo extends BaseRepo{
                     ->first();
         return $cashes;
     }
+    public function Datos_Por_Caja($id){
+        $cashes =Cash::select("cashes.*","users.name","users.email","users.store_id","users.role_id")
+                    ->join("users","cashes.user_id","=","users.id")
+                     ->where('cashes.user_id','=', $id)
+                     ->where('cashes.estado','=',1)
+                     ->limit(1)
+                    //with(['customer','employee'])
+                    ->first();
+        return $cashes;
+    }
     public function searchuserincaja1($idCaja,$id){
         $cashes =Cash::select("id","montoBruto")
                      ->where('id','=', $idCaja)
@@ -43,7 +53,9 @@ class CashRepo extends BaseRepo{
     }
     public function paginarCashes($q){
            $cashes =Cash::join("users","cashes.user_id","=","users.id")
-                    ->select(\DB::raw("cashes.*,users.name,CONCAT((SUBSTRING(cashes.fechaInicio,9,2)),'-',
+                    ->join("cashHeaders","cashes.cashHeader_id","=","cashHeaders.id")
+                    ->join("stores","cashHeaders.store_id","=","stores.id")
+                    ->select(\DB::raw("stores.nombreTienda,cashHeaders.nombre,cashes.*,users.name,CONCAT((SUBSTRING(cashes.fechaInicio,9,2)),'-',
                                 (SUBSTRING(cashes.fechaInicio,6,2)),'-',
                                 (SUBSTRING(cashes.fechaInicio,1,4)),' ',
                                 (SUBSTRING(cashes.fechaInicio,11)))as fechaCREADO,CONCAT((SUBSTRING(cashes.fechaFin,9,2)),'-',

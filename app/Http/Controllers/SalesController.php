@@ -58,17 +58,20 @@ use Salesfly\Salesfly\Managers\DetailInvoiceManager;
 use Salesfly\Salesfly\Repositories\DetailInvoiceRepo;
 use Salesfly\Salesfly\Managers\FBnumberManager;
 use Salesfly\Salesfly\Repositories\FBnumberRepo;
+use Salesfly\Salesfly\Repositories\VariantRepo;
+use Salesfly\Salesfly\Managers\VariantManager;
 class SalesController extends Controller
 {
     protected $saleRepo;
 
     public function __construct(SaleRepo $saleRepo,CashHeaderRepo $ashHeaderRepo,
-      PromocionRepo $promocionRepo,HeadInvoiceRepo $headInvoiceRepo)
+      PromocionRepo $promocionRepo,HeadInvoiceRepo $headInvoiceRepo, VariantRepo $variantRepo)
     {
         $this->saleRepo = $saleRepo;
         $this->ashHeaderRepo = $ashHeaderRepo;
         $this->promocionRepo = $promocionRepo;
         $this->headInvoiceRepo=$headInvoiceRepo;
+        $this->variantRepo=$variantRepo;
     }
 
     public function all()
@@ -1125,9 +1128,30 @@ class SalesController extends Controller
         return response()->json(['estado'=>true, 'nombre'=>$orderSale->nombre]);
     }
     public function createPromcion(Request $request){
-        $promocion = $this->promocionRepo->getModel();
-        $manager = new PromocionManager($promocion,$request->all());
-        $manager->save();
+        
+        $idVarian = $this->variantRepo->variantsenPromocion($request->input("productIDORI"),$request->input("cantSelecionado"));
+        $idVarian2 = $this->variantRepo->variantsenPromocion($request->input("productIDORI2"),$request->input("cantSelecionado2"));
+        foreach ($idVarian as $variable1) {          
+            $request->merge(["productBase_id"=>$variable1["id"]]);
+            $vatiant = $this->variantRepo->find($request->input("productBase_id"));
+                $request->merge(["favorite"=>0]);
+                $request->merge(["codigo"=>$vatiant->codigo]);
+                $request->merge(["sku"=>$vatiant->sku]);
+                $request->merge(["track"=>$vatiant->track]);
+                $request->merge(["product_id"=>$vatiant->product_id]);
+                $request->merge(["user_id"=>$vatiant->user_id]);
+                $manager = new VariantManager($vatiant,$request->only("favorite","codigo","sku","track","product_id",
+                "user_id"));
+                    $manager->save();
+                 
+            foreach ($idVarian2 as $variable2) {  
+                $promocion = $this->promocionRepo->getModel();
+                $request->merge(["product_id"=>$variable2["id"]]);
+                $manager = new PromocionManager($promocion,$request->all());
+                $manager->save();
+                
+        }}
+        
         return response()->json(['estado'=>true]);
     }
     public function paginatePromtion(){

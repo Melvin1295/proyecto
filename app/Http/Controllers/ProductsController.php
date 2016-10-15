@@ -80,6 +80,11 @@ class ProductsController extends Controller
         $products = $this->productRepo->pag();
         return response()->json($products);
         }
+        
+    public function DatosVarinatAgrupado($q){
+        $products = $this->productRepo->DatosVarinatAgrupado($q);
+        return response()->json($products);
+    }
     public function misDatosVariantes($store,$were,$q){
         $products = $this->productRepo->misDatosVariantes($store,$were,$q);
         return response()->json($products);

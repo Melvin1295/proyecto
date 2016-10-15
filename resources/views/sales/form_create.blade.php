@@ -516,14 +516,14 @@
                                       </label>
                                   </div>
                               </div>
-                              <div class="col-md-4">
+                      <div class="col-md-2">
                                    <div class="form-group" ng-class="{true: 'has-error'}[ promocionCreateForm.empresa.$error.required && promocionCreateForm.$submitted || promocionCreateForm.empresa.$dirty && promocionCreateForm.empresa.$invalid]">
                                    <label>Producto Base: </label>
                                    <div class="input-group" ng-hide="show" style="width: 100%;">
               
               
                                        <input typeahead-on-select="validar(producto_base)" type="text" name="empresa" ng-model="producto_base" placeholder="Busca por Proveedor" 
-                                         typeahead="atributo as atributo.NombreAtributos for atributo in getAtributos($viewValue)"  
+                                         typeahead="atributo as atributo.NombreProducto for atributo in getAtributos2($viewValue)"  
                                          typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"
                                          tooltip="Ingrese caracteres para busacar Proveedor por Empres" required>
                                         <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
@@ -537,14 +537,23 @@
                 
                                    </div>                              
                           </div>
-                          <div class="col-md-4">
+                          <div class="col-md-2">
+                              <div class="form-group">
+                                                <label>Tamaño </label>
+                                                <select name="brand" class="form-control" ng-change="selectCant(cantSelect)" ng-model="cantSelect" ng-options="item as item.descripcion for item in TamDisponible">
+                                                 <option value="">--Elige Tamaño--</option>
+                                                </select>
+
+                          </div>
+                          </div>
+                          <div class="col-md-2">
                                    <div class="form-group" ng-class="{true: 'has-error'}[ promocionCreateForm.productAdicional.$error.required && promocionCreateForm.$submitted || promocionCreateForm.productAdicional.$dirty && promocionCreateForm.productAdicional.$invalid]">
                                    <label>Producto Adicional: </label>
                                    <div class="input-group" ng-hide="show" style="width: 100%;">
               
               
                                        <input typeahead-on-select="validar1(producto)" type="text" name="productAdicional" ng-model="producto" placeholder="Busca por Proveedor" 
-                                         typeahead="atributo as atributo.NombreAtributos for atributo in getAtributos($viewValue)"  
+                                         typeahead="atributo as atributo.NombreProducto for atributo in getAtributos2($viewValue)"  
                                          typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"
                                          tooltip="Ingrese caracteres para busacar Proveedor por Empres" required>
                                         <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
@@ -558,7 +567,15 @@
                 
                                    </div>                              
                           </div>
-                              
+                              <div class="col-md-2">
+                              <div class="form-group">
+                                                <label>Tamaño </label>
+                                                <select name="brand" class="form-control" ng-change="selectCant2(cantSelect2)" ng-model="cantSelect2" ng-options="item as item.descripcion for item in TamDisponible2">
+                                                 <option value="">--Elige Tamaño--</option>
+                                                </select>
+
+                          </div>
+                          </div>
                        </div>
                        <div class="row">
                        <div class="col-md-1"></div>

@@ -237,14 +237,54 @@
 
                 return deferred.promise;
             }
+            function Datos_Por_Caja()
+            {
+                var deferred = $q.defer();
+                $http.get('api/cashes/Datos_Por_Caja').success(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            }
+            function DatosVarinatAgrupado(val)
+            {
+                var deferred = $q.defer();
+                $http.get('api/productaddVariant/DatosVarinatAgrupado/'+val).success(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            }
+             function TreerCamtidadesDisponible(id)
+            {
+                var deferred = $q.defer();
+                $http.get('api/variantname/TreerCamtidadesDisponible/'+id).success(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            }
+            function variantsenPromocion(id,descri)
+            {
+                var deferred = $q.defer();
+                $http.get('api/variants/variantsenPromocion/'+id+'/'+descri).success(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            }
             return {
                 all: all,
                 paginate: paginate,
                 numeracion: numeracion,
+                Datos_Por_Caja: Datos_Por_Caja,
                 Comprueba_caj_for_user: Comprueba_caj_for_user,
                 factura: factura,
                 create:create,
                 create1:create1,
+                variantsenPromocion: variantsenPromocion,
+                DatosVarinatAgrupado: DatosVarinatAgrupado,
+                TreerCamtidadesDisponible: TreerCamtidadesDisponible,
                 byId:byId,
                 update:update,
                 destroy:destroy,

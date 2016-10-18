@@ -273,9 +273,19 @@
 
                 return deferred.promise;
             }
+            function FavoritosCabecera()
+            {
+                var deferred = $q.defer();
+                $http.get('api/productsFavoritos/FavoritosCabecera').success(function (data) {
+                    deferred.resolve(data);
+                });
+
+                return deferred.promise;
+            }
             return {
                 all: all,
                 paginate: paginate,
+                FavoritosCabecera: FavoritosCabecera,
                 numeracion: numeracion,
                 Datos_Por_Caja: Datos_Por_Caja,
                 Comprueba_caj_for_user: Comprueba_caj_for_user,

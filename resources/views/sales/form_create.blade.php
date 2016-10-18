@@ -200,21 +200,38 @@
                                 border-width: 2px; border-color: #C8D9F7; border-radius:10px" >
                         <div>
                         <div class="modal-header">
-                          <h4 class="modal-title">Favoritos <button type="button" class="btn btn-info btn-flat btn-xs pull-right" ng-click="AddFavoritos()"> <span class="glyphicon glyphicon-plus"></span> </button>
+                          <h4 class="modal-title">Productos en Promocion <button type="button" class="btn btn-info btn-flat btn-xs pull-right" ng-click="AddFavoritos()"> <span class="glyphicon glyphicon-plus"></span> </button>
                           <button type="button" class="btn btn-danger btn-flat btn-xs pull-right" ng-click="delFavEst()"> <span class="glyphicon glyphicon-trash"></span> </button></h4>
                         </div>
                           <div class="box-body">
-                            <button ng-if="!banderadeleteFavorito" type="button" class="btn btn-default" ng-repeat="row in favoritos" style="width: 115px;height: 60px; overflow-x:hidden;" title="@{{row.NombreAtributos}}"
-                                    ng-click="deleteFavoritos(row)">   
-                                    <a type="button" class="glyphicon glyphicon-remove" ng-click="deleteFavoritos(row)"></a>                         
-                                @{{row.NombreAtributos}}
+                          <div class="box-body table-responsive no-padding">
+                            <table class="table-condensed">
+                               <tbody>
+                                   <tr class="" style="height: 70px;  width:100%;  border: 1px solid #F9ED08; border-radius: 2px; text-aling:center;"  ng-repeat="item in promCabenceras">
+                                     
+                                     <td style="width:60px; text-aling:center;" ><b>@{{item.NombreProducto}}<br>(@{{item.descripcion}})<b></td>
+                                     <td ng-if="row.numero == item.numPromo " ng-repeat="row in favoritos">
+                                              <button ng-if="row.productID == item.id " type="button" class="btn btn-default"    title="@{{row.NombreAtributos}}"
+                                             ng-click="cargarFavoritos(row)">   
+                                                                  
+                                         <spam style="color:blue;">Por @{{row.cantPromo}} <b>@{{row.NombreAtributos}}</b> lleva al @{{row.decuentoPromo}}% 1<spam><br><spam style="color:red;">@{{row.nomProduct2}}(@{{row.NombreAtributos2}})<spam>
 
-                            </button>  
-                            <button ng-if="banderadeleteFavorito" type="button" class="btn btn-default" ng-repeat="row in favoritos" style="width: 220px;height: 60px; overflow-x:hidden;" title="@{{row.NombreAtributos}}"
-                                    ng-click="cargarFavoritos(row)">                           
-                                @{{row.NombreAtributos}}
+                                     </button>  
+                                     </td>
+                                     
+                                     
+                                     </tr>
+                                     <!--<td ng-repeat="row in favoritos">
+                                     <button ng-if="row.productID == item.id" type="button" class="btn btn-info" ng-repeat="row in favoritos" style="width: 80px;height: 60px; overflow-x:hidden;" title="@{{row.NombreAtributos}}"
+                                             ng-click="cargarFavoritos(row)">                           
+                                         @{{row.NombreAtributos}}
 
-                            </button>  
+                                     </button> </td>-->
+                                            
+                                      
+                                </tbody>
+                           </table>
+                           </div>
                           </div>
 
                         </div>
@@ -686,7 +703,7 @@
                            <th>Fecha Inicio</th>
                            <th>Fecha Fin</th>
                            <th>Estado</th>
-                           <th>Acciones</th>
+                          
                          </tr>
                        </thead>
                        <tbody>
@@ -694,8 +711,17 @@
                            <td>@{{row.descripcion}}</td>
                            <td>por  @{{row.cantidad+' unidades del ('+row.nombre+'/'+row.cant+'/'+row.sabor+') llevate el '}}<br>@{{'('+row.product2+') con un '+row.descuento+'% de descuento'}}</td>
                            <td>@{{row.fecha_inicio}}</td>
-                           <td>@{{row.fecha_fin}}</td>
-                           <td ng-if="row.estado==1">
+                           <td style="width:100px;"><label ng-show="fechafin[$index] == null">@{{row.fecha_fin}}</label>
+                           
+                            <div  class="input-group" ng-show="fechafin[$index] == 1">
+                                <div class="input-group-addon">
+                                      <i class="fa fa-calendar"></i>
+                                </div>
+                                  <input  type="date" class="form-control"  ng-change="" name="fechaFin" ng-model="editFecha.fecha_fin1">
+                            </div>
+                  
+                           </td>
+                           <td ng-if="row.estado==1" ng-show="fechafin[$index] == null">
                            
                            <div class="input-group">
                                <div  class="btn-group" data-toggle="buttons">
@@ -708,7 +734,7 @@
                               </div>
                          </div>
                            </td>
-                           <td ng-if="row.estado==0">
+                           <td ng-if="row.estado==0" ng-show="fechafin[$index] == null">
                            <div class="input-group">
                                <div  class="btn-group" data-toggle="buttons">
                                   <button type="button" class="btn btn-@{{coloButton[$index]}}"   ng-click="cambiarColoButton($index,row)">
@@ -720,8 +746,18 @@
                               </div>
                          </div>
                            </td>
-                           <td>
-                             <button  class="btn btn-danger btn-md" ng-click="DropPromotions(row)">Eliminar</button>
+                           <td ng-show="fechafin[$index] == null">
+                            <!--<button  class="btn btn-danger btn-md" ng-click="DropPromotions(row)">Eliminar</button>-->
+                             <button type="button" class="btn btn-danger btn-xs"  ng-click="DropPromotions(row)">
+                                  <span class="glyphicon glyphicon-trash"></span></button>
+                                  <button type="button" class="btn btn-warning btn-xs"  ng-click="EditPromotions($index,row)">
+                                  <span class="glyphicon glyphicon-pencil"></span></button>
+                           </td>
+                           <td ng-show="fechafin[$index] == 1">
+                            <!--<button  class="btn btn-danger btn-md" ng-click="DropPromotions(row)">Eliminar</button>-->
+                             
+                                  <button type="button" class="btn btn-warning btn-xs"  ng-click="ValidadEditPromotions($index,row,editFecha.fecha_fin1)">
+                                  <span class="glyphicon glyphicon-file"></span></button>
                            </td>
                          </tr>
                        </tbody>

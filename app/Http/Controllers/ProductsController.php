@@ -105,6 +105,10 @@ class ProductsController extends Controller
         
         return response()->json($products);
     }
+    public function FavoritosCabecera(){
+        $products = $this->productRepo->FavoritosCabecera();
+        return response()->json($products);
+    } 
     public function favoritos($store,$were,$q){
         $products = $this->productRepo->favoritos($store,$were,$q);
         return response()->json($products);

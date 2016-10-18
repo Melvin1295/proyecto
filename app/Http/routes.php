@@ -133,6 +133,9 @@ Route::get('api/productsSearchsku/misDatos/{store?}/{were?}/{q?}',['as'=>'person
 Route::get('api/products/misDatos/{store?}/{were?}/{q?}',['as'=>'person_find', 'uses'=>'ProductsController@misDatos']);
 Route::get('api/productsVariantes/misDatos/{store?}/{were?}/{q?}',['as'=>'person_find', 'uses'=>'ProductsController@misDatosVariantes']);
 Route::get('api/productsFavoritos/misDatos/{store?}/{were?}/{q?}',['as'=>'person_find', 'uses'=>'ProductsController@favoritos']);
+
+Route::get('api/productsFavoritos/FavoritosCabecera',['as'=>'person_find', 'uses'=>'ProductsController@FavoritosCabecera']);
+
 Route::get('api/buquedarapida/misDatos/{store?}/{were?}/{q?}/{type?}/{brand?}/{product?}/',['as'=>'person_find', 'uses'=>'ProductsController@variantsAllInventary']);
 //---------------------
  

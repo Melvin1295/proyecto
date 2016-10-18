@@ -84,6 +84,9 @@
                     $scope.saledetPayment={};
                     $scope.salePayment={};
                     $scope.payment={};
+                    $scope.editFecha={};
+                    $scope.promCabenceras=[];
+                    $scope.promCabencera={};
                     $scope.atributoSelected=undefined;
                     $scope.customersSelected=undefined;
                     $scope.employeeSelected=undefined;
@@ -91,6 +94,9 @@
                     $scope.sale.employee_id=undefined;
                     $scope.sale.vuelto=0;
                     $scope.exitCustumer=false;
+                    $scope.sale.comprobante=true;
+                    $scope.fechafin=[];
+                    //$scope.fechafin[0].estado=null;
                     //$scope.cashHeaders={};
                     
                     
@@ -200,6 +206,10 @@
 
                     crudServiceOrders.select('stores','select').then(function (data) {                        
                         $scope.stores = data;
+
+                    });
+                    crudServiceOrders.FavoritosCabecera().then(function (data) {                        
+                        $scope.promCabenceras= data.data;
 
                     });
                     crudServiceOrders.search('warehousesStore',$scope.store.id,1).then(function (data){
@@ -1128,11 +1138,13 @@
                     //$scope.sale.montoBruto=Number($scope.sale.montoTotal)/1.18;
                     //$scope.sale.igv=$scope.sale.montoTotal-$scope.sale.montoBruto;
                     if($scope.compras[index].cantidad>=1){
-                    crudServiceOrders.confirmarVariante($scope.compras[index].vari,$scope.fechaActual).then(function(data){
-                          if(data.sku!=undefined && data.cantidad<=$scope.compras[index].cantidad ){
+                       // alert($scope.compras[index].cantidad);
+                    crudServiceOrders.confirmarVariante($scope.compras[index].promo,$scope.fechaActual).then(function(data){
+                          //alert(data.cantidad);
+                          if(data.sku!=undefined && data.cantidad>=$scope.compras[index].cantidad ){
                                if($scope.compras[index].oferta==0 && $scope.ActivaOfertasx==true){
-                                  if(confirm("Desea cargar oferta") == true){
-                                   // alert(data.descuento);
+                                 // if(confirm("Desea cargar oferta") == true){
+                                    //  alert(data.sku);
                                       $scope.descuento10=data.descuento;
                                       $scope.varianteSkuSelected1=undefined;
                                       $scope.varianteSkuSelected=data.sku;
@@ -1140,14 +1152,14 @@
                                       $scope.base=true;
                                       $scope.compras[index].oferta=1;
                                       $scope.getvariantSKU(); 
-                                      }else{
+                                      //}else{
                                         $scope.bandera=false; 
-                                      }
+                                      //}
                                 }else{
                                         //$scope.promedioV=Number(Math.floor(Number($scope.compras[index].cantidad)/Number(data.cantidad)));
                                         //$scope.compras[index+1].cantidad=$scope.promedioV;
                                         //$scope.calcularmontos(index+1);
-                                        //alert('hola');
+                                        alert('hola');
                                         $scope.oferta=false;
                                         $scope.bandera=false;
                                         $scope.descuento10=0;
@@ -1374,9 +1386,13 @@
                         });
                     };
 
-                $scope.cargarFavoritos= function(row,size){                      
+                $scope.cargarFavoritos= function(row,size){   
+                        //row.NombreAtributos=row.NombreProducto;
+                        //alert(row.stock+" --->"+row.cantPromo)  ; 
+                        if(row.Stock >= (row.cantPromo+1)) {               
                         crudServiceOrders.reportProWare('productsVariantes',$scope.store.id,$scope.warehouse.id,row.vari).then(function(data){    
                         $scope.atributoSelected=row;
+                        $scope.atributoSelected.NombreAtributos=row.NombreProducto; 
                         $scope.presentations = data;
                         $log.log($scope.presentations);
 
@@ -1438,6 +1454,9 @@
                             })
                         }
                     });  
+}else{
+    alert("Stock insuficiente para cargar promocion!!");
+}
                 }
                 $scope.estadoFavorito=false;
                 $scope.AddFavoritos= function(){
@@ -2195,6 +2214,44 @@
                         $scope.detDocumento = data;
                               //$location.path('sales/create#tab_7');
                          });
+                }
+                $scope.EditPromotions=function(index,data){
+                    $scope.fechafin[index]=1;
+                    var fecha = new Date(data.fechaOri);
+                   //alert(fecha);
+                    $scope.fechafin[index].fecha=fecha;
+                }
+                $scope.GuardarEditPromoiones=function(){
+
+                }
+                $scope.ValidadEditPromotions=function(index,data,fecha){
+                   // $scope.fechafin[index]=1;
+                   //var fecha = new Date(data.fechaOri);
+                    //alert(fecha);
+                    alert(parseInt(data.fechaOri.substring(8)));
+                    var fFin=fecha.getFullYear()+'-'+(fecha.getMonth()+1)+'-'+fecha.getDate();
+                    $scope.editFecha.fecha_fin=fFin;
+                    if(parseInt(data.fechaOri.substring(0,4)) == parseInt(fFin.substring(0,4))){
+                        if(parseInt(data.fechaOri.substring(5,7)) == parseInt(fFin.substring(5,7))){
+                           if(parseInt(data.fechaOri.substring(8)) == parseInt(fFin.substring(8))){
+                                     alert("Error la fecha tiene que ser mayor a la actual-->"+data.fecha_fin);
+                           }else if(parseInt(data.fechaOri.substring(8)) < parseInt(fFin.substring(8))){
+
+                                    $scope.GuardarEditPromoiones();
+                           }else{
+                              alert("Error la fecha tiene que ser mayor a la actual-->"+data.fecha_fin);
+                           }
+                        }else if (parseInt(data.fechaOri.substring(5,7)) < parseInt(fFin.substring(5,7))){
+                            $scope.GuardarEditPromoiones();
+                        }else{
+                              alert("Error la fecha tiene que ser mayor a la actual-->"+data.fecha_fin);
+                        }
+                    }else if(parseInt(data.fechaOri.substring(0,4)) < parseInt(fFin.substring(0,4))){
+                              $scope.GuardarEditPromoiones();
+                          }else{
+                             alert("Error la fecha tiene que ser mayor a la actual-->"+data.fecha_fin);
+                          }
+                    
                 }
                  $scope.validar=function(data){
                 

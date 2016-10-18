@@ -1162,10 +1162,39 @@ class SalesController extends Controller
         $promocion = $this->promocionRepo->confirmarVariante($id,$fecha);
         return response()->json($promocion);
     }
+     public function EditPromocion10(Request $request)
+    {  
+        $promocion1= $this->promocionRepo->find10($request->numero);
+        foreach ($promocion1 as $object) { 
+         // var_dump($object["vari"]);die();
+                $promocion= $this->promocionRepo->find($object["id"]);
+                $manager = new PromocionManager($promocion,$request->only("fecha_fin"));
+                $manager->save();
+          }        
+        //Event::fire('update.Ttype',$Ttype->all());
+        return response()->json(['estado'=>true]);
+    }
      public function destroy(Request $request)
-    {
-        $promocion= $this->promocionRepo->find($request->id);
-        $promocion->delete();
+    {  
+        $promocion1= $this->promocionRepo->find10($request->numero);
+        $promocion10= $this->promocionRepo->find100($request->numero);
+        foreach ($promocion1 as $object) { 
+         // var_dump($object["vari"]);die();
+                $promocion= $this->promocionRepo->find($object["id"]);
+                $promocion->delete();
+          }
+        foreach ($promocion10 as $object) { 
+                $vatiant = $this->variantRepo->find($object("vari"));
+                $request->merge(["favorite"=>1]);
+                $request->merge(["codigo"=>$vatiant->codigo]);
+                $request->merge(["sku"=>$vatiant->sku]);
+                $request->merge(["track"=>$vatiant->track]);
+                $request->merge(["product_id"=>$vatiant->product_id]);
+                $request->merge(["user_id"=>$vatiant->user_id]);
+                $manager = new VariantManager($vatiant,$request->only("favorite","codigo","sku","track","product_id",
+                "user_id"));
+                $manager->save();
+        }
         //Event::fire('update.Ttype',$Ttype->all());
         return response()->json(['estado'=>true]);
     }

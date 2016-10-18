@@ -11,7 +11,8 @@ class PromocionManager extends BaseManager {
     				'fecha_inicio'=>'',
     				'fecha_fin'=>'',
     				'descuento'=> 'required',
-    				'estado'=>''];
+    				'estado'=>'',
+                    'numero'=>''];
         return $rules;
     }
 }

@@ -16,7 +16,10 @@ abstract class BaseRepo {
     {
         return $this->model->find($id);
     }
-
+    public function findORI($id)
+    {
+        return $this->model->find($id);
+    }
     public function findV($id)
     {
         return $this->model->find($id);

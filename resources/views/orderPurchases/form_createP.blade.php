@@ -42,7 +42,7 @@
             <div class="col-md-4">
            
           <div class="form-group" ng-class="{true: 'has-error'}[ orderPurchaseCreateForm.empresa.$error.required && orderPurchaseCreateForm.$submitted || orderPurchaseCreateForm.empresa.$dirty && orderPurchaseCreateForm.empresa.$invalid]">
-              <label>Proveedor: </label>
+              <label>Proveedor: <a role="button" ng-click="redirectSupplier()" class="btn btn-success btn-xs">  Agregar Nuevo </a></label>
               <div class="form-group form-ok" ng-hide="show" style="width: 100%;">
                
                <input typeahead-on-select="asignarEmpresa()" type="text" name="empresa" ng-model="orderPurchase.empresa" placeholder=" por Proveedor" 
@@ -144,7 +144,7 @@
               <label>Producto</label>
             
              <input  ng-disabled="activarBusca || check" typeahead-on-select="asignarProduc1()" type="text" ng-model="product.proId" placeholder="Locations loaded1 via $http" 
-          typeahead="variant as variant.proNombre+'('+(variant.BraName==null ? '': variant.BraName+'/')+(variant.TName==null ? '' : variant.TName+'/')+(variant.Mnombre==null ? '':variant.Mnombre+'/')+(variant.NombreAtributos==null ? '':variant.NombreAtributos)+')' for variant in variants1 | filter:$viewValue | limitTo:8" 
+          typeahead="variant as variant.proNombre+'('+(variant.NombreAtributos==null ? '':variant.NombreAtributos)+')' for variant in variants1 | filter:$viewValue | limitTo:8" 
           typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"
            tooltip="Ingrese caracteres para busacar producto por codigo unico"
             >
@@ -175,8 +175,8 @@
             <div class="col-md-2">
                <label for="tcambio">Tipo de Cambio</label>
                <select  ng-disabled="activarBusca2" class="form-control" ng-change="calcPrecio()" name="tcambio"  ng-model="orderPurchase.tCambio" >
-                       <option value="sol">Sol</option>
-                       <option value="dolar">Dolar</option>
+                       <option value="sol">PEN</option>
+                       <option value="dolar">USD</option>
                </select>
            </div>
            <div  class="col-md-1">
@@ -514,23 +514,7 @@
     <div ng-show="checkfinal" class="col-md-8">
       <div class="well well-lg">
          <div class="row">
-        <div class="col-md-5">
-                    <div class="form-group" >
-                      <label for="descripcion">Numero de Factura</label>
-                      <input type="text" class="form-control input-sm" name="descripcion" placeholder="Numero Factura"
-                      ng-model="orderPurchase.NumFactura" >
-                      <span class="text-info"> <em> Ingrese el numero de factura para este pedido.</em></span>
-                  </div>
-              </div>
-          <div class="col-md-4">
-                    <div class="form-group" >
-                      <label for="descripcion">Numero de Serie</label>
-                      <input type="text" class="form-control input-sm" name="descripcion" placeholder="Numero Factura"
-                      ng-model="orderPurchase.NumSerie" >
-                      <span class="text-info"> <em> Ingrese el numero de Serie del documento.</em></span>
-                  </div>
-              </div>
-          <div class="col-md-3">
+         <div class="col-md-3">
                <div class="form-group" >
                 <label for="tipo">Tipo documento</label>
                 <select class="form-control" ng-model="orderPurchase.tipoDoc" >
@@ -541,6 +525,24 @@
                 <!--@{{variants.varid}}-->
                 </div>
           </div>
+          <div class="col-md-4">
+                    <div class="form-group" >
+                      <label for="descripcion">Numero de Serie</label>
+                      <input type="text" class="form-control input-sm" name="descripcion" placeholder="Numero Factura"
+                      ng-model="orderPurchase.NumSerie" >
+                      <span class="text-info"> <em> Ingrese el numero de Serie del documento.</em></span>
+                  </div>
+              </div>
+        <div class="col-md-5">
+                    <div class="form-group" >
+                      <label for="descripcion">Numero de Factura</label>
+                      <input type="text" class="form-control input-sm" name="descripcion" placeholder="Numero Factura"
+                      ng-model="orderPurchase.NumFactura" >
+                      <span class="text-info"> <em> Ingrese el numero de factura para este pedido.</em></span>
+                  </div>
+              </div>
+          
+          
         </div>
         </div>
       </div>

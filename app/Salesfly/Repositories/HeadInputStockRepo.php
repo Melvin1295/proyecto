@@ -21,7 +21,10 @@ class HeadInputStockRepo extends BaseRepo{
                             ->select(\DB::raw("headInputStocks.*,headInputStocks.warehouDestino_id as destWareh,warehouses.nombre,users.name as nombreUser ,(SELECT (warehouses.nombre ) FROM headInputStocks
                                 INNER JOIN warehouses ON headInputStocks.warehouDestino_id = warehouses.id
                                 where warehouses.id=destWareh
-                                GROUP BY warehouses.id)as nomAlmacen2"))
+                                GROUP BY warehouses.id)as nomAlmacen2,CONCAT((SUBSTRING(headInputStocks.Fecha,9,2)),'-',
+                                (SUBSTRING(headInputStocks.Fecha,6,2)),'-',
+                                (SUBSTRING(headInputStocks.Fecha,1,4)),' ',
+                                (SUBSTRING(headInputStocks.Fecha,11)))as fechaMovi"))
                             ->groupBy("headInputStocks.id")->paginate(15);
         return $headInputStock;
     }

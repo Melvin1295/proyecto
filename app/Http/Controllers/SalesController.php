@@ -448,13 +448,55 @@ class SalesController extends Controller
     }
      public function editPromocion(Request $request)
     {
-        $promocion = $this->promocionRepo->find($request->id);
-        //var_dump($material);
-        //die(); 
-        $manager = new PromocionManager($promocion,$request->except("fecha_inicio","fecha_fin"));
-        $manager->save();
-
-        //Event::fire('update.material',$material->all());
+        
+ \DB::beginTransaction();
+        $idVarian = $this->promocionRepo->find100($request->input("numero"));
+        $idVarian2 = $this->promocionRepo->find10($request->input("numero"));
+        foreach ($idVarian as $variable1) {          
+            $request->merge(["productBase_id"=>$variable1["vari"]]);
+            $vatiant = $this->variantRepo->findORI($request->input("productBase_id"));
+            //var_dump($vatiant);die();
+                $request->merge(["favorite"=>1]);
+                $request->merge(["codigo"=>$vatiant->codigo]);
+                $request->merge(["sku"=>$vatiant->sku]);
+                $request->merge(["track"=>$vatiant->track]);
+                $request->merge(["product_id"=>$vatiant->product_id]);
+                $request->merge(["user_id"=>$vatiant->user_id]);
+                $manager = new VariantManager($vatiant,$request->only("favorite","codigo","sku","track","product_id",
+                "user_id"));
+                    $manager->save();                 
+            }
+            foreach ($idVarian2 as $variable2) {  
+              $promocion = $this->promocionRepo->find($variable2["id"]);
+               // $promocion = $this->promocionRepo->getModel();
+               // $request->merge(["product_id"=>$variable2["id"]]);
+                $manager = new PromocionManager($promocion,$request->except("fecha_inicio","fecha_fin"));
+                $manager->save();
+                
+        }
+        \DB::commit();
+        return response()->json(['estado'=>true]);
+    }
+    public function editPromocionFecha(Request $request)
+    {
+        //var_dump($request->all());die();
+ \DB::beginTransaction();
+        $request->merge(["fecha_fin"=>$request->input("fecha_fin1")]);
+        $idVarian2 = $this->promocionRepo->find10($request->input("numero"));
+        
+        foreach ($idVarian2 as $variable2) {  
+              $promocion = $this->promocionRepo->find($variable2["id"]);
+                $request->merge(["cantidad"=>$promocion->cantidad]);
+                $request->merge(["descuento"=>$promocion->descuento]);
+                $request->merge(["productBase_id"=>$promocion->productBase_id]);
+                $request->merge(["product_id"=>$promocion->product_id]);
+               // $promocion = $this->promocionRepo->getModel();
+               // $request->merge(["product_id"=>$variable2["id"]]);
+                $manager = new PromocionManager($promocion,$request->only("cantidad","descuento","product_id","productBase_id","fecha_fin"));
+                $manager->save();
+                
+        }
+       \DB::commit();
         return response()->json(['estado'=>true]);
     }
     public function concat(Request $request){
@@ -1128,7 +1170,7 @@ class SalesController extends Controller
         return response()->json(['estado'=>true, 'nombre'=>$orderSale->nombre]);
     }
     public function createPromcion(Request $request){
-        
+        \DB::beginTransaction();
         $idVarian = $this->variantRepo->variantsenPromocion($request->input("productIDORI"),$request->input("cantSelecionado"));
         $idVarian2 = $this->variantRepo->variantsenPromocion($request->input("productIDORI2"),$request->input("cantSelecionado2"));
         foreach ($idVarian as $variable1) {          
@@ -1151,7 +1193,7 @@ class SalesController extends Controller
                 $manager->save();
                 
         }}
-        
+        \DB::commit();
         return response()->json(['estado'=>true]);
     }
     public function paginatePromtion(){
@@ -1176,15 +1218,12 @@ class SalesController extends Controller
     }
      public function destroy(Request $request)
     {  
+      \DB::beginTransaction();
         $promocion1= $this->promocionRepo->find10($request->numero);
         $promocion10= $this->promocionRepo->find100($request->numero);
-        foreach ($promocion1 as $object) { 
-         // var_dump($object["vari"]);die();
-                $promocion= $this->promocionRepo->find($object["id"]);
-                $promocion->delete();
-          }
+        
         foreach ($promocion10 as $object) { 
-                $vatiant = $this->variantRepo->find($object("vari"));
+                $vatiant = $this->variantRepo->findORI($object["vari"]);
                 $request->merge(["favorite"=>1]);
                 $request->merge(["codigo"=>$vatiant->codigo]);
                 $request->merge(["sku"=>$vatiant->sku]);
@@ -1195,6 +1234,13 @@ class SalesController extends Controller
                 "user_id"));
                 $manager->save();
         }
+        foreach ($promocion1 as $object) { 
+         // var_dump($object["vari"]);die();
+                $promocion= $this->promocionRepo->find($object["id"]);
+                $promocion->delete();
+          }
+
+        \DB::commit();
         //Event::fire('update.Ttype',$Ttype->all());
         return response()->json(['estado'=>true]);
     }

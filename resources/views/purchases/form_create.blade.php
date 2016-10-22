@@ -133,7 +133,7 @@
                     
                     <tr ng-repeat="row in headInputStocks">
                       <td>@{{$index + 1}}</td>
-                      <td >@{{row.Fecha}}</td>
+                      <td >@{{row.fechaMovi}}</td>
                       <td ng-if="row.tipo=='Entrada'"><span class="badge bg-red">Entrada</span></td> 
                       <td ng-if="row.tipo=='Transferencia'"><span class="badge bg-yellow">Transferencia</span></td> 
                       <td ng-if="row.tipo=='Salida'"><span class="badge bg-green">Salida</span></td> 
@@ -258,7 +258,7 @@
                      </form>
                    
                     <div class="box-footer">
-                    <a href="/purchases" class="btn btn-danger">Salir</a>
+                    <a  data-dismiss="modal" aria-hidden="ngenabled" class="btn btn-danger btn-xs">Salir</a>
                   </div>
                </div>
              </div>

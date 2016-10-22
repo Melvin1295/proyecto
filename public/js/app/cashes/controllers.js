@@ -51,28 +51,51 @@
                         }
                     });
                  }
+                  $scope.cargarCajasDiarias1 = function () {
+                     if ($scope.cash.cashHeader_id!=undefined) {
+                         $scope.banderaAbrirCaja=true;
+                     }else{
+                        $scope.banderaAbrirCaja=false;  
+                     }
+                  }
                 $scope.cargarCajasDiarias = function () {
                     //if (true) {};
                     //alert($scope.cash.cashHeader_id);
                     if ($scope.cash.cashHeader_id!=undefined) {
-                   crudService.search('cashes',$scope.cash.cashHeader_id,1).then(function (data){
+                  /* crudService.search('cashes',$scope.cash.cashHeader_id,1).then(function (data){
                         $scope.cashes = data.data;
                         $scope.maxSize = 5;
                         $scope.totalItems = data.total;
                         $scope.currentPage = data.current_page;
                         $scope.itemsperPage = 15;
                         $scope.verCaja();
+                    });*/
+crudService.paginate('cashes',1).then(function (data) {
+                        $scope.cashes = data.data;
+                        $scope.maxSize = 5;
+                        $scope.totalItems = data.total;
+                        $scope.currentPage = data.current_page;
+                        $scope.itemsperPage = 15;
+                        //$scope.numPages1 =data.last_page;
                     });
                     $scope.banderaAbrirCaja=true;
                     }else{
-                        crudService.search('cashes',$scope.cash.cashHeader_id,1).then(function (data){
+                        /*crudService.search('cashes',$scope.cash.cashHeader_id,1).then(function (data){
                         $scope.cashes = data.data;
                         $scope.maxSize = 5;
                         $scope.totalItems = data.total;
                         $scope.currentPage = data.current_page;
                         $scope.itemsperPage = 15;
                         $scope.verCaja();
-                        });
+                        });*/
+crudService.paginate('cashes',1).then(function (data) {
+                        $scope.cashes = data.data;
+                        $scope.maxSize = 5;
+                        $scope.totalItems = data.total;
+                        $scope.currentPage = data.current_page;
+                        $scope.itemsperPage = 15;
+                        //$scope.numPages1 =data.last_page;
+                    });
                         $scope.banderaAbrirCaja=false;   
                     }
                      
@@ -206,6 +229,7 @@
                     crudService.byId(id,'cashes').then(function (data) {
                         $scope.cash = data;
                         $scope.buscar=$scope.cash.id;
+                        $scope.cash.montoReal=Number(data.montoReal);
                         //$log.log($scope.cash);
 
                         crudService.search('detCashes',$scope.cash.id,1).then(function (data){
@@ -297,6 +321,7 @@
                             if (data['estado'] == true) {
                                 $scope.success = data['nombres'];
                                 alert('grabado correctamente');
+                                //$location.reload();
                                 //$location.path('/cashes');
                                 $scope.cargarCajasDiarias();
 

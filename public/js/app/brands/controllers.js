@@ -11,7 +11,7 @@
                 $scope.toggle = function () {
                     $scope.show = !$scope.show;
                 };
-
+                
                 $scope.pageChanged = function() {
                     if ($scope.query.length > 0) {
                         crudService.search('brands',$scope.query,$scope.currentPage).then(function (data){

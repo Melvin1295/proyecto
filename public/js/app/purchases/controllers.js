@@ -506,7 +506,7 @@
                                }
                                
                               } if($scope.num==true){
-                                alert("no puede ser");
+                                //alert("no puede ser");
                                $scope.verEntradasEstock();
                              }
                          }else{
@@ -583,7 +583,7 @@
                                              // {
                                                  crudOPurchase.StockActual('stocks',$scope.product.proId.varid,$scope.purchase.warehouses_id).then(function (data){
                                                         $scope.stock=data;
-                                                        $scope.inputStock.CantidaStock=data.stockActual;
+                                                        $scope.inputStock.CantidaStock=Number(data.stockActual).toFixed(0);
                             
                                                  });
                                                 $scope.Listo=false;

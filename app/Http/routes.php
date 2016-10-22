@@ -628,6 +628,7 @@ Route::get('api/cashMotive/search/{q?}',['as'=>'person_search', 'uses'=>'CashMot
 
 Route::get('api/datosDocumento/search/{id}', ['as' => 'person_edit', 'uses' => 'SalesController@DatosDocumento']);
 Route::put('api/promocion/edit',['as'=>'person_edit', 'uses'=>'SalesController@editPromocion']);
+Route::put('api/promocionFecha/edit',['as'=>'person_edit', 'uses'=>'SalesController@editPromocionFecha']);
 Route::get('sales',['as'=>'person','uses'=>'SalesController@index']);
 Route::get('sales/create/',['as'=>'person_create','uses'=>'SalesController@index']);
 Route::get('sales/edit/{id?}', ['as' => 'person_edit', 'uses' => 'SalesController@index']);

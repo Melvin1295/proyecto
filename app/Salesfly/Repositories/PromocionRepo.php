@@ -27,7 +27,7 @@ class PromocionRepo extends BaseRepo{
                     (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=2) as sabor,
 
                     (select CONCAT(pro.nombre,'/',vr.sku,'/',(select T20.descripcion FROM detAtr T20 where T20.variant_id=vari2 and T20.atribute_id=1),'/',(select T20.descripcion FROM detAtr T20 where T20.variant_id=vari2 and T20.atribute_id=2)) as descri FROM promocion pr inner join variants vr on pr.product_id=vr.id 
-                        inner join products pro on pro.id=vr.product_id where vr.id=vari2 group by pro.id)as product2"))
+                        inner join products pro on pro.id=vr.product_id where vr.id=vari2 group by pro.id)as product2,promocion.created_at"))
                               ->groupBy("promocion.numero")
                               ->paginate(15);
          
@@ -43,9 +43,15 @@ class PromocionRepo extends BaseRepo{
                            ->first();
         return $promocion;
     }
+     public function confirmarPromo($id,$id2){
+       $promocion=Promocion::where('promocion.productBase_id','=',$id)
+                            ->where('promocion.product_id','=',$id2)
+                            ->first();
+        return $promocion;
+    }
     public function find10($numero){
        $promocion=Promocion::join('variants','variants.id','=','promocion.productBase_id')
-                           ->select('promocion.id','variants.id as vari')
+                           ->select('promocion.id','variants.id as vari','promocion.productBase_id as id2')
                            ->where('promocion.numero','=',$numero)
                            ->groupBy('promocion.id')
                            ->get();

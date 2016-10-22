@@ -91,10 +91,10 @@
                                   <button data-toggle="popover" popover-template="dynamicPopover.templateUrl" type="button" class="btn btn-default">@{{compras[$index].cantidad}}</button>
                               </td>
                               <td><a popover-template="dynamicPopover5.templateUrl" popover-trigger="mouseenter">@{{compras[$index].NombreAtributos}}</a></td>
-                              <td><spam style="color:red;">@{{compras[$index].precioProducto}}</spam>
+                              <td><spam style="color:blue;">s/.@{{compras[$index].precioProducto}}</spam><br>
                                   <button data-toggle="popover" popover-template="dynamicPopover1.templateUrl" type="button" class="btn btn-default">@{{compras[$index].precioVenta| number:2}}</button>
                               </td>
-                              <td><spam style="color:red;">-@{{(compras[$index].precioProducto-compras[$index].precioVenta)*compras[$index].cantidad | number:2}}</spam>
+                              <td><spam style="color:red;">-@{{(compras[$index].precioProducto-compras[$index].precioVenta)*compras[$index].cantidad | number:2}}</spam><br>
                               @{{compras[$index].subTotal | number:2}}</td>
                               <td><button type="button" class="btn btn-danger ng-binding"  ng-click="sacarRow($index,row.subTotal)">
                               <span class="glyphicon glyphicon-trash"></span>
@@ -147,8 +147,8 @@
                                     
                                     </div>
                                     <div class="col-md-5" >
-                                      <a ng-if="sale.montoTotal>=0" class="btn btn-default ng-binding" data-toggle="modal" data-target="#miventana1" ng-click="pagar()">PAGAR</a>
-                                      <a ng-if="sale.montoTotal<0"class="btn btn-default ng-binding" ng-click="pagar()">PAGAR</a>
+                                      <a ng-if="sale.montoTotal>=0" class="btn btn-info ng-binding" data-toggle="modal" data-target="#miventana1" ng-click="pagar()">PAGAR</a>
+                                      <a ng-if="sale.montoTotal<0"class="btn btn-info ng-binding" ng-click="pagar()">PAGAR</a>
                                     </div>
                                   </div>
                                 </tr>
@@ -792,7 +792,7 @@
 
 <script type="text/ng-template" id="myPopoverTemplate5.html">
       <div class="form-group">
-          <label>@{{dynamicPopover5.title}}</label>
+          <label>Stock</label>
         </div>
 
         <div>
@@ -805,7 +805,7 @@
         <label>@{{compras[$index].stock2 | number:0}}</label>
         </div>
         <div>
-        <label>Stock Tot: </label>
+        <label>Total: </label>
         <label>@{{compras[$index].totStock | number:0}}</label>
         </div>
 
@@ -844,16 +844,17 @@
 
     <script type="text/ng-template" id="myPopoverTemplate.html">
         <div class="form-group">
-          <label>@{{dynamicPopover.title}}</label>
+          <label>Cantidad</label>
           <div class="row" >
-          <div class="col-md-9">
-            <input type="number" min="0" ng-model="compras[$index].cantidad" ng-change="recalCatidad($index)" class="form-control">
+          <div class="col-md-4">
+            <input style="width:55px;" type="number" min="0" ng-model="compras[$index].cantidad" ng-change="recalCatidad($index)" class="form-control">
             </div>
-            <button type="button" class="btn btn-xs" ng-click="aumentarCantidad($index)">
+          
+           <!-- <button type="button" class="btn btn-xs" ng-click="aumentarCantidad($index)">
             <span type="button" class="glyphicon glyphicon-plus"></span></button>
             <button type="button" class="btn btn-xs" ng-click="disminuirCantidad($index)">
-            <span type="button" class="glyphicon glyphicon-minus"></span></button>
-
+            <span type="button" class="glyphicon glyphicon-minus"></span></button>-->
+         
           </div>
         </div>
     </script>

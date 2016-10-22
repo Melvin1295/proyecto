@@ -16,6 +16,9 @@ class VariantRepo extends BaseRepo{
             //$query->orderBy('id');
         },'stock','product']);
     }
+    public function find2($id){
+        return Variant::find($id);
+    }
 
     public function getAttr($id){
         return Variant::find($id)->load(['detAtr']);
@@ -207,7 +210,8 @@ class VariantRepo extends BaseRepo{
                             ->select(\DB::raw('products.id as proId,brands.nombre as BraName,types.nombre as TName,products.codigo as proCodigo,products.nombre as proNombre,
                               variants.id as varid,variants.sku as varcode,variants.suppPri as varPrice,variants.price as precioProducto,
                                products.hasVariants as TieneVariante,products.created_at as proCreado,brands.id as BraID,materials.id as MId
-                              ,materials.nombre as Mnombre,variants.codigo as varCodigo,detAtr.descripcion as descripcion,products.quantVar as proQuantvar,(SELECT GROUP_CONCAT(CONCAT(atributes.shortname,":",detAtr.descripcion) SEPARATOR "/") FROM variants
+                              ,materials.nombre as Mnombre,variants.codigo as varCodigo,detAtr.descripcion as descripcion,products.quantVar as proQuantvar,
+                              (SELECT GROUP_CONCAT(CONCAT(detAtr.descripcion) SEPARATOR "/") FROM variants
                                 INNER JOIN detAtr ON detAtr.variant_id = variants.id
                                 INNER JOIN atributes ON atributes.id = detAtr.atribute_id
                                 where variants.id=varid

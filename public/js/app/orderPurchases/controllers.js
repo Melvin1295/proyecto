@@ -21,6 +21,8 @@
                 $scope.payment={};
                 $scope.atributes=[];
                 $scope.atribute={};
+                $scope.checkfinal=true;
+                $scope.orderPurchase.tipoDoc="F";
                 //$scope.detPayments=[];
                 $scope.cantidad;
                 $scope.detPayment={};
@@ -44,7 +46,9 @@
                 $scope.company={};
 
 
-
+                 $scope.redirectSupplier= function(){
+                    $window.open('/suppliers/create');
+                 }
                 $scope.pageChanged = function() {
                     if ($scope.query.length > 0) {
                         crudPurchase.search('orderPurchases',$scope.query,$scope.currentPage).then(function (data){

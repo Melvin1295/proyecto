@@ -52,19 +52,7 @@
                       </div>
           </div>
          
-          <div  class="col-md-3">
-          <div class="form-group" ng-class="{true: 'has-error'}[ inputStocksCreateForm.warehouse.$error.required && inputStocksCreateForm.$submitted || inputStocksCreateForm.warehouse.$dirty && inputStocksCreateForm.warehouse.$invalid]">
-                       <label for="Tienda">Almacen: </label>
-                       <select ng-disabled="mostrarCreate" class="form-control" name="warehouse"  ng-model="purchase.warehouses_id" ng-options="item.id as item.nombre for item in warehouses" required>
-                       <option value="">--Elija almacen--</option>
-                       </select>
-                       <label ng-show="inputStocksCreateForm.$submitted || inputStocksCreateForm.warehouse.$dirty && inputStocksCreateForm.warehouse.$invalid">
-                                <span ng-show="inputStocksCreateForm.warehouse.$invalid"><i class="fa fa-times-circle-o"></i>Requerido.</span>
-                      </label>
-                       
-          </div>
-           
-      </div>
+        
        <div  class="col-md-3">
                 <div class="form-group" ng-class="{true: 'has-error'}[ inputStocksCreateForm.warehouse.$error.required && inputStocksCreateForm.$submitted || inputStocksCreateForm.warehouse.$dirty && inputStocksCreateForm.warehouse.$invalid]">
                        <label for="Tienda">Tipo: </label>
@@ -79,6 +67,19 @@
                        
                     </div>
           </div>
+            <div  class="col-md-3">
+          <div class="form-group" ng-class="{true: 'has-error'}[ inputStocksCreateForm.warehouse.$error.required && inputStocksCreateForm.$submitted || inputStocksCreateForm.warehouse.$dirty && inputStocksCreateForm.warehouse.$invalid]">
+                       <label for="Tienda">Lugar @{{purchase.tipo}}: </label>
+                       <select ng-disabled="mostrarCreate" class="form-control" name="warehouse"  ng-model="purchase.warehouses_id" ng-options="item.id as item.nombre for item in warehouses" required>
+                       <option value="">--Elija almacen--</option>
+                       </select>
+                       <label ng-show="inputStocksCreateForm.$submitted || inputStocksCreateForm.warehouse.$dirty && inputStocksCreateForm.warehouse.$invalid">
+                                <span ng-show="inputStocksCreateForm.warehouse.$invalid"><i class="fa fa-times-circle-o"></i>Requerido.</span>
+                      </label>
+                       
+          </div>
+           
+      </div>
           
      </div>
      <div  ng-hide="mostrarCreate" class="row">
@@ -108,7 +109,7 @@
                 <div class="input-group">
                 <div class="form-group" ng-class="{true: 'has-error'}[ inputStocksBodyCreateForm.empresa.$error.required && inputStocksBodyCreateForm.$submitted || inputStocksBodyCreateForm.empresa.$dirty && inputStocksBodyCreateForm.empresa.$invalid]">
               
-              <label>Producto(Stock Actual:@{{inputStock.CantidaStock}})</label>
+              <label>Producto->Stock Actual:<spam style="color:blue;">@{{inputStock.CantidaStock}}<spam></label>
                 
                <input  ng-disabled="check" typeahead-on-select="asignarProduc1()" type="text" ng-model="product.proId" placeholder="Locations loaded1 via $http" 
           typeahead="variant as variant.proNombre+'('+(variant.Mnombre==null ? '':variant.Mnombre+'/')+(variant.NombreAtributos==null ? '':variant.NombreAtributos)+')' for variant in variants1 | filter:$viewValue | limitTo:8" 
@@ -210,7 +211,7 @@
                     <a  type="submit" ng-click="nuevo()" class="btn btn-success btn-xs">Limpiar</a>
            </div>
           <div class="col-md-1">
-                    <a  type="submit" type="submit" ng-click="noreapeatrow()" class="btn btn-success btn-xs">Agregar Producto</a>
+                    <a  type="submit" type="submit" ng-click="noreapeatrow()" class="btn btn-warning btn-xs">Agregar Producto</a>
            </div>
       </div>
   </form>  

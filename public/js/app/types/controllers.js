@@ -11,7 +11,9 @@
                 $scope.toggle = function () {
                     $scope.show = !$scope.show;
                 };
-
+$scope.prueba=function(){
+                    alert("hola");
+                }
                 $scope.pageChanged = function() {
                     if ($scope.query.length > 0) {
                         crudService.search('types',$scope.query,$scope.currentPage).then(function (data){

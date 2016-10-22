@@ -785,7 +785,7 @@
                     //}
                 };
                 $scope.Jalar = function(size,estadoOfer) {
-                    //alert("dentro de jala"+estadoOfer);
+                //alert("dentro de jala"+estadoOfer);
                    // $log.log($scope.varianteSkuSelected1.length);
                     if ($scope.varianteSkuSelected1.length>0) {
                         crudServiceOrders.reportProWare('productsVariantes',$scope.store.id,$scope.warehouse.id,$scope.varianteSkuSelected1[0].vari).then(function(data){    
@@ -922,7 +922,7 @@
                 $scope.coloButton2={};
                 $scope.cambiarColoButton=function(index,row){
                     //if(confirm("Esta seguro de querer Activar Oferta")==true){
-                         $scope.coloButton[index]='info';
+                         $scope.coloButton[index]='success';
                          $scope.coloButton2[index]='default';
                          row.estado=1;
 
@@ -932,20 +932,20 @@
                 
                 $scope.cambiarColoButton2=function(index,row){
                     //if(confirm("Esta seguro de querer Desactivar Oferta")==true){
-                         $scope.coloButton2[index]='info';
+                         $scope.coloButton2[index]='success';
                          $scope.coloButton[index]='default';
                          row.estado=0;
                          $scope.editPromcion(row);
                      //}
                 }
                 $scope.cambiarColoButtonini=function(index){
-                         $scope.coloButton[index]='info';
+                         $scope.coloButton[index]='success';
                          $scope.coloButton2[index]='default';
                     
                 }
                 
                 $scope.cambiarColoButtonini2=function(index){
-                         $scope.coloButton2[index]='info';
+                         $scope.coloButton2[index]='success';
                          $scope.coloButton[index]='default';
                          
                 }
@@ -1126,12 +1126,13 @@
                     $scope.sale.montoTotal=$scope.sale.montoTotalSinDescuento-$scope.compras[index].subTotal;
 
                     if($scope.bandera){
-                        $scope.compras[index].precioVenta=Number(Math.round(Number((((100-Number($scope.compras[index].descuento))*Number($scope.compras[index].precioProducto))/100).toFixed(2))).toFixed(2));
+                        $scope.compras[index].precioVenta=Number((((100-Number($scope.compras[index].descuento))*Number($scope.compras[index].precioProducto))/100).toFixed(2));
+                        $scope.compras[index].precioVenta=$scope.decimalAdjust('round', $scope.compras[index].precioVenta,-1)
                     }else{
                         $scope.compras[index].descuento=Number((((Number($scope.compras[index].precioProducto)-Number($scope.compras[index].precioVenta))*100)/Number($scope.compras[index].precioProducto)).toFixed(2));
                     }
-                    $scope.compras[index].subTotal=Number(Math.round(Number(($scope.compras[index].cantidad*Number($scope.compras[index].precioVenta)).toFixed(2))).toFixed(2));
-
+                    $scope.compras[index].subTotal=Number(($scope.compras[index].cantidad*Number($scope.compras[index].precioVenta)).toFixed(2));
+                    $scope.compras[index].subTotal=$scope.decimalAdjust('round', $scope.compras[index].subTotal,-1)
                     $scope.sale.montoTotal=$scope.sale.montoTotal+$scope.compras[index].subTotal;
                     $scope.recalcularCompra();
                     //$scope.sale.montoTotalSinDescuento=$scope.sale.montoTotal;
@@ -1335,6 +1336,7 @@
                               $scope.sale.totalDescuentos=$scope.sale.totalDescuentos+$scope.compras[i].descuento;
                               $scope.sale.totalDescuentSoles=$scope.sale.totalDescuentSoles+(($scope.compras[i].precioProducto-$scope.compras[i].precioVenta)*$scope.compras[i].cantidad);
                         }
+                        $scope.sale.totalDescuentos=Number($scope.sale.totalDescuentos)/$scope.compras.length;
                     $scope.sale.montoTotalSinDescuento=$scope.sale.montoTotal;
                     $scope.sale.montoTotal=((100-Number($scope.sale.descuento))*Number($scope.sale.montoTotalSinDescuento))/100;    
 
@@ -1645,6 +1647,7 @@
 
 
                  $scope.open = function (size) {
+                   // alert("aqui");
                     $log.log($scope.atributoSelected+" open");                    
                     $scope.cargarAtri(size);                   
                 };
@@ -2222,15 +2225,27 @@
                     $scope.fechafin[index].fecha=fecha;
                 }
                 $scope.GuardarEditPromoiones=function(){
+                      crudServiceOrders.update($scope.editFecha, 'promocionFecha').then(function (data) {
+                          
+                            if (data['estado'] == true) {
+                                alert('grabado correctamente');
+                                 $route.reload();
+                                 
+                            } else {
+                                $scope.errors = data;
 
+                            }
+                    });
                 }
                 $scope.ValidadEditPromotions=function(index,data,fecha){
                    // $scope.fechafin[index]=1;
                    //var fecha = new Date(data.fechaOri);
                     //alert(fecha);
-                    alert(parseInt(data.fechaOri.substring(8)));
-                    var fFin=fecha.getFullYear()+'-'+(fecha.getMonth()+1)+'-'+fecha.getDate();
+                    //alert(parseInt(data.fechaOri.substring(8)));
+                    var fFin=fecha.getFullYear()+'-'+(fecha.getMonth()+1)+'-'+fecha.getDate()+" "+"00:00:00";
+                    alert(fFin);
                     $scope.editFecha.fecha_fin=fFin;
+                    $scope.editFecha.numero=data.numero;
                     if(parseInt(data.fechaOri.substring(0,4)) == parseInt(fFin.substring(0,4))){
                         if(parseInt(data.fechaOri.substring(5,7)) == parseInt(fFin.substring(5,7))){
                            if(parseInt(data.fechaOri.substring(8)) == parseInt(fFin.substring(8))){
@@ -2312,6 +2327,28 @@
                 $scope.mostrarformProm=function(){
                        $scope.formPromocion=!$scope.formPromocion;
                 }
+                $scope.decimalAdjust=function(type, value, exp) {
+    // Si el exp no está definido o es cero...
+    if (typeof exp === 'undefined' || +exp === 0) {
+      return Math[type](value);
+    }
+    value = +value;
+    exp = +exp;
+    // Si el valor no es un número o el exp no es un entero...
+    if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+      return NaN;
+    }
+    // Shift
+    value = value.toString().split('e');
+    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+    // Shift back
+    value = value.toString().split('e');
+    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+  }
+
+ 
+      
+   
                 $scope.DropPromotions=function(row){
                        
                        crudServiceOrders.destroy(row,'promocion').then(function(data)

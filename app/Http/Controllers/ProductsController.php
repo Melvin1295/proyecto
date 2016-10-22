@@ -434,7 +434,7 @@ class ProductsController extends Controller
             return response()->json($customers);
         }*/
     public function brands_select(){
-        $brands = Brand::lists('nombre','id');
+        $brands = Brand::orderBy('nombre','asc')->lists('nombre','id');
         return response()->json($brands);
     }
     public function materials_select(){
@@ -442,7 +442,7 @@ class ProductsController extends Controller
         return response()->json($materials);
     }
     public function types_select(){
-        $types = Ttype::lists('nombre','id');
+        $types = Ttype::orderBy('nombre','asc')->lists('nombre','id');
         return response()->json($types);
     }
     public function stations_select(){

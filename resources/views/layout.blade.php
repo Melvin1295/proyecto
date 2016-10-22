@@ -493,6 +493,7 @@
           <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
           <!-- Settings tab content -->
           <div class="tab-pane" id="control-sidebar-settings-tab">
+          
             <form method="post">
               <h3 class="control-sidebar-heading">General Settings</h3>
               <div class="form-group">
@@ -546,10 +547,15 @@
                   Delete chat history
                   <a href="javascript::;" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
                 </label>                
-              </div><!-- /.form-group -->
+              </div>
+             
+              <!-- /.form-group -->
             </form>
+
+            </div>
+
           </div><!-- /.tab-pane -->
-        </div>
+      
       </aside><!-- /.control-sidebar -->
       <!-- Add the sidebar's background. This div must be placed
            immediately after the control sidebar -->

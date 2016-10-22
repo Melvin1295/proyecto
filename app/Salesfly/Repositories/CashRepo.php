@@ -62,6 +62,7 @@ class CashRepo extends BaseRepo{
                                 (SUBSTRING(cashes.fechaFin,6,2)),'-',
                                 (SUBSTRING(cashes.fechaFin,1,4)),' ',
                                 (SUBSTRING(cashes.fechaFin,11)))as fechaCREADOFIN"))
+                    ->orderBY("cashes.id","desc")
                     ->paginate($q);
         return $cashes;
     }

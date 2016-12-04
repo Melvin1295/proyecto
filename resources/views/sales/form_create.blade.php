@@ -1,6 +1,6 @@
 <section class="noPrintx">
  <section class="content-header">
-          <h1>
+          <h1 class="fa fa-shopping-cart">
             Venta
             <small>Panel de Control</small>
           </h1>
@@ -19,7 +19,7 @@
 
           <div class="box box-primary">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Crear Venta</h3>
+                  <h3 class="box-title"><b>GO HARD NUTRITION</b></h3>
                 </div><!-- /.box-header -->
                 <!-- form start -->
                 <form name="storeCreateForm" role="form" novalidate>
@@ -37,11 +37,11 @@
 
             <div class="nav-tabs-custom" id="myTabs">
                 <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Venta</a></li>
-                  <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false" ng-click="actualizarCaja()">Caja Venta</a></li>
-                  <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Opciones</a></li>
-                  <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Reporte</a></li>
-                  <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false" ng-click="cargarConsulta()">Consultas</a></li>
+                  <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Nueva Venta</a></li>
+                  <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false" ng-click="actualizarCaja()">Total Ventas</a></li>
+                  <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Opciones de Caja</a></li>
+                  <li ng-hide="true" class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Reporte</a></li>
+                  <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false" ng-click="cargarConsulta()">Consulta de productos</a></li>
                   <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" ng-click="cargarPromociones()">Promociones</a></li>
                   
                 
@@ -81,8 +81,9 @@
                            </div> 
  
                         </div><!-- /.box-header -->
-                        <div class="box-body" style="min-height: 400px; border-style: solid;
-                                border-width: 2px; border-color: #C8D9F7;" >
+                        <div class="box-body" style="min-height: 185px; border-style: solid;
+                                border-width: 2px; border-color: #C8D9F7; overflow-x:scroll;" >
+
                           <table class="table table-bordered">
                                              
                             <tr ng-repeat="row in compras track by $index">
@@ -196,7 +197,7 @@
 
                     </div>
 
-                    <div class="col-md-6" style="min-height: 670px; border-style: solid;
+                    <div class="col-md-6" style="min-height: 490px; border-style: solid;
                                 border-width: 2px; border-color: #C8D9F7; border-radius:10px" >
                         <div>
                         <div class="modal-header">
@@ -240,9 +241,11 @@
                   </div>
 
                   </div><!-- /.tab-pane -->
-
+                
                   <div class="tab-pane" id="tab_2">
+                  <div class="box-body table-responsive no-padding">
                     <table class="table table-bordered">
+                    <thead>
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>Fecha</th>
@@ -257,7 +260,7 @@
 
                       <th>Ver Venta</th>
                     </tr>
-                    
+                    </thead><tbody>
                     <tr ng-repeat="row in detCashes">
                       <td>@{{$index + 1}}</td>
                       <td>@{{row.fecha}}</td>
@@ -269,14 +272,23 @@
                       <td>@{{row.tarjeta}}</td>
                       <td>@{{row.efectivo}}</td>
                       <td>@{{row.notas}}</td>
-                        <td ng-if="row.estado==0" style="color: yellow;">Pend.</td>
-                        <td ng-if="row.estado==1" style="color: green;">Term.</td>
-                        <td ng-if="row.estado==3" style="color: red;">Anul.</td>
+                        <td ng-if="row.estado==0" style="color: yellow;">Pend</td>
+                        <td ng-if="row.estado==1" style="color: green;">Pagado</td>
+                        <td ng-if="row.estado==3" style="color: red;">Anulada</td>
 
                       <td ng-if="row.cashMotive_id==1 || row.cashMotive_id==14"><a href="/sales/edit/@{{row.id}}" target="_blank">ver venta</a></td>
                       <td ng-if="row.cashMotive_id!=1 && row.cashMotive_id!=14">@{{row.id}}</td>
-                    </tr>                   
-                  </table>
+                    </tr>     </tbody>
+                    <tfoot>
+                      <tr>
+                      <th colspan="6" style="text-align:right;">Total:</th>
+                      <th>@{{totTarjetaCaja}}</th>
+                      <th>@{{totEfectivoCaja}}</th>
+                      <th colspan="3">@{{totTarjetaCaja+totEfectivoCaja}}</th>
+                      </tr>
+                    </tfoot>              
+                  </table></div>
+                   
                   <div class="box-footer clearfix">
                     <pagination total-items="totalItems1" ng-model="currentPage1" max-size="maxSize1" 
                     class="pagination-sm no-margin pull-right" items-per-page="itemsperPage1" boundary-links="true" rotate="false" 
@@ -467,11 +479,10 @@
                                </div>
                           </form>
                       </th>
-                      <th>SKU</th>
-                      <th><select class="form-control" name="" ng-model="materialId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in brands">
-                          <option value="">Material - Todos</option>
-                      <th><select class="form-control" name="" ng-model="lineaId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in types">
-                          <option value="">Linea - Todos</option>
+                      <th style="width:140px;"><select class="form-control" name="" ng-model="materialId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in brands">
+                          <option value="">MARCAS</option>
+                      <th style="width:152px;"><select class="form-control" name="" ng-model="lineaId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in types">
+                          <option value="">CATEGORIAS</option>
                           </select></th>
                       <th>Sabor</th>
                       <th>Cantidad</th>
@@ -487,10 +498,9 @@
                     <tr ng-repeat="row in variants1 track by $index">
                       <td>@{{$index + 1}}</td>
                       <td>@{{row.Producto}}</td>
-                      <td>@{{row.codigo}}</td>
                       <td>@{{row.Mate}}</td>
                       <td>@{{row.Linea}}</td>
-                      <td>@{{row.Color}}</td>
+                      <td>@{{row.Taco}}</td>
                       <td>@{{row.Tallas}}</td>
                       <td>@{{row.stock}}</td>
                       <td>@{{
@@ -694,7 +704,7 @@
                      
                      </form></div>
                      <br>
-                   
+                   <div class="box-body table-responsive no-padding">
                      <table class="table table-striped">
                        <thead>
                          <tr>
@@ -761,7 +771,7 @@
                            </td>
                          </tr>
                        </tbody>
-                     </table>
+                     </table></div>
                      <div class="box-footer clearfix">
                   <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm no-margin pull-right" items-per-page="itemsperPage" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()"></pagination>
                   </div>
@@ -948,7 +958,7 @@
                   <div style="border-radius: 5px" class="modal-content">
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="ngenabled"> &times; </button>
-                          <h4 class="modal-title">Opciones Año</h4>
+                          <h4 class="modal-title">Registrar Nuevo Cliente</h4>
                         </div>
                         <form name="customerCreateForm" role="form" novalidate> 
                         <!--=================cueropo========================-->
@@ -1011,16 +1021,19 @@
                       </div>
 
                         <div class="col-md-3">
+                                   <div ng-show="false">
+                                     @{{customer.autogenerado=true}}
+                                   </div>
                                   <div class="form-group">
                                       <label for="apellidos">Autogenerado</label><br>
-                                      <input type="checkbox" ng-model="customer.autogenerado"> Cód. gen.
+                                      <input type="checkbox" ng-model="customer.autogenerado" default="true"> Cód. gen.
                                   </div>
                               </div>
                     </div>
                     <div class="row" >
                     <div class="col-md-5"> 
                     <div class="form-group" ng-class="{true: 'has-error'}[ customerCreateForm.fechaNac.$error.required && customerCreateForm.$submitted || customerCreateForm.fechaNac.$dirty && customerCreateForm.fechaNac.$invalid]">
-                    <label for="fechaNac">Fecha de Nac.</label>
+                    <label for="fechaNac">Fecha de Nacimiento</label>
                                         <div class="input-group">
                                           <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>

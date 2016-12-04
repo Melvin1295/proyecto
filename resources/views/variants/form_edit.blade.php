@@ -55,7 +55,7 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="">Presentación Base:</label>
+                                    <label for="">Presentación del Producto:</label>
                                     <select  class="form-control" ng-model="variant.presentation_base_object" ng-change="changePreBase()" ng-options="item as item.nombre for item in presentations_base">
                                         <option value="">-- Elige Presentación Base--</option>
                                     </select>
@@ -88,11 +88,11 @@
 
                                     <div class="form-group">
                                         <label>Imagen</label>
-                                        <input type="file" ng-model="variant.image" id="variantImage" name="variantImage"/>
+                                        <input type="file"  ng-model="variant.image" id="variantImage" name="variantImage"/>
 
                                     </div>
                                 <div class="form-group">
-                                    <img ng-src="@{{variant.image}}" alt="" class="img-thumbnail"/>
+                                    <img ng-src="@{{variant.image}}" style="width: 200px; height: 200px;" alt="" class="img-thumbnail" width="200" height="200" />
                                 </div>
 
                             </div>
@@ -133,9 +133,9 @@
                         <!--  =============================================================================PRESENTACIONES===============================================================-->
                         <div class="box box-default" id="price">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Presentaciones del Producto     </h3>
-                                <button class="btn btn-xs btn-info btn-flat" data-toggle="modal" data-target="#presentation" ng-click="traerPres(variant.presentation_base)" ng-disabled="enabled_presentation_button" >Añadir Presentación</button>
-                                <button class="btn btn-xs btn-warning btn-flat" data-toggle="modal" data-target="#createpresentation"  ng-disabled="enabled_createpresentation_button" >Crear Presentación</button>
+                                <h3 class="box-title">Presentaciones y costos del Producto</h3>
+                                <button class="btn btn-xs btn-info btn-flat" data-toggle="modal" data-target="#presentation" ng-click="traerPres(variant.presentation_base)" ng-disabled="enabled_presentation_button" >Asignar Presentación y Precios</button>
+                                <button class="btn btn-xs btn-warning btn-flat" data-toggle="modal" data-target="#createpresentation"  ng-disabled="enabled_createpresentation_button" >Crear nueva Presentación</button>
                                 <div class="box-tools pull-right">
                                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 </div><!-- /.box-tools -->
@@ -149,43 +149,47 @@
                                         <table class="table table-bordered">
                                             <tbody><tr>
                                                 <th>#</th>
-                                                <th>Presentación</th>
-                                                <th>Precio de Proveedor Soles</th>
-                                                <th>Tipo de Cambio</th>
-                                                <th>Precio de Proveedor Dólares</th>
-                                                <th>% de Utilidad</th>
-                                                <th>Cant. de Utilidad</th>
-                                                <th>Precio de Venta</th>
-                                                <th>% Descuento</th>
-                                                <th>Cant de Descuento</th>
-                                                <th>PVP</th>
-                                                <th>Dscto Rango Activado</th>
-                                                <th>Fecha Inicio</th>
-                                                <th>Fecha Fin</th>
-                                                <th>% Descuento</th>
-                                                <th>Cant de Descuento</th>
-                                                <th>PVP (Rango)</th>
+                                                <th style="width:10% !important;">Presentación</th>
+                                                <th>Pre. Compra($USD)</th>
+                                                <th>T.C. Dolar(USD)</th>
+                                                <th >Pre. Compra(S/.)</th>
+                                                
+                                                
+                                                <th>% De Ganancia</th>
+                                                <th>Cant. Ganancia</th>
+                                                <th>P.V.P.</th>
+                                                <th>% De Desct.</th>
+                                                <th>Cant. Desct.</th>
+                                                <th>P.V. Clte.</th>
+                                                <th>Dsct. Fecha</th>
+                                                <th ng-show="presentation.activateDsctoRange">Fecha_Inicio.</th>
+                                                <th ng-show="presentation.activateDsctoRange">Fecha_Fin.</th>
+                                                <th ng-show="presentation.activateDsctoRange">% De Desct.</th>
+                                                <th ng-show="presentation.activateDsctoRange">Cant. Desct.</th>
+                                                <th ng-show="presentation.activateDsctoRange">P.V.Clte. (Fecha)</th>
                                                 <th>Opciones</th>
                                             </tr>
                                             <tr ng-repeat="row in variant.presentations">
                                                 <td>@{{$index + 1}}</td>
                                                 <td>@{{row.nombre}}</td>
-                                                <td>@{{row.suppPri}}</td>
-                                                <td>@{{row.cambioDolar}}</td>
-                                                <td>@{{row.suppPriDol}}</td>
-                                                <td>@{{row.markup}}</td>
-                                                <td>@{{row.markupCant}}</td>
-                                                <td>@{{row.price}}</td>
-                                                <td>@{{row.dscto}}</td>
-                                                <td>@{{row.dsctoCant}}</td>
-                                                <td>@{{row.pvp}}</td>
-                                                <td ng-if="row.activateDsctoRange == '1'" style="color:red;">SI</td>
-                                                <td ng-if="row.activateDsctoRange == '0'" style="color:red;">NO</td>
-                                                <td>@{{row.fecIniDscto}}</td>
-                                                <td>@{{row.fecFinDscto}}</td>
-                                                <td>@{{row.dsctoRange}}</td>
-                                                <td>@{{row.dsctoCantRange}}</td>
-                                                <td>@{{row.pvpRange}}</td>
+                                                <td>$ @{{row.suppPriDol}}</td>
+                                                 <td>@{{row.cambioDolar}}</td>
+                                                <td >S/.@{{row.suppPri}}</td>
+                                               
+                                                
+                                                <td>@{{row.markup}}%</td>
+                                                <td>S/.@{{row.markupCant}}</td>
+                                                <td>S/.@{{row.price}}</td>
+                                                <td>@{{row.dscto}}%</td>
+                                                <td>S/.@{{row.dsctoCant}}</td>
+                                                <td>S/.@{{row.pvp}}</td>
+                                                <td ng-if="row.activateDsctoRange == '1'" style="color:green;">ACTIVADO</td>
+                                                <td ng-if="row.activateDsctoRange == '0'" style="color:red;">DESACTIVADO</td>
+                                                <td ng-if="row.activateDsctoRange == '1'">@{{row.fecIniDscto}}</td>
+                                                <td ng-if="row.activateDsctoRange == '1'">@{{row.fecFinDscto}}</td>
+                                                <td ng-if="row.activateDsctoRange == '1'">@{{row.dsctoRange}} %</td>
+                                                <td ng-if="row.activateDsctoRange == '1'">S/.@{{row.dsctoCantRange}}</td>
+                                                <td ng-if="row.activateDsctoRange == '1'">S/.@{{row.pvpRange}}</td>
 
                                                 <td>
                                                     <a href="" class="btn btn-warning btn-xs" ng-click="editPres(row, $index)"><i class="fa fa-fw fa-pencil"></i></a>
@@ -208,7 +212,7 @@
                         <!--  =============================================================================INVENTARIOS===============================================================-->
                         <div class="box box-default" id="inventory">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Inventario</h3>
+                                <h3 class="box-title">Stock del Producto</h3>
                                 <div class="box-tools pull-right">
                                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 </div><!-- /.box-tools -->
@@ -217,7 +221,7 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="sku">Sku Unidadess: <br>(Stock Keep Unit) </label>
+                                            <label for="sku">Sku Unidades: <br>(Stock Keep Unit) </label>
 
                                         </div>
                                     </div>
@@ -264,10 +268,10 @@
 
                                                                                                 <span ng-repeat="row in warehouses | filter:query">
                                                                                                 <div class="row">
-                                                                                                <div class="col-md-3 col-md-offset-1">
+                                                                                                <div class="col-md-3 col-md-offset-1" style="text-align: right;">
                                                                                                     <div class="form-group" >
                                                                                                         <label for=""></label>
-                                                                                                        <h5>@{{ row.nombre }}</h5>
+                                                                                                        <h5><b>@{{ row.nombre }}:</b></h5>
                                                                                                         <input type="hidden" class="" ng-model="variant.stock[$index].warehouse_id" ng-init="variant.stock[$index].warehouse_id = row.id"/>
 
                                                                                                     </div></div>
@@ -321,7 +325,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Añadir Presentación</h4>
+                <h3 class="modal-title">Asignar Presentación y Precios</h3>
 
             </div>
             <div class="modal-body">
@@ -338,7 +342,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="suppPric">Cambio de Dolar</label>
+                        <label for="suppPric">T.C. Dolar (USD)</label>
                         <input type="number" name="table_search" class="form-control pull-rigt" string-to-number ng-model="presentation.cambioDolar" ng-change="calculateCambioDolar()">
                     </div>
                 </div>
@@ -346,43 +350,44 @@
                     <div class="col-md-4">
                         <input type="text" class="form-control hidden" name="presentation.nombre" ng-model="presentation.nombre">
                         <div class="form-group" >
-                            <label for="suppPric">Pre. Compra (S/.)</label>
-                            <input type="number" class="form-control" name="suppPric1" string-to-number placeholder="0.00" ng-model="presentation.suppPri" ng-change="calculateSuppPric()" step="0.1">
-                            <label for="suppPric">Pre. Compra($USS)</label>
+                            <label for="suppPric">Pre. Compra($USD)</label>
                             <input type="number" class="form-control" name="suppPriDolar" string-to-number placeholder="0.00" ng-model="presentation.suppPriDol" ng-change="calculateSuppPricDol()" step="0.1">
 
+                            <label for="suppPric">Pre. Compra (S/.)</label>
+                            <input type="number" class="form-control" name="suppPric1" string-to-number placeholder="0.00" ng-model="presentation.suppPri" ng-change="calculateSuppPric()" step="0.1">
+                            
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group" > <label for="suppPric">% de Ganancia</label> <input type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup" ng-change="calculateMarkup()" step="0.1">
+                        <div class="form-group" > <label for="suppPric">% De Ganancia</label> <input type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup" ng-change="calculateMarkup()" step="0.1">
                             <label for="suppPric">Cant. de Ganancia</label>
                             <input type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markupCant" ng-change="calculateMarkupCant()" step="0.1">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group" >
-                            <label for="suppPric">Precio de Venta</label>
+                            <label for="suppPric">P.V.P.</label>
                             <input type="number" class="form-control" name="price1" string-to-number placeholder="0.00" ng-model="presentation.price" ng-change="calculatePrice()" step="0.1">
                         </div>
                     </div>
                 </div>
-                <h3>Descuentos</h3>
+                <h3>Descuento Cliente</h3>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group" >
-                            <label for="suppPric">% Descuento</label>
+                            <label for="suppPric">% De Desct.°</label>
                             <input type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dscto" ng-change="calculateDscto()" step="0.1">
-                            <label for="suppPric">Cant Descuento</label>
+                            <label for="suppPric">Cant. de Desct.°</label>
                             <input type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dsctoCant" ng-change="calculateDsctoCant()" step="0.1">
 
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="suppPric">% PVP</label>
+                        <label for="suppPric">P.V. Clte.</label>
                         <input type="number" class="form-control" string-to-number  ng-model="presentation.pvp" step="0.1" ng-change="calculatePVP()">
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group" > <label for="suppPric">% de Ganancia</label> <input ng-disabled="true" type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup1"  step="0.1">
+                        <div class="form-group" > <label for="suppPric">% De Ganancia</label> <input ng-disabled="true" type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup1"  step="0.1">
                             <label for="suppPric">Cant. de Ganancia</label>
                             <input ng-disabled="true" type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markupCant1"  step="0.1">
                         </div>
@@ -392,20 +397,20 @@
                 <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-6">
-                <h4>Descuentos por Rango</h4></div> <div class="col-md-6"><h4><input type="checkbox" ng-model="presentation.activateDsctoRange"> Activar</h4></div>
+                <h4>Descuento por Fecha</h4></div> <div class="col-md-6"><h4><input style="margin-left:50px;" type="checkbox" ng-model="presentation.activateDsctoRange"> Activar</h4></div>
                 </div>
                 <div class="row" ng-show="presentation.activateDsctoRange">
                     <div class="col-md-6">
 
                         <div class="form-group" >
-                            <label for="suppPric">Fecha de Inicio</label>
+                            <label for="suppPric">Fecha Inicio</label>
                             <input type="date" class="form-control" ng-model="presentation.fecIniDscto" ng-change="">
 
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group" >
-                            <label for="suppPric">Fecha de Fin</label>
+                            <label for="suppPric">Fecha Fin</label>
                             <input type="date" class="form-control" ng-model="presentation.fecFinDscto" ng-change="">
 
                         </div>
@@ -416,22 +421,22 @@
                 <div class="row"  ng-show="presentation.activateDsctoRange">
                     <div class="col-md-4">
                         <div class="form-group" >
-                            <label for="suppPric">% Descuento</label>
+                            <label for="suppPric">% De Desct.°</label>
                             <input type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dsctoRange" ng-change="calculateDsctoRange()" step="0.1">
-                            <label for="suppPric">Cant Descuento</label>
+                            <label for="suppPric">Cant. de Desct.°</label>
                             <input type="number" class="form-control" name="" string-to-number placeholder="0.00" ng-model="presentation.dsctoCantRange" ng-change="calculateDsctoCantRange()" step="0.1">
 
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group" >
-                            <label for="suppPric">% PVP (Rango)</label>
+                            <label for="suppPric">P.V. Clte.</label>
                             <input type="number" class="form-control" string-to-number ng-model="presentation.pvpRange" ng-change="calculatePVPRange()">
 
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group" > <label for="suppPric">% de Ganancia</label> <input ng-disabled="true" type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup2" ng-change="calculateMarkup()" step="0.1">
+                        <div class="form-group" > <label for="suppPric">% De Ganancia</label> <input ng-disabled="true" type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markup2" ng-change="calculateMarkup()" step="0.1">
                             <label for="suppPric">Cant. de Ganancia</label>
                             <input ng-disabled="true" type="number" class="form-control" name="markup1" string-to-number placeholder="0.00" ng-model="presentation.markupCant2" ng-change="calculateMarkupCant()" step="0.1">
                         </div>

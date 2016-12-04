@@ -392,8 +392,12 @@
                         case 12:$scope.mesActual='Diciembre';break;
                     }
                 }
+                $scope.totTarjetaCaja=0;
+                $scope.totEfectivoCaja=0
                 $scope.actualizarCaja= function(){
                     //$log.log($scope.cashfinal);
+                    $scope.totTarjetaCaja=0;
+                    $scope.totEfectivoCaja=0;
                     $scope.detCashes={};
                     if ( $scope.IDOriginalValidadoCaja == undefined) {       
                         //alert("Caja Cerrada");
@@ -409,11 +413,17 @@
                                     //$scope.detCashes = data.data;
                                     //crudServiceOrders.search('detCashesSale',$scope.cashfinal.id,1).then(function (data){
                                     //$log.log($scope.detCashes);
+                                    for (var i = data.data.length- 1; i >= 0; i--) {
+                                        
+                                        $scope.totTarjetaCaja=$scope.totTarjetaCaja+Number(data.data[i].tarjeta);
+                                        $scope.totEfectivoCaja=$scope.totEfectivoCaja+Number(data.data[i].efectivo);
+                                    };
                                     $scope.detCashes = data.data;
                                     $scope.maxSize1 = 5;
                                     $scope.totalItems1 = data.total;
                                     $scope.currentPage1 = data.current_page;
                                     $scope.itemsperPage1 = 15;
+
                                 });
                           //  });
                         //});

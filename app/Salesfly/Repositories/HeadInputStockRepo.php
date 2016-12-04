@@ -25,7 +25,7 @@ class HeadInputStockRepo extends BaseRepo{
                                 (SUBSTRING(headInputStocks.Fecha,6,2)),'-',
                                 (SUBSTRING(headInputStocks.Fecha,1,4)),' ',
                                 (SUBSTRING(headInputStocks.Fecha,11)))as fechaMovi"))
-                            ->groupBy("headInputStocks.id")->paginate(15);
+                            ->groupBy("headInputStocks.id")->orderBy("headInputStocks.id","desc")->paginate(15);
         return $headInputStock;
     }
      public function select2($fechaini,$fechafin){

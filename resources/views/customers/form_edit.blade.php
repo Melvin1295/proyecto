@@ -235,7 +235,7 @@
 
 
                                     <div class="box-footer">
-                                        <button type="submit" class="btn btn-primary" ng-click="updateCustomer()">Crear</button>
+                                        <button type="submit" class="btn btn-primary" ng-click="updateCustomer()">Editar</button>
                                         <!--<input type="button" class="btn btn-danger" value="Cancel" onclick="location='/customers'">-->
                                         <a href="/customers" class="btn btn-danger">Cancelar</a>
                                     </div>

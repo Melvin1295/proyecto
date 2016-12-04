@@ -35,17 +35,17 @@
               <div class="row">
                   <div class="col-md-8">
                       <b>Descripción:</b> @{{ product.descripcion }} <br/> <br/>
-            ------------------------------------------------------------------------------------------------------------------------------------<br/>
-                      <b>SKU</b>: @{{variant.sku}}<br/>
+           
+                    
             <b>Marca:</b> @{{ product.brand.nombre }} <br/> <br/>
-            <b>Línea:</b> @{{ product.type.nombre }} <br/> <br/>
+            <b>Categoría:</b> @{{ product.type.nombre }} <br/> <br/>
             <b>Código Único de Producto:</b> @{{ product.codigo }}<br/> <br/>
                       <b>Código de Proveedor:</b> @{{ product.suppCode }} <br/><br/>
                   <span>Con. Inventario</span><input    type="checkbox"  name="variantes" ng-model="check" />
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-4" style=>
 
-                      <img class="pull-right img-thumbnail" ng-src="@{{product.image}}" alt=""/>
+                      <img class="pull-right img-thumbnail" width="210" height="210" ng-src="@{{product.image}}" alt=""/>
                   </div>
               </div>
 
@@ -69,11 +69,11 @@
                         <button type="button" class="btn btn-danger" ng-click="destroyVariant()">Si</button>
                         <button type="button" class="btn btn-default" ng-click="cancelVariant()">No</button>
                     </p>
-                </div>
-                            <div class="box-body no-padding">
+                </div><div class="box-body table-responsive no-padding">
+                            
                               <table class="table table-striped">
                                 <tbody><tr>
-                                  <th style="width: 10px">#</th>
+                                  <th style="width: 10px"></th>
                                     <th>Código</th>
                                   <th>SKU</th>
                                   <th>Variante</th>
@@ -82,12 +82,12 @@
                                   <th style="">En stock</th>
                                   <th ng-show="check">Stock Real</th>
                                     <th>Editar</th>
-                                    <th >Opción</th>
+                                    <th >Estado</th>
                                     <th >Eliminar</th>
                                 </tr>
                                 <tr ng-repeat="row in variants | filter:searchText">
 
-                                    <td><img src="@{{row.image}}" style="width:45px;"></td>
+                                    <td><img src="@{{row.image}}" style="width:45px; height:45px;"></td>
                                     <td>@{{ row.codigo }}</td>
                                     <td>@{{ row.sku }}</td>
                                     <td><a ng-href="/variants/edit/@{{row.id}}">@{{row.product.nombre}}
@@ -104,10 +104,10 @@
                                     <td><a ng-click="editVariant(row)" class="btn btn-warning btn-xs">Editar</a></td>
                                     <td>
                                         <span ng-if="row.estado == 1">
-                            <a ng-click="disableVariant(row)" class="btn bg-purple-active color-palette btn-xs">Desactivar</a>
+                            <a ng-click="disableVariant(row)" class="btn btn-success btn-xs">Activado</a>
                         </span>
                             <span ng-if="row.estado == 0">
-                            <a ng-click="disableVariant(row)" class="btn bg-purple-active color-palette btn-xs">Activar</a>
+                            <a ng-click="disableVariant(row)" class="btn btn-danger btn-xs">Desactivado</a>
                         </span>
 
                                     </td>

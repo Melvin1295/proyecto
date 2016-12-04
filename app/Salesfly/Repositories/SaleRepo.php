@@ -28,7 +28,9 @@ class SaleRepo extends BaseRepo{
                                 (SUBSTRING(sales.fechaAnulado,1,4)),' ',
                                 (SUBSTRING(sales.fechaAnulado,11)))as fechaANULADO2,salePayments.estado as estadoPago")
                                  )
-                        ->with('customer','employee');
+
+                        ->with('customer','employee')->orderBY('sales.id','desc');
+
         return $sale->paginate($count);
     }
     public function find($id)

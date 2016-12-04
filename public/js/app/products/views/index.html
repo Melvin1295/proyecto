@@ -66,7 +66,7 @@
                   <div class="box-body table-responsive no-padding">
                   <table class="table table-bordered table-hover">
                     <tr>
-                      <th style="width: 10px">#</th>
+                      <th style="width: 10px"></th>
                       <th>Código</th>
                       <th>Descripcion</th>
                         
@@ -78,7 +78,7 @@
                         <th>Stock</th>
                         <th ng-show="check">Stock Real</th>
                       <th style="width: 40px">Editar</th>
-                        <th>Estado</th>
+                        <th>Accion</th>
                       <th style="width: 40px">Eliminar</th>
                     </tr>
                     
@@ -86,7 +86,8 @@
                       <td><img src="{{row.image}}" style="width:45px;"></td>
 
                       <td>{{row.proCodigo }}</td>
-                      <td><a ng-href="/products/show/{{row.proId}}">{{row.proNombre}}</a></td>
+                      <td ng-if="row.proEstado == 1"><a ng-href="/products/show/{{row.proId}}">{{row.proNombre}}</a></td>
+                      <td ng-if="row.proEstado == 0">{{row.proNombre}}</td>
                         <td ng-show="false">{{row.detPresPri}}</td>
                       <td>{{row.braNombre}}</td>
                       <td>{{row.typNombre}}</td>
@@ -105,13 +106,13 @@
                         </td>
                       <td ng-show="check" style="width:90px;"><input type="number" class="form-control" ng-blur="llenarDatosTemp(row.proId,row)" ng-model="temporal[row.proId].stockReal"></td>
                       
-                      <td><a ng-click="editProduct(row)" class="btn btn-warning btn-xs">Editar</a></td>
+                      <td ><a ng-disabled="row.proEstado == 0" ng-click="editProduct(row)" class="btn btn-warning btn-xs">Editar</a></td>
                         <td>
                             <span ng-if="row.proEstado == 1">
-                            <a ng-click="disableProduct(row)" class="btn bg-purple-active color-palette btn-xs">Desactivar</a>
+                            <a ng-click="disableProduct(row)" class="btn btn-default btn-xs">Deshabilitar</a>
                         </span>
-                            <span ng-if="row.proEstado == 0">
-                            <a ng-click="disableProduct(row)" class="btn bg-purple-active color-palette btn-xs">Activar</a>
+                            <span ng-if="row.proEstado == 0"> 
+                            <a ng-click="disableProduct(row)" class="btn btn-success btn-xs">Habilitar</a>
                         </span>
 
                         </td>
@@ -148,7 +149,7 @@
 
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Variantes</h3>
+                        
                     </div><!-- /.box-header -->
 
                     <div class="box-body no-padding">
@@ -156,7 +157,9 @@
                             <tbody><tr>
                                 <th style="width: 10px">#</th>
                                 <th>Variante</th>
-                                <th>Precio</th>
+                                <th>P.V.P.</th>
+                                <th>% De Desct.°</th>
+                                <th>P.V. Cliente.</th>
                                 <th style="width: 40px">Stock</th>
                             </tr>
                             <tr ng-repeat="row in variants">
@@ -167,7 +170,11 @@
                                     </span>
 
                                 </a></td>
-                                <td>{{row.det_pre[0].price}}</td>
+                                <td style="text-align:center;">{{row.det_pre[0].price}}</td>
+                                <td style="text-align:center;">{{row.det_pre[0].dscto}}%</td>
+                                <td style="text-align:center;">{{row.det_pre[0].price-row.det_pre[0].dsctoCant}}</td>
+                               
+                                
                                 <td>{{row.stock[0].stockActual}}</td>
                             </tr>
 
@@ -187,13 +194,14 @@
 <!--==============================================end modal de variantes===============================================-->
 
 <script type="text/ng-template" id="stockTemplate.html">
-    <div class="box">
+    <div class="box"  >
         <div class="box-header">
             <h3 class="box-title">Stock</h3>
 
         </div><!-- /.box-header -->
-        <div class="box-body table-responsive no-padding">
-            <table class="table table-hover">
+        <div style="height:300px; overflow:scroll;">
+        
+            <table class="table table-hover" style="width:100%;">
                 <tbody><tr>
                     <th>#</th>
                     <th>Almacén</th>

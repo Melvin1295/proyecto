@@ -71,7 +71,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="">Presentación Base:</label>
+                                            <label for="">Presentación del Producto:</label>
                                             <select class="form-control" ng-model="product.presentation_base_object" ng-change="changePreBase()" ng-options="item as item.nombre for item in presentations_base">
                                                 <option value="">-- Elige Presentación Base--</option>
                                             </select>
@@ -136,7 +136,7 @@
 
                         </div>
                         <div class="form-group" >
-                            <label for="estado">¿Puede ser vendido/comprado?</label>
+                            <label for="estado">¿Activar Producto?</label>
                             <input type="checkbox" name="estado" ng-model="product.estado" ng-checked="product.estado"/>
                         </div>
 

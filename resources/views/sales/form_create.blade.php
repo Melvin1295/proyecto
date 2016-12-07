@@ -29,7 +29,7 @@
                       <li ng-repeat="row in errors track by $index"><strong >@{{row}}</strong></li>
                     </ul>
                   </div> 
-
+           <?php $role = Auth()->user()->role_id; ?>
 
 
 
@@ -490,8 +490,8 @@
                       <th>Descuento</th>
                       <th ng-show="false">Descuento Rango</th>
                       <th>Precio Normal</th>
-                      <th>Precio Oferta</th>
-                      <th>Ganancia</th>
+                       @if($role == 1)<th>Precio Oferta</th>@endif
+                       @if($role == 1)<th>Ganancia</th>@endif
                       <th>Puntos</th>
                     </tr>
                     
@@ -509,8 +509,9 @@
                       <td>@{{row.Precio}}</td>
 
                       
-                      <td ><input string-to-number style="width:60px;" type="number" ng-model="row.PrecioVenta" ng-change="recalculGanancia(row,$index)"></td>
-                      <td >@{{row.PrecioVenta-row.suppPri | number:2}}</td>
+                       @if($role == 1)<td ><input string-to-number style="width:60px;" type="number" ng-model="row.PrecioVenta" ng-change="recalculGanancia(row,$index)"></td>@endif
+                       @if($role == 1)<td >@{{row.PrecioVenta-row.suppPri | number:2}}</td> @endif
+
                       <td>@{{row.puntos}}</td>
                     </tr>
                     

@@ -260,7 +260,7 @@ Route::put('api/warehouses/edit',['as'=>'atribut_edit', 'uses'=>'WarehousesContr
 Route::post('api/warehouses/destroy',['as'=>'atribut_destroy', 'uses'=>'WarehousesController@destroy']);
 Route::get('api/warehouses/search/{q?}',['as'=>'atribut_search', 'uses'=>'WarehousesController@search']);
 Route::get('api/warehouses/find/{id}',['as'=>'atribut_find', 'uses'=>'WarehousesController@find']);
-
+Route::get('api/listaAlmacenesTienda/all',['uses'=>'WarehousesController@listaAlmacenesTienda']);
 Route::get('api/warehousesStore/search/{q?}',['as'=>'atribut_search', 'uses'=>'WarehousesController@searchWere']);
 
 Route::get('api/warehouses/search/{q?}/{id?}',['as'=>'atribut_search', 'uses'=>'WarehousesController@searchWarehouse']);

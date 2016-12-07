@@ -113,5 +113,12 @@ class WarehousesController extends Controller {
 
         return response()->json($warehouses);
     }
+    public function listaAlmacenesTienda()
+    {
+        //$q = Input::get('q');
+        $warehouses = $this->warehouseRepo->listaAlmacenesTienda();
+
+        return response()->json($warehouses);
+    }
 
 }

@@ -82,9 +82,11 @@
                 $scope.enabled_presentation_button = true;
                 $scope.enabled_createpresentation_button = false;
                 $scope.precioDolaCampo2=true;
+                $scope.idwarehouse='1';
                 /*
                 de variants create
                  */
+                 
                 $scope.categories=[{id:1,nombre:'Dama'},{id:2,nombre:'Caballero'},{id:3,nombre:'Niño'},{id:4,nombre:'Niña'}];
                 $scope.variant.category= 1;
                 //$log.log($scope.category);
@@ -474,6 +476,9 @@
                         crudService.select('products', 'brands').then(function (data) {
                             $scope.brands = data;
                         });
+                        crudService.all('listaAlmacenesTienda').then(function (data) {
+                            $scope.warehouses = data;
+                        });
                         crudService.select('products', 'materials').then(function (data) {
                             $scope.materials = data;
                         });
@@ -483,11 +488,11 @@
                         crudService.select('products', 'stations').then(function (data) {
                             $scope.stations = data;
                         });
-                        crudService.all('warehouses').then(function (data){
+                       /* crudService.all('warehouses').then(function (data){
                             $scope.warehouses = data;
                             //alert('h');
 
-                        });
+                        });*/
                         crudService.all('presentations_base').then(function(data){
                             //alert('holi');
                             $scope.presentations_base = data;
@@ -942,10 +947,14 @@
 
                 $scope.showVariants = function(row){
                     $scope.variants = [];
+                    crudService.all('listaAlmacenesTienda').then(function (data) {
+                            $scope.warehouses = data;
+                       
                     crudService.byforeingKey('variants','variants',row.proId).then(function(data)
                     {
                             $scope.variants = data;
                     })
+                     });
                     //crudService.
                 }
                 $scope.agregarenGrupo=function(){

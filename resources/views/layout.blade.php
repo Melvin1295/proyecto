@@ -164,14 +164,14 @@
               </a>
               <ul class="treeview-menu">
                 @if($role == 1)<li class=""><a href="/products" ><i class="fa fa-circle-o"></i>Productos</a></li>@endif
-                <li><a href="/purchases" ><i class="fa fa-circle-o"></i>Control de Stock</a></li>
-                <li><a href="/otherPheads" ><i class="fa fa-circle-o"></i>Compras Varios</a></li>
-                <li><a href="/brands" ><i class="fa fa-circle-o"></i>Marcas</a></li>
-                <li><a href="/types"><i class="fa fa-circle-o"></i>Categorias </a></li>
-                <!--<li><a href="/materials"><i class="fa fa-circle-o"></i>Materiales </a></li>
-                <li><a href="/stations"><i class="fa fa-circle-o"></i>Estaciones </a></li>-->
-                <li><a href="/atributes"><i class="fa fa-circle-o"></i>Atributos </a></li>
-                <li><a href="/suppliers"><i class="fa fa-circle-o"></i>Proveedores </a></li>
+                @if($role == 1)<li><a href="/purchases" ><i class="fa fa-circle-o"></i>Control de Stock</a></li>@endif
+                @if($role == 1)<li><a href="/otherPheads" ><i class="fa fa-circle-o"></i>Compras Varios</a></li>@endif
+                @if($role == 1)<li><a href="/brands" ><i class="fa fa-circle-o"></i>Marcas</a></li>@endif
+                @if($role == 1)<li><a href="/types"><i class="fa fa-circle-o"></i>Categorias </a></li>@endif
+                <!--<li><a href="/materials"><i class="fa fa-circle-o"></i>Materiales </a></li>-->
+                @if($role == 2)<li><a href="/purchases/create"><i class="fa fa-circle-o"></i>Movimientos de almacen </a></li>@endif
+                @if($role == 1)<li><a href="/atributes"><i class="fa fa-circle-o"></i>Atributos </a></li>@endif
+                @if($role == 1)<li><a href="/suppliers"><i class="fa fa-circle-o"></i>Proveedores </a></li>@endif
               </ul>
             </li>
             <li class="">
@@ -181,7 +181,7 @@
              </li>
              <li class="">
                           <a href="/sales">
-                            <i class="fa fa-shopping-cart"></i> <span>Lista de Ventas</span>
+                            <i class="fa fa-list-ol"></i> <span>Lista de Ventas</span>
                           </a>
              </li>
             <li class="treeview">
@@ -191,8 +191,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class=""><a href="/cashHeaders" ><i class="fa fa-circle-o"></i>Cajas</a></li>
-                <li class=""><a href="/cashMonthlys" ><i class="fa fa-circle-o"></i>Gastos de Caja Mensual</a></li>
+                @if($role == 1)<li class=""><a href="/cashHeaders" ><i class="fa fa-circle-o"></i>Cajas</a></li>@endif
+                @if($role == 1)<li class=""><a href="/cashMonthlys" ><i class="fa fa-circle-o"></i>Gastos de Caja Mensual</a></li>@endif
                 <li class=""><a href="/cashes" ><i class="fa fa-circle-o"></i>Ver Cajas Abiertas</a></li>
 
               </ul>

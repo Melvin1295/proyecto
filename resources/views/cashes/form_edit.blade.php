@@ -106,15 +106,18 @@
 
                           <div ng-if="cash.estado!=1" class="form-group" ng-class="{true: 'has-error'}[ cashCreateForm.ingresos.$error.required && cashCreateForm.$submitted || cashCreateForm.ingresos.$dirty && cashCreateForm.ingresos.$invalid]">
                             <label for="ingresos">Monto Real</label>
-                            <input string-to-number ng-disabled="true" type="number" class="form-control" name="ingresos" placeholder="0.00" ng-model="cash.montoReal" ng-blur="calculardescuadre()" step="0.1" min="0">
+                            <input string-to-number ng-disabled="true"  type="number" class="form-control" name="ingresos" placeholder="0.00" ng-model="cash.montoReal" ng-blur="calculardescuadre()" step="0.1" min="0">
+                            
                             <label ng-show="cashCreateForm.$submitted || cashCreateForm.ingresos.$dirty && cashCreateForm.ingresos.$invalid">
                               <span ng-show="cashCreateForm.ingresos.$error.required"><i class="fa fa-times-circle-o"></i>Requerido.</span>
                             </label>
                           </div>
 
                           <div ng-if="cash.estado==1" class="form-group" ng-class="{true: 'has-error'}[ cashCreateForm.ingresos.$error.required && cashCreateForm.$submitted || cashCreateForm.ingresos.$dirty && cashCreateForm.ingresos.$invalid]">
-                            <label for="ingresos">Monto Real</label>
-                            <input string-to-number type="number" min="0"class="form-control ng-pristine ng-valid ng-touched" name="ingresos" placeholder="0.00" ng-model="cash.montoReal" ng-blur="calculardescuadre()" step="0.1">
+                            <label for="ingresos">Monto Real Efec./Tar.</label><br/>
+                            <input string-to-number type="number" style="width:50%; float:left;"  min="0"class="form-control ng-pristine ng-valid ng-touched" name="ingresos" placeholder="0.00" ng-model="cash.montoReal" ng-blur="calculardescuadre()" step="0.1">
+                            <input string-to-number type="number" style="width:50%; " min="0"class="form-control ng-pristine ng-valid ng-touched" name="ingresos" placeholder="0.00" ng-model="cash.montoRealTar" ng-blur="calculardescuadre()" step="0.1">
+                            
                             <label ng-show="cashCreateForm.$submitted || cashCreateForm.ingresos.$dirty && cashCreateForm.ingresos.$invalid">
                               <span ng-show="cashCreateForm.ingresos.$error.required"><i class="fa fa-times-circle-o"></i>Requerido.</span>
                             </label>

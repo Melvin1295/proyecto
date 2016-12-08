@@ -1,7 +1,7 @@
 (function(){
     angular.module('sales.controllers',[])
-        .controller('SaleController',['$scope', '$routeParams','$location','crudServiceOrders','socketService' ,'$filter','$route','$log','$window','$modal',
-            function($scope, $routeParams,$location,crudServiceOrders,socket,$filter,$route,$log, $window,$modal){
+        .controller('SaleController',['$scope','$http','$routeParams','$location','crudServiceOrders','socketService' ,'$filter','$route','$log','$window','$modal',
+            function($scope,$http,$routeParams,$location,crudServiceOrders,socket,$filter,$route,$log, $window,$modal){
                 
                 $scope.errors = null;
                 $scope.success;
@@ -586,7 +586,7 @@
                 }
                $scope.realizarPago = function () {
                 //$log.log($scope.cashfinal.estado);
-                
+                if ($scope.radioModel!=undefined && $scope.pago.tarjeta>0) {
                 crudServiceOrders.Comprueba_caj_for_user().then(function (data){
                       //$scope.IDOriginalValidadoCaja=data.id;
                         if(data.id != undefined){
@@ -720,7 +720,9 @@
                             alert("Usted no puede vender con esta caja");
                         }
                });
-
+               }else{
+                 alert("si selecciona Tarjeta por favor debe ingresar un monto a cobrar con tarjeta?");
+               }
                 }
 
                
@@ -804,12 +806,14 @@
                            // $log.log($scope.presentations);
 
                             var fecha1 = $scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
+                            
                             if($scope.ofertajajjaja==true){
                                   //alert('Estoy asignando nuevo Descuento'+$scope.descuento10);
                                  $scope.varianteSkuSelected1[0].descuento=Number($scope.descuento10);
                             }else{
-                                  if(fecha1>=$scope.presentations[0].FechaInicioDescuento && fecha1<=$scope.presentations[0].FechaFinDescuento && $scope.presentations[0].activateDsctoRange==1){
+                                  if(new Date() >=new Date($scope.presentations[0].FechaInicioDescuento) && new Date()<=new Date($scope.presentations[0].FechaFinDescuento) && $scope.presentations[0].activateDsctoRange==1){
                                       $scope.varianteSkuSelected1[0].descuento=Number($scope.presentations[0].DescuentoConFecha);
+                                      
                                   }else{
                                       $scope.varianteSkuSelected1[0].descuento=Number($scope.presentations[0].DescuentoSinFecha);
                                   }
@@ -1218,10 +1222,14 @@
                     $scope.calcularmontos(index);
                 };
                 $scope.disminuirPrecio= function(index){
+                   if($scope.compras[index].precioVenta > 0){
                     $scope.compras[index].precioVenta=Number($scope.compras[index].precioVenta)-1;
                     $scope.ActivaOfertasx=false;
                     $scope.bandera=false;
                     $scope.calcularmontos(index);
+                }else{
+                    alert("No se acepta negativos!!");
+                }
                 };
                 $scope.aumentarDescuento= function(index){
                     $scope.compras[index].descuento=Number($scope.compras[index].descuento)+1;
@@ -1230,10 +1238,14 @@
                     $scope.calcularmontos(index);
                 };
                 $scope.disminuirDescuento= function(index){
+                    if( $scope.compras[index].descuento > 0 ){
                     $scope.compras[index].descuento=Number($scope.compras[index].descuento)-1;
                     $scope.bandera=true;
                     $scope.ActivaOfertasx=false;
                     $scope.calcularmontos(index);
+                 }else{
+                    alert("No se acepta negativos!!");
+                 }
                 };
                 $scope.modifMontosFinales=function(index){
                     $scope.ActivaOfertasx=false;
@@ -1409,7 +1421,7 @@
                         $log.log($scope.presentations);
 
                             var fecha1 = $scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
-                            if(fecha1>=$scope.presentations[0].FechaInicioDescuento && fecha1<=$scope.presentations[0].FechaFinDescuento && $scope.presentations[0].activateDsctoRange==1){
+                            if(new Date()>=new Date($scope.presentations[0].FechaInicioDescuento) && new Date()<=new Date($scope.presentations[0].FechaFinDescuento) && $scope.presentations[0].activateDsctoRange==1){
                                       $scope.atributoSelected.descuento=Number($scope.presentations[0].DescuentoConFecha);
                             }else{
                                 $scope.atributoSelected.descuento=Number($scope.presentations[0].DescuentoSinFecha);
@@ -1590,11 +1602,11 @@
                 }
 
                 $scope.cargarAtri = function(size){
-                    //alert("filicidades....");
+                   
                     crudServiceOrders.reportProWare('productsVariantes',$scope.store.id,$scope.warehouse.id,$scope.atributoSelected.vari).then(function(data){    
                         $scope.presentations = data;
                         var fecha = $scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
-                        if(fecha>=$scope.presentations[0].FechaInicioDescuento && fecha<=$scope.presentations[0].FechaFinDescuento && $scope.presentations[0].activateDsctoRange==1){
+                        if(new Date()>=new Date($scope.presentations[0].FechaInicioDescuento) && new Date()<=new Date($scope.presentations[0].FechaFinDescuento) && $scope.presentations[0].activateDsctoRange==1){
                             $scope.atributoSelected.descuento=Number($scope.presentations[0].DescuentoConFecha);
                             $scope.atributoSelected.cantidad=1;
                             $scope.atributoSelected.subTotal=$scope.atributoSelected.cantidad*Number($scope.atributoSelected.precioProducto);
@@ -2163,9 +2175,22 @@
                     crudServiceOrders.reportcliente('Reportsales',fInicio,fFin);
 
                 }
+
+    
                 //--------------------------------------------------
                 $scope.buspro=0;
+                $scope.gridOptions=[];
+                $scope.rutaIframe="";
                 $scope.cargarConsulta = function(){
+                  /*  crudServiceOrders.all('types').then(function (data) {                        
+                        $scope.types = data.data;
+                        //$log.log($scope.types);
+                    });
+                    crudServiceOrders.all('brands').then(function (data) {                        
+                        $scope.brands = data.data;
+                        
+                       //$log.log($scope.types);
+                    }); 
                     $scope.fechaConsulta = ''+$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate();
                     $scope.lineaId=0;$scope.materialId=0;
 
@@ -2176,15 +2201,11 @@
                         $scope.currentPageZ = data.current_page;
                         $scope.itemsperPageZ = 15;
                         $log.log($scope.variants1);
-                    }); 
-                    crudServiceOrders.all('types').then(function (data) {                        
-                        $scope.types = data.data;
-                        //$log.log($scope.types);
-                    });
-                    crudServiceOrders.all('brands').then(function (data) {                        
-                        $scope.brands = data.data;
-                       //$log.log($scope.types);
-                    });      
+                        }); */
+                      
+                         $scope.rutaIframe="http://localhost:8007/consultas";
+    
+                         
                 }
                 $scope.cargarConsul= function(){
                     

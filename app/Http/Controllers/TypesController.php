@@ -39,7 +39,10 @@ class TypesController extends Controller {
     {
         return View('types.form_create');
     }
-
+   public function paraFiltro(){
+        $types = $this->typeRepo->paraFiltro();
+        return response()->json($types);
+   }
     public function form_edit()
     {
         return View('types.form_edit');

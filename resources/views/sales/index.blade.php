@@ -30,8 +30,6 @@ Ventas
 <script src="/js/app/sales/app.js"></script>
     <script src="/js/app/sales/controllers.js"></script>
     <script src="/js/app/sales/servicesglobalOrders.js"></script>
-    <script src="/vendor/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
-    
 
 
 

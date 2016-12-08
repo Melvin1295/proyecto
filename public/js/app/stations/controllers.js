@@ -1,12 +1,13 @@
 (function(){
     angular.module('stations.controllers',[])
-        .controller('StationController',['$scope', '$routeParams','$location','crudService','socketService' ,'$filter','$route','$log',
-            function($scope, $routeParams,$location,crudService,socket,$filter,$route,$log){
+        .controller('StationController',['$scope', '$routeParams','$http','uiGridConstants','$location','crudService','socketService' ,'$filter','$route','$log',
+            function($scope, $routeParams,$http,uiGridConstants,$location,crudService,socket,$filter,$route,$log){
                 $scope.stations = [];
                 $scope.station = {};
                 $scope.errors = null;
                 $scope.success;
                 $scope.query = '';
+                $scope.gridOptions=[];
 
                 $scope.toggle = function () {
                     $scope.show = !$scope.show;
@@ -34,7 +35,7 @@
                     });
                 }else{
                     crudService.paginate('stations',1).then(function (data) {
-                        $scope.stations = data.data;
+                        $scope.stations = data.data;                        
                         $scope.maxSize = 5;
                         $scope.totalItems = data.total;
                         $scope.currentPage = data.current_page;
@@ -139,5 +140,76 @@
                         }
                     });
                 }
+
+             
+
+  $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+    if( col.filters[0].term ){
+      return 'header-filtered';
+    } else {
+      return '';
+    }
+  };
+
+$scope.datosPreba="";
+
+crudService.all('brands').then(function (data) {
+                        $scope.gridOptions = data;
+      
+ });
+ alert($scope.filtroMarac ); 
+//$scope.filtroMarac2=JSON.parse("[" +$scope.datosPreba+"]" );
+  $scope.gridOptions = {
+    enableFiltering: true,
+    onRegisterApi: function(gridApi){
+      $scope.gridApi = gridApi;
+    },
+    columnDefs: [
+      // default
+      { field: 'nombre', headerCellClass: $scope.highlightFilteredHeader },
+      // pre-populated search field
+      { field: 'nombre', filter: {
+          term: '1',
+          type: uiGridConstants.filter.SELECT,
+          selectOptions: $scope.filtroMarac
+        },
+        cellFilter: 'mapGender', headerCellClass: $scope.highlightFilteredHeader },
+    ]
+  };
+
+   
+
+
+  $scope.toggleFiltering = function(){
+
+crudService.all('paraFiltro').then(function (data) {
+                        $scope.filtroMarac = data;
+      alert($scope.filtroMarac ); 
+//$scope.filtroMarac2=JSON.parse("[" +$scope.datosPreba+"]" );
+  $scope.gridOptions = {
+    enableFiltering: true,
+    onRegisterApi: function(gridApi){
+      $scope.gridApi = gridApi;
+    },
+    columnDefs: [
+      // default
+      { field: 'nombre', headerCellClass: $scope.highlightFilteredHeader },
+      // pre-populated search field
+      { field: 'nombre', filter: {
+          term: '1',
+          type: uiGridConstants.filter.SELECT,
+          selectOptions: $scope.filtroMarac
+        },
+        cellFilter: 'mapGender', headerCellClass: $scope.highlightFilteredHeader },
+    ]
+  }
+
+    $scope.gridOptions.enableFiltering = true;
+    $scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
+     });
+  }
+    
+
+ 
             }]);
 })();

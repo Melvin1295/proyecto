@@ -200,6 +200,7 @@ Route::get('brands',['as'=>'brand','uses'=>'BrandsController@index']);
  Route::get('brands/form-create',['as'=>'brand_form_create','uses'=>'BrandsController@form_create']);
  Route::get('brands/form-edit',['as'=>'brand_form_edit','uses'=>'BrandsController@form_edit']);
  Route::get('api/brands/all',['as'=>'brand_all', 'uses'=>'BrandsController@all']);
+ Route::get('api/paraFiltro/all',['uses'=>'BrandsController@paraFiltro']);
  Route::get('api/brands/paginate/',['as' => 'brand_paginate', 'uses' => 'BrandsController@paginatep']);
  Route::post('api/brands/create',['as'=>'brand_create', 'uses'=>'BrandsController@create']);
  Route::put('api/brands/edit',['as'=>'brand_edit', 'uses'=>'BrandsController@edit']);
@@ -214,6 +215,7 @@ Route::get('types/edit/{id?}', ['as' => 'type_edit', 'uses' => 'TypesController@
 Route::get('types/form-create',['as'=>'type_form_create','uses'=>'TypesController@form_create']);
 Route::get('types/form-edit',['as'=>'type_form_edit','uses'=>'TypesController@form_edit']);
 Route::get('api/types/all',['as'=>'type_all', 'uses'=>'TypesController@all']);
+Route::get('api/paraFiltroType/all',['as'=>'type_all', 'uses'=>'TypesController@paraFiltro']);
 Route::get('api/types/paginate/',['as' => 'type_paginate', 'uses' => 'TypesController@paginatep']);
 Route::post('api/types/create',['as'=>'type_create', 'uses'=>'TypesController@create']);
 Route::put('api/types/edit',['as'=>'type_edit', 'uses'=>'TypesController@edit']);
@@ -496,6 +498,7 @@ Route::get('api/stocks/find/{id}/{id1}','StocksController@find');
 Route::put('api/stocks/edit/','StocksController@edit');
 Route::get('api/stocks/traerstock/{product_id}','StocksController@traerStock');
 Route::get('api/stocks/verStockActual/{var}/{almacen}','StocksController@verStockActual');
+Route::get('api/stocks/traerPorAlmacen/{idAL}/{proID}','StocksController@traerPorAlmacen');
 
 Route::get('api/detpres/paginatep/{id}','DetPresController@paginatep');
 Route::get('api/detpres/find/{id}','DetPresController@find');
@@ -630,6 +633,7 @@ Route::get('api/datosDocumento/search/{id}', ['as' => 'person_edit', 'uses' => '
 Route::put('api/promocion/edit',['as'=>'person_edit', 'uses'=>'SalesController@editPromocion']);
 Route::put('api/promocionFecha/edit',['as'=>'person_edit', 'uses'=>'SalesController@editPromocionFecha']);
 Route::get('sales',['as'=>'person','uses'=>'SalesController@index']);
+Route::get('consultas',['as'=>'person','uses'=>'SalesController@consultas']);
 Route::get('sales/create/',['as'=>'person_create','uses'=>'SalesController@index']);
 Route::get('sales/edit/{id?}', ['as' => 'person_edit', 'uses' => 'SalesController@index']);
 Route::get('sales/form-create',['as'=>'person_form_create','uses'=>'SalesController@form_create']);

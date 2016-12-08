@@ -12,6 +12,16 @@
 
                 return deferred.promise;
             }
+             function buquedarapida(uri,idStore,idWerehouse,val,type,brand,product){
+                var deferred = $q.defer();
+                //alert(val);
+                $http.get('/api/'+uri+'/misDatos/'+idStore+'/'+idWerehouse+'/'+val+'/'+type+'/'+brand+'/'+product)
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    });
+
+                return deferred.promise;
+            }
 
             function paginate(uri,page)
             {
@@ -142,7 +152,15 @@
 
                 return deferred.promise;
             }
+            function traerPorAlmacen(idAlmacen,idProduct){
+                var deferred = $q.defer();
+                $http.get('/api/stocks/traerPorAlmacen/'+idAlmacen+'/'+idProduct)
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    });
 
+                return deferred.promise;
+            }
             function select(uri,select)
             {
                 var deferred = $q.defer();
@@ -235,6 +253,8 @@
                 create:create,
                 Comprueba_caj_for_user: Comprueba_caj_for_user,
                 Comprueba_caj_for_user1: Comprueba_caj_for_user1,
+                buquedarapida:buquedarapida,
+                traerPorAlmacen: traerPorAlmacen,
                 Cuentas:Cuentas,
                 byId:byId,
                 validar:validar,

@@ -108,7 +108,9 @@ crudService.paginate('cashes',1).then(function (data) {
                     $scope.rutaDetCash='/detCashes/create/'+$scope.cash.id; 
                 };
                 $scope.calculardescuadre = function () {
-                    $scope.cash.descuadre=Number($scope.cash.montoReal)-Number($scope.cash.montoBruto);
+                    $scope.cash.descuadre=(Number($scope.cash.montoReal)+Number($scope.cash.montoRealTar))-Number($scope.cash.montoBruto);
+                    $scope.cash.montoCierra=Number($scope.cash.montoReal)+Number($scope.cash.montoRealTar);
+                   
                 };
                 $scope.caj_id=1;
                 $scope.verCaja = function () {
@@ -147,9 +149,11 @@ crudService.paginate('cashes',1).then(function (data) {
 
                 };
                 $scope.cerrarCaja = function () {
+
                     if($scope.cash.montoReal=='0.00'){
                         alert("Ingrese Monto Real");
                     }else{
+                        $scope.cash.montoReal=$scope.cash.montoCierra;
                         //7alert($scope.date.getDate());
                         $scope.cash.fechaFin=$scope.date.getFullYear()+'-'+($scope.date.getMonth()+1)+'-'+$scope.date.getDate()+' '+$scope.date.getHours()+':'+$scope.date.getMinutes()+':'+$scope.date.getSeconds();
                             $scope.cash.estado='0';
@@ -230,6 +234,7 @@ crudService.paginate('cashes',1).then(function (data) {
                         $scope.cash = data;
                         $scope.buscar=$scope.cash.id;
                         $scope.cash.montoReal=Number(data.montoReal);
+                        $scope.cash.montoRealTar=Number(data.montoReal);
                         //$log.log($scope.cash);
 
                         crudService.search('detCashes',$scope.cash.id,1).then(function (data){

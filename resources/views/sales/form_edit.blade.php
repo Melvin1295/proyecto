@@ -328,7 +328,7 @@
 
           
 
-                    <button type="submit" class="btn btn-success btn-xs" ng-show="banderaModificar" ng-click="grabarCanPedido()">Anular</button>
+                    <button type="submit" class="btn btn-danger btn-xs" ng-show="banderaModificar" ng-click="grabarCanPedido()">Anular</button>
                    <a href="/sales" class="btn btn-success btn-xs">Regresar</a>
                   </div>
                 </form>

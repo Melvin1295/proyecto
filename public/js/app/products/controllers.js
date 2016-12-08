@@ -944,18 +944,26 @@
                     $location.path('/variants/create/'+product_id);
                     //$scope.product = {nombre:'holi'};
                 }
-
+                $scope.prductidtemporal;
                 $scope.showVariants = function(row){
+                    $scope.idwarehouse='1';
+                    $scope.prductidtemporal=row.proId;
                     $scope.variants = [];
                     crudService.all('listaAlmacenesTienda').then(function (data) {
                             $scope.warehouses = data;
                        
-                    crudService.byforeingKey('variants','variants',row.proId).then(function(data)
+                    crudService.traerPorAlmacen($scope.idwarehouse,row.proId).then(function(data)
                     {
                             $scope.variants = data;
                     })
                      });
                     //crudService.
+                }
+                $scope.changeStock=function(){
+                    crudService.traerPorAlmacen($scope.idwarehouse,$scope.prductidtemporal).then(function(data)
+                    {
+                            $scope.variants = data;
+                    })
                 }
                 $scope.agregarenGrupo=function(){
                      if($scope.variant.checkTallas==true){

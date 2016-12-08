@@ -269,9 +269,11 @@
                       <td ng-if="row.NumDocument!=null"><a href="#tab_7" data-toggle="tab" aria-expanded="false" ng-click="traerDoumento(row)">@{{row.tipoDoc+"-"+row.NumDocument}}</a></td>
                       <td ng-if="row.NumDocument==null">-</td>
                       <td>@{{row.puntos}}</td>
-                      <td>@{{row.tarjeta}}</td>
-                      <td>@{{row.efectivo}}</td>
-                      <td>@{{row.notas}}</td>
+                      <td ng-if="row.tarjeta>0">@{{row.tarjeta}}</td>
+                      <td ng-if="row.tarjeta==0">-</td>
+                      <td ng-if="row.efectivo>0">@{{row.efectivo}}</td>
+                      <td ng-if="row.efectivo==0">-</td>
+                      <td style="width: 150px;">@{{row.notas}}</td>
                         <td ng-if="row.estado==0" style="color: yellow;">Pend</td>
                         <td ng-if="row.estado==1" style="color: green;">Pagado</td>
                         <td ng-if="row.estado==3" style="color: red;">Anulada</td>
@@ -462,65 +464,11 @@
                   </div>
                     
                   <div class="tab-pane" id="tab_5">
-                      
-                      
-                    <div class="box-body table-responsive no-padding">
-                    <table class="table table-bordered">
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>
-                           
-                          <form >
-                               <div class="input-group" style="width: 150px;">
-                                 <input ng-change="cargarConsul()" type="text" ng-model="busProducto"  name="table_search" class="form-control input-sm pull-right" placeholder="Producto" />
-                                 <div class="input-group-btn">
-                                   <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-                                 </div>
-                               </div>
-                          </form>
-                      </th>
-                      <th style="width:140px;"><select class="form-control" name="" ng-model="materialId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in brands">
-                          <option value="">MARCAS</option>
-                      <th style="width:152px;"><select class="form-control" name="" ng-model="lineaId" ng-click="cargarConsul()"ng-options="item.id as item.nombre for item in types">
-                          <option value="">CATEGORIAS</option>
-                          </select></th>
-                      <th>Sabor</th>
-                      <th>Cantidad</th>
-                      <th>Stock</th>
-                      <th>Descuento</th>
-                      <th ng-show="false">Descuento Rango</th>
-                      <th>Precio Normal</th>
-                       @if($role == 1)<th>Precio Oferta</th>@endif
-                       @if($role == 1)<th>Ganancia</th>@endif
-                      <th>Puntos</th>
-                    </tr>
-                    
-                    <tr ng-repeat="row in variants1 track by $index">
-                      <td>@{{$index + 1}}</td>
-                      <td>@{{row.Producto}}</td>
-                      <td>@{{row.Mate}}</td>
-                      <td>@{{row.Linea}}</td>
-                      <td>@{{row.Taco}}</td>
-                      <td>@{{row.Tallas}}</td>
-                      <td>@{{row.stock}}</td>
-                      <td>@{{
-                      ((row.Precio-row.PrecioVenta)*100)/(row.Precio) | number:2}}</td>
-                      <td ng-show="false">@{{row.dsctoRange}}%</td>
-                      <td>@{{row.Precio}}</td>
+                      <iframe src="http://localhost:8007/consultas" style="width:100%" height="480px;">
+                        
+                      </iframe>
 
-                      
-                       @if($role == 1)<td ><input string-to-number style="width:60px;" type="number" ng-model="row.PrecioVenta" ng-change="recalculGanancia(row,$index)"></td>@endif
-                       @if($role == 1)<td >@{{row.PrecioVenta-row.suppPri | number:2}}</td> @endif
-
-                      <td>@{{row.puntos}}</td>
-                    </tr>
                     
-                    
-                  </table></div>
-                    <div class="box-footer clearfix">
-                        <pagination total-items="totalItemsZ" ng-model="currentPageZ" max-size="maxSizeZ" class="pagination-sm no-margin pull-right" 
-                        items-per-page="itemsperPageZ" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChangedZ()"></pagination>
-                    </div>
                   </div>
                   <!---tab Promociones-->
                   <div class="tab-pane" id="tab_6">
@@ -861,7 +809,7 @@
             <input style="width:55px;" type="number" min="0" ng-model="compras[$index].cantidad" ng-change="recalCatidad($index)" class="form-control">
             </div>
           
-           <!-- <button type="button" class="btn btn-xs" ng-click="aumentarCantidad($index)">
+           <!-- <button type="button"  class="btn btn-xs" ng-click="aumentarCantidad($index)">
             <span type="button" class="glyphicon glyphicon-plus"></span></button>
             <button type="button" class="btn btn-xs" ng-click="disminuirCantidad($index)">
             <span type="button" class="glyphicon glyphicon-minus"></span></button>-->
@@ -883,7 +831,7 @@
                      
             <label>Desct.</label></div>
             <div class="col-md-5">
-            <input type="number" ng-model="compras[$index].descuento" ng-change="keyUpDescuento($index)"class="form-control">
+            <input type="number" min="0" ng-model="compras[$index].descuento" ng-change="keyUpDescuento($index)"class="form-control">
           </div>
          <button type="button" class="btn btn-xs" ng-click="aumentarDescuento($index)">
           <span type="button" class="glyphicon glyphicon-plus"></span></button>
@@ -899,7 +847,7 @@
                      
             <label>@{{dynamicPopover1.title}}</label></div>
             <div class="col-md-5">
-            <input type="number" min="0" ng-change="modifMontosFinales($index)" ng-model="compras[$index].precioVenta" class="form-control">
+            <input type="number" min="0" min="0" ng-change="modifMontosFinales($index)" ng-model="compras[$index].precioVenta" class="form-control">
           </div>
          <button type="button" class="btn btn-xs" ng-click="aumentarPrecio($index)">
           <span type="button" class="glyphicon glyphicon-plus"></span></button>

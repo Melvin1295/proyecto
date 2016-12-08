@@ -149,7 +149,7 @@
                        </div>
                        <div class="col-md-4">
                        
-                            <select  class="form-control" ng-model="idwarehouse" ng-change="changePreBase()" ng-options="item.id as item.nombre for item in warehouses">
+                            <select  class="form-control" ng-model="idwarehouse" ng-change="changeStock()" ng-options="item.id as item.nombre for item in warehouses">
                             </select>
                       </div>
                   </div>
@@ -167,24 +167,20 @@
                                 <th style="width: 10px">#</th>
                                 <th>Variante</th>
                                 <th>P.V.P.</th>
-                                <th>% De Desct.°</th>
+                                <th style="width: 40px">% De Desct.</th>
                                 <th>P.V. Cliente.</th>
                                 <th style="width: 40px">Stock</th>
+                                <th style="width: 40px">Tot. Stock</th>
                             </tr>
                             <tr ng-repeat="row in variants">
                                 <td>{{$index + 1}}</td>
-                                <td><a href="/variants/edit/{{row.id}}">{{row.product.nombre}}
-                                    <span ng-repeat="row2 in row.det_atr ">
-                                        / {{row2.descripcion}}
-                                    </span>
-
+                                <td><a href="/variants/edit/{{row.id}}">{{row.NombreAtributos}}
                                 </a></td>
-                                <td style="text-align:center;">{{row.det_pre[0].price}}</td>
-                                <td style="text-align:center;">{{row.det_pre[0].dscto}}%</td>
-                                <td style="text-align:center;">{{row.det_pre[0].price-row.det_pre[0].dsctoCant}}</td>
-                               
-                                
-                                <td>{{row.stock[0].stockActual}}</td>
+                                <td style="text-align:center;">{{row.price}}</td>
+                                <td style="text-align:center;">{{row.dscto}}%</td>
+                                <td style="text-align:center;">{{row.pvp}}</td>                           
+                                <td>{{row.stockActual}}</td>
+                                <td>{{row.totStock}}</td>
                             </tr>
 
                             </tbody></table>
@@ -217,7 +213,6 @@
                     <th>Stock Actual</th>
                     <th>Stock por llegar</th>
                     <th>Ćodigo</th>
-                    <th>SKU</th>
 
                 </tr>
                 <tr ng-repeat="row in stockVariants">
@@ -226,7 +221,6 @@
                     <td>{{row.stockActual}}</td>
                     <td>{{row.porLlegar}}</td>
                     <td>{{row.codigo}}</td>
-                    <td>{{row.sku}}</td>
 
                 </tr>
 

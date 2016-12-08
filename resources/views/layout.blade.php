@@ -23,6 +23,9 @@
 
     <link href="/vendor/jquery-ui/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" href="/vendor/angular-ui-grid/ui-grid.css" type="text/css">
+    
+
      <!-- <link href="/vendor/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" type="text/css" /> -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -611,6 +614,8 @@
     <script src="/js/app/types/app.js"></script>
     <script src="/js/app/types/controllers.js"></script>
     <script src="/vendor/angular-ui-slider/src/slider.js"></script>
+
+
     <!-- endinject -->
     @section('js-customize')
     @show

@@ -105,6 +105,10 @@ class SalesController extends Controller
     {
         return View('sales.index');
     }
+    public function consultas()
+    {
+        return View('consultas.index');
+    }
     public function form_create()
     {
         return View('sales.form_create');

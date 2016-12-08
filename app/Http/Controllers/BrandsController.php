@@ -28,6 +28,10 @@ class BrandsController extends Controller {
         return response()->json($brands);
         //var_dump($brands);
     }
+    public function paraFiltro(){
+        $brands = $this->brandRepo->paraFiltro();
+        return response()->json($brands);
+    }
 
     public function paginatep(){
         $brands = $this->brandRepo->paginate(15);

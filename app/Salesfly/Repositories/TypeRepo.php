@@ -27,5 +27,11 @@ class TypeRepo extends BaseRepo{
         $stores = Store::all();
         return $stores;
     }
+    public function paraFiltro(){
+        $type =Ttype::select('nombre as value','nombre as label')->get();
+                    //->with(['customer','employee'])
+                    
+        return $type;
+    }
 
 } 

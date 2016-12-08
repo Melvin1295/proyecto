@@ -293,11 +293,13 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                             //->where('products.estado','=','1')
                             ->orWhere('stores.id','=',$store)
                             ->where('warehouses.id','=',$were)
-                            ->where('products.nombre','like', $q.'%')
+                            ->where('products.nombre','like','%'.$q.'%')
                             ->where('T2.base','=','1')
                             /////--------------------
                             ->where('products.estado','=','1')
                             ->where('variants.estado','=','1')
+
+                            
                             /////--------------------
                             //->where('variants.estado','=','1')
                             //->where('products.estado','=','1')
@@ -330,7 +332,7 @@ WHERE products.presentation_base = presentation.id and products.id = proId and p
                                 materials.nombre as Material,
                                 stock.stockPedidos as stockPedidos,stock.stockSeparados as stockSeparados,
                               warehouses.nombre as Almacen,stock.stockActual as Stock,detPres.price as precioProducto,
-
+                        
                                 detPres.fecIniDscto as FechaInicioDescuento,detPres.fecFinDscto as FechaFinDescuento,
                                 IF(detPres.activateDsctoRange >= 1, detPres.dsctoRange ,0) as DescuentoConFecha,detPres.dscto as DescuentoSinFecha,
                                 detPres.activateDsctoRange,
@@ -577,10 +579,10 @@ WHERE variants.id = varid) as stoStockActual'),
 
     public function variantsAllInventary($store,$were,$q,$type,$brand,$product){
         
-      if ($store==0) {$store='%';}
-      if ($were==0) {$were='%';}
-      if ($type==0) {$type='%';}
-      if ($brand==0) {$brand='%';}
+      if ($store==0) {$store='%%';$simbolo3='like';}else{$simbolo3='=';}
+      if ($were==0) {$were='%%';$simbolo2='like';}else{$simbolo2='=';}
+      if ($type==0) {$type='%%';$simbolo1='like';}else{$simbolo1='=';}
+      if ($brand==0) {$brand='%%';$simbolo='like';}else{$simbolo='=';}
       if ($product=='0') {$product='%';}
       //var_dump($product);die();
       $datos = \DB::table('products')->leftjoin('materials','products.material_id','=','materials.id')
@@ -594,25 +596,26 @@ WHERE variants.id = varid) as stoStockActual'),
                             ->join ('warehouses as T8','T8.id','=', 'T7.warehouse_id')
                             ->join ('stores as T9', 'T9.id', '=', 'T8.store_id')  
 
-                            ->select(\DB::raw('T6.puntos,products.nombre as Producto,T6.sku as codigo,T6.id as vari ,T7.stockActual as stock,T10.nombre as Linea,T12.nombre as Mate,
-                                                T13.price as Precio,T13.dsctoRange,T13.suppPri,
+                            ->select(\DB::raw('T6.puntos,products.nombre as Producto,T6.sku as codigo,T6.id as vari ,ROUND(T7.stockActual) as stock,T10.nombre as Categoria,T12.nombre as Marca,
+                                                T13.price as PVP,T13.dsctoRange,T13.suppPri,
+                                                (select SUM(stockActual) from stock where variant_id=T6.id) as Tot_Stock,
 
                                                 IF( T13.fecIniDscto<="'.$q.'" and T13.fecFinDscto>="'.$q.'",T13.dsctoRange,T13.dscto) as Descuento ,
                                                 IF( T13.fecIniDscto<="'.$q.'" and T13.fecFinDscto>="'.$q.'",T13.pvpRange,T13.pvp) as PrecioVenta ,
-                                                IF( T13.fecIniDscto<="'.$q.'" and T13.fecFinDscto>="'.$q.'","SI","NO") as Estado , (T13.pvp-T13.suppPri) as ganancia,(T13.pvpRange-T13.suppPri) as ganancia2,
+                                                IF( T13.fecIniDscto<="'.$q.'" and T13.fecFinDscto>="'.$q.'","SI","NO") as Desct_Fecha , (T13.pvp-T13.suppPri) as ganancia,(T13.pvpRange-T13.suppPri) as ganancia2,
 
                                               (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=4) as Material,
-                                              (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=1) as Color,
-                                              (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=3) as Taco,
-                                              (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=2) as Tallas'))
+                                              (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=1) as Cantidad,
+                                              (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=3) as Services,
+                                              (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=2) as Sabor'))
                              
                             ->where('products.nombre','like',$product.'%')
-                            ->where('T9.id','like',$store.'%')
-                            ->where('T8.id','like',$were.'%')
-                            ->where('T10.id','like',$type.'%')
-                            ->where('T12.id','like',$brand.'%')
+                            ->where('T9.id',$simbolo3,$store)
+                            ->where('T8.id',$simbolo2,$were)
+                            ->where('T10.id',$simbolo1,$type)
+                            ->where('T12.id',$simbolo,$brand)
                             ->groupBy('T6.id')
-                            ->paginate(15);
+                            ->get();
             return $datos;
     }
      public function validarNoRepitname($text){

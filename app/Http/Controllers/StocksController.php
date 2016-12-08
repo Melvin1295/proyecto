@@ -31,6 +31,10 @@ class StocksController extends Controller {
        $stock = $this->stockRepo->encontrar($vari,$almacen);
         return response()->json($stock);
    }
+   public function traerPorAlmacen($idAlmacen,$producID){
+        $stock = $this->stockRepo->traerPorAlmacen($idAlmacen,$producID);
+        return response()->json($stock);
+   }
     public function create(Request $request)
     {
         $stocks = $this->stockRepo->getModel();
@@ -107,7 +111,7 @@ class StocksController extends Controller {
 
     public function traerStock($product_id){
         //$stock = $this->stockRepo->getModel()->with([])->get();
-        $stock = \DB::select( \DB::raw('SELECT variants.codigo, variants.sku, stock.stockActual, stock.warehouse_id,stock.porLlegar, warehouses.nombre
+        $stock = \DB::select( \DB::raw('SELECT products.nombre as codigo, variants.sku, stock.stockActual, stock.warehouse_id,stock.porLlegar, warehouses.nombre
 FROM products
 INNER JOIN variants ON products.id = variants.product_id
 INNER JOIN stock ON variants.id = stock.variant_id

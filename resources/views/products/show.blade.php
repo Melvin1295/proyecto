@@ -82,7 +82,7 @@
                                   <th style="">En stock</th>
                                   <th ng-show="check">Stock Real</th>
                                     <th>Editar</th>
-                                    <th >Estado</th>
+                                    <th >Accion</th>
                                     <th >Eliminar</th>
                                 </tr>
                                 <tr ng-repeat="row in variants | filter:searchText">
@@ -104,10 +104,10 @@
                                     <td><a ng-click="editVariant(row)" class="btn btn-warning btn-xs">Editar</a></td>
                                     <td>
                                         <span ng-if="row.estado == 1">
-                            <a ng-click="disableVariant(row)" class="btn btn-success btn-xs">Activado</a>
+                            <a ng-click="disableVariant(row)" class="btn btn-default btn-xs">Deshabilitar</a>
                         </span>
                             <span ng-if="row.estado == 0">
-                            <a ng-click="disableVariant(row)" class="btn btn-danger btn-xs">Desactivado</a>
+                            <a ng-click="disableVariant(row)" class="btn btn-success btn-xs">Habilitar</a>
                         </span>
 
                                     </td>

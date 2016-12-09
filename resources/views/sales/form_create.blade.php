@@ -936,28 +936,38 @@
                     </div>
 
                     <div class="row" >
-                    <div class="col-md-6">
+                    
+                     <div class="col-md-6">  
                     <div class="form-group" >
-                      <label for="apellidos">Empresa / Razón Social</label>
-                      <input type="text" class="form-control" name="empresa" placeholder="empresa"
-                      ng-model="customer.empresa">
+                      <label for="direccContac">Dirección</label>
+                      <input type="text" class="form-control" name="direccContac" placeholder="###"
+                      ng-model="customer.direccContac">
                      </div>
                      </div>
-                     <div class="col-md-6">
+
+                     <div class="col-md-6">  
                     <div class="form-group" >
-                      <label for="direccFiscal">Dirección Fiscal</label>
-                      <input type="text" class="form-control" name="direccFiscal" placeholder="dirección fiscal"
-                      ng-model="customer.direccFiscal">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" name="email" placeholder="###"
+                      ng-model="customer.email">
                      </div>
                      </div>
                      </div>
 
                     <div class="row" >
-                    <div class="col-md-6"> 
+                    
+                     <div class="col-md-3"> 
                     <div class="form-group" >
-                      <label for="ruc">RUC</label>
-                      <input type="text" class="form-control" name="ruc" placeholder="ruc"
-                      ng-model="customer.ruc">
+                      <label for="movil">Teléfono movil</label>
+                      <input type="text" class="form-control" name="movil" placeholder="###"
+                      ng-model="customer.movil">
+                     </div>
+                     </div>
+                     <div class="col-md-3">  
+                    <div class="form-group" >
+                      <label for="prefijoCiudad">Titulo</label>
+                      <input type="text" class="form-control" name="prefijoCiudad" placeholder="###"
+                      ng-model="customer.prefijoCiudad">
                      </div>
                      </div>
                      <div class="col-md-3"> 
@@ -1025,29 +1035,37 @@
                      <div class="row" >
                      
 
-                    <div class="col-md-4">  
+                   
+                     <div class="col-md-8">
                     <div class="form-group" >
-                      <label for="fijo">Teléfono fijo</label>
-                      <input type="text" class="form-control" name="fijo" placeholder="###"
-                      ng-model="customer.fijo">
+                      <label for="apellidos">Empresa / Razón Social</label>
+                      <input type="text" class="form-control" name="empresa" placeholder="empresa"
+                      ng-model="customer.empresa">
                      </div>
                      </div>
-
                      <div class="col-md-4"> 
                     <div class="form-group" >
-                      <label for="movil">Teléfono movil</label>
-                      <input type="text" class="form-control" name="movil" placeholder="###"
-                      ng-model="customer.movil">
+                      <label for="ruc">RUC</label>
+                      <input type="text" class="form-control" name="ruc" placeholder="ruc"
+                      ng-model="customer.ruc">
                      </div>
                      </div>
                      </div>
 
                     <div class="row" >
-                     <div class="col-md-4">  
+                    
+                     <div class="col-md-4">
                     <div class="form-group" >
-                      <label for="email">Email</label>
-                      <input type="email" class="form-control" name="email" placeholder="###"
-                      ng-model="customer.email">
+                      <label for="direccFiscal">Dirección Fiscal</label>
+                      <input type="text" class="form-control" name="direccFiscal" placeholder="dirección fiscal"
+                      ng-model="customer.direccFiscal">
+                     </div>
+                     </div>
+                      <div class="col-md-4">  
+                    <div class="form-group" >
+                      <label for="fijo">Teléfono fijo</label>
+                      <input type="text" class="form-control" name="fijo" placeholder="###"
+                      ng-model="customer.fijo">
                      </div>
                      </div>
                      <div class="col-md-4">  
@@ -1057,13 +1075,7 @@
                       ng-model="customer.website">
                      </div>
                      </div>
-                     <div class="col-md-4">  
-                    <div class="form-group" >
-                      <label for="direccContac">Dirección de Contacto</label>
-                      <input type="text" class="form-control" name="direccContac" placeholder="###"
-                      ng-model="customer.direccContac">
-                     </div>
-                     </div>
+                     
                      </div>
 
                     <div class="row" >

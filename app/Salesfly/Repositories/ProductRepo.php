@@ -606,8 +606,8 @@ WHERE variants.id = varid) as stoStockActual'),
 
                                               (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=4) as Material,
                                               (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=1) as Cantidad,
-                                              (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=3) as Services,
-                                              (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=2) as Sabor'))
+                                              (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=3) as Sabor,
+                                              (select T20.descripcion FROM detAtr T20 where T20.variant_id=vari and T20.atribute_id=2) as Services'))
                              
                             ->where('products.nombre','like',$product.'%')
                             ->where('T9.id',$simbolo3,$store)

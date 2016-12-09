@@ -586,7 +586,6 @@
                 }
                $scope.realizarPago = function () {
                 //$log.log($scope.cashfinal.estado);
-                if ($scope.radioModel!=undefined && $scope.pago.tarjeta>0) {
                 crudServiceOrders.Comprueba_caj_for_user().then(function (data){
                       //$scope.IDOriginalValidadoCaja=data.id;
                         if(data.id != undefined){
@@ -720,9 +719,7 @@
                             alert("Usted no puede vender con esta caja");
                         }
                });
-               }else{
-                 alert("si selecciona Tarjeta por favor debe ingresar un monto a cobrar con tarjeta?");
-               }
+               
                 }
 
                

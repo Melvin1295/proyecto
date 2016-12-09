@@ -12,7 +12,7 @@
 
 
         </section>
-
+ <?php $role = Auth()->user()->role_id; ?>
         <section class="content">
         <div class="row">
         <div class="col-md-12">
@@ -49,6 +49,7 @@
                         <span ng-show="userCreateForm.email1.$error.email"><i class="fa fa-times-circle-o"></i>Formato incorrecto.</span>
                       </label>
                     </div>
+                     @if($role == 1)
                     <div class="form-group" ng-class="{true: 'has-error'}[ userCreateForm.store.$error.required  && userCreateForm.$submitted || userCreateForm.store.$dirty && userCreateForm.store.$invalid]">
                                               <label>Tienda</label>
                                                    <select name="store" class="form-control" ng-model="user.store_id" ng-options="k as v for (k, v) in stores">
@@ -58,7 +59,8 @@
                                                                         <span ng-show="userCreateForm.store.$error.required"><i class="fa fa-times-circle-o"></i>Requerido.</span>
 
                                                                       </label>
-                                         </div>
+                                         </div>@endif
+                                         @if($role == 1)
                                          <div class="row">
                                          <div class="col-md-6">
                                          <div class="form-group" ng-class="{true: 'has-error'}[ userCreateForm.role.$error.required  && userCreateForm.$submitted || userCreateForm.role.$dirty && userCreateForm.role.$invalid]">
@@ -76,7 +78,7 @@
                                                                                                            <label for="estado">Estado</label>
                                                                                                                 <select class="form-control" name="estado" ng-model="user.estado" ng-options="item.key as item.value for item in estados"></select>
                                                                                                            </div></div>
-                                                                                                           </div>
+                                                                                                           </div>@endif
 
                  </div>
 

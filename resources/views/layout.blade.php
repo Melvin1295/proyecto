@@ -140,10 +140,17 @@
             </div>
           </div>
            <?php $role = Auth()->user()->role_id; ?>
+           <?php $userid = Auth()->user()->id; ?>
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">Navegación</li>
             <li><a href="/"><i class="fa fa-home"></i> <span>Home</span></a></li>
+            @if($role == 2)
+            <li class="">
+              <a href="/users/edit/<?php echo"$userid"; ?>">
+                <i class="fa fa-users"></i> <span>Editar Usuario</span>
+              </a>
+            </li>@endif
             @if($role == 1)
             <li class="treeview">
               <a href="#">

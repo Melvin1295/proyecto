@@ -19,13 +19,14 @@
                     $scope.showChange = !$scope.showChange;
                 }
                   $scope.changePass1 = function(){
-                    alert("hola mundo");
+                    
                     if($scope.user.password===$scope.user.password_confirmation){
                     crudService.update($scope.user,'editPasword').then(function(data)
                         {
                             if(data['estado'] == true){
                                 $scope.success = data['nombres'];
                                 alert('editado correctamente');
+                                $scope.showChange = !$scope.showChange;
                                 $window.location.href="/auth/logout";
                                 //$location.path('/users');
                             }else{

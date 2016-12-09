@@ -720,19 +720,12 @@
                         }
                });
                
-                }
-
-               
-
-                
-
+                }               
                 $scope.toggle = function () {
                     $scope.show = !$scope.show;
                 };
 
-                
-                
-                $scope.createCustomer = function(){
+                 $scope.createCustomer = function(){
 
                     if ($scope.customerCreateForm.$valid) {
                         crudServiceOrders.create($scope.customer, 'customers').then(function (data) {

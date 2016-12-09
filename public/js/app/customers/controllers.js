@@ -125,7 +125,6 @@
                     $location.path('/customers/edit/'+row.id);
                 };
                 $scope.editModal=function(id){
-                    alert("hola");
                      crudService.byId(id,'customers').then(function (data) {
                         $scope.customer = data;
                         if(data.fechaNac=='0000-00-00 00:00:00'){

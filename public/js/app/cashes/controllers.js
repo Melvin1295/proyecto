@@ -150,7 +150,7 @@ crudService.paginate('cashes',1).then(function (data) {
                 };
                 $scope.cerrarCaja = function () {
 
-                    if($scope.cash.montoReal=='0.00'){
+                    if($scope.cash.montoReal<'0.00'){
                         alert("Ingrese Monto Real");
                     }else{
                         $scope.cash.montoReal=$scope.cash.montoCierra;

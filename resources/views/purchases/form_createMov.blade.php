@@ -42,7 +42,7 @@
                                 <div class="input-group-addon">
                                       <i class="fa fa-calendar"></i>
                                 </div>
-                                  <input ng-disabled="mostrarCreate" type="date" class="form-control"  name="fechaPedido" ng-model="purchase.fecha" required>
+                                  <input ng-disabled="mostrarCreate" type="date" class="form-control"  name="fechaPedido" ng-model="purchase.fecha1" required>
                             </div>
                             <label ng-show="inputStocksCreateForm.$submitted || inputStocksCreateForm.fechaPedido.$dirty && inputStocksCreateForm.fechaPedido.$invalid">
                             <span ng-show="inputStocksCreateForm.fechaPedido.$invalid"><i class="fa fa-times-circle-o"></i>Fecha Inválida.</span>

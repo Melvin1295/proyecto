@@ -1,12 +1,13 @@
 <section class="content-header">
+
            <div class="row">
                    
 
                      <div style="width:100%;">
                    
-                            <button id='toggleFiltering' style="float:left;  " ng-click="toggleFiltering()" class="btn btn-success">Mostrar Filtros</button>
+                            <button ng-show="false" id='toggleFiltering' style="float:left;  " ng-click="toggleFiltering()" class="btn btn-success">Mostrar Filtros</button>
                      
-                            <select style="width:200px; margin-right:0px;" class="form-control" ng-model="idwarehouse" ng-change="changeStock()" ng-options="item.id as item.nombre for item in warehouses">
+                            <select style="width:200px; margin-right:0px;"  class="form-control" ng-model="idwarehouse" ng-change="changeStock()" ng-options="item.id as item.nombre for item in warehouses">
                             </select>
                       </div>
                     
@@ -14,5 +15,7 @@
               </div>
               <div class="row">
   <div id="grid1" ui-grid="gridOptions" class="grid"></div></div>
+  <div ng-init="toggleFiltering()"></div>
+  
 </section>
 

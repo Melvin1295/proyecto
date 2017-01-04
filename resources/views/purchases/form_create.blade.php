@@ -113,10 +113,9 @@
   </div>
       
       <div class="row">
-          <div class="col-md-1">
-          </div>
+          
          
-          <div class="col-md-10">
+          <div class="col-md-12">
            <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
                     <tr>
@@ -160,12 +159,11 @@
                 </div>
             </div>
         <div class="row">
-        <div class="col-md-1">
-        </div>
+        
           <div class="col-md-1">
-                    <a href="/purchases" class="btn btn-danger">Salir</a>
+                    <a href="/purchases" class="btn btn-danger btn-xs">Salir</a>
         </div>
-          <div class="col-md-9">
+          <div class="col-md-11">
             <div class="box-footer clearfix">
                   <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" 
                   class="pagination-sm no-margin pull-right" items-per-page="itemsperPage" 
@@ -173,8 +171,7 @@
                   ng-change="pagechan2()"></pagination>
                </div> 
            </div>
-        <div class="col-md-1">
-        </div>
+        
         
       </div>
  
@@ -225,9 +222,8 @@
     
       </br>
            <div class="row">
-          <div class="col-md-1">
-          </div>
-          <div class="col-md-10">
+          
+          <div class="col-md-12">
             <div class="box-body table-responsive no-padding">
               
                    <table class="table table-striped">

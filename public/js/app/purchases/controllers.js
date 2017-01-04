@@ -1159,7 +1159,9 @@
                 }
                 
                 $scope.crearEntradasEstock=function(){
+                  
                   if($scope.inputStocks.length>0){
+                    $scope.purchase.fecha=$scope.purchase.fecha1.getFullYear()+"-"+($scope.purchase.fecha1.getMonth()+1)+"-"+$scope.purchase.fecha1.getDate();  
                     $scope.purchase.detailOrderPurchases=$scope.inputStocks;
                     $scope.mostrarCreate=!$scope.mostrarCreate;
                      //alert("sobre");
